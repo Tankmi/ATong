@@ -16,12 +16,14 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jemer.atong.R;
+import com.jemer.atong.activity.HomeActivity;
 import com.jemer.atong.activity.user.perfect_info.PerfectInfoActivity;
 import com.jemer.atong.base.BaseFragment;
 import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
 import com.jemer.atong.context.UrlConstant;
 import com.jemer.atong.entity.user.UserEntity;
+import com.jemer.atong.view.EditTextNumberView;
 import com.jemer.atong.view.verify_code.VerificationCodeView;
 
 import huitx.libztframework.context.ContextConstant;
@@ -142,17 +144,17 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
      * 登录 1
      */
     public void login(String verifyCode) {
-        phone = tv_login_veri_account.getText().toString();
-        String token = 	XGPushConfig.getToken(mContext);
-
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("phone", phone);
-//        params.addBodyParameter("psw", MD5Utils.md5(psw)); //md5加密
-        params.addBodyParameter("vd", verifyCode);
-        params.addBodyParameter("imei", ApplicationData.imei);
-        params.addBodyParameter("outerToken", "a" + token);
-        mgetNetData.GetData(this, UrlConstant.API_LOGIN, 1, params);
-        setLoading(true,"");
+//        phone = tv_login_veri_account.getText().toString();
+//        String token = 	XGPushConfig.getToken(mContext);
+//
+//        RequestParams params = new RequestParams();
+//        params.addBodyParameter("phone", phone);
+////        params.addBodyParameter("psw", MD5Utils.md5(psw)); //md5加密
+//        params.addBodyParameter("vd", verifyCode);
+//        params.addBodyParameter("imei", ApplicationData.imei);
+//        params.addBodyParameter("outerToken", "a" + token);
+//        mgetNetData.GetData(this, UrlConstant.API_LOGIN, 1, params);
+//        setLoading(true,"");
     }
 
     /**
@@ -161,15 +163,15 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
      */
     public void getVerification() {
 
-        String phone = et_login_account.getRealNumber().toString();
-
-        final StringBuilder url = new StringBuilder();
-        url.append(UrlConstant.API_VERIFICATION);
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("phone", phone);
-        params.addBodyParameter("imei", ApplicationData.imei);
-        mgetNetData.GetData(this, url.toString(), 2, params);
-        setLoading(true,"");
+//        String phone = et_login_account.getRealNumber().toString();
+//
+//        final StringBuilder url = new StringBuilder();
+//        url.append(UrlConstant.API_VERIFICATION);
+//        RequestParams params = new RequestParams();
+//        params.addBodyParameter("phone", phone);
+//        params.addBodyParameter("imei", ApplicationData.imei);
+//        mgetNetData.GetData(this, url.toString(), 2, params);
+//        setLoading(true,"");
     }
 
     /**
@@ -182,21 +184,21 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
         String head = PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_USER_HEADER, "");
         String unionId = PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_APP_WX_QQ_UNIONID, "");
 
-        LOG(sex + "," + name + "," + head + "," + unionId);
-        String token = XGPushConfig.getToken(mContext);
-
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("type", type + "");
-        params.addBodyParameter("phone", phone);
-        params.addBodyParameter("vd", ver);
-        params.addBodyParameter("imei", ApplicationData.imei);
-        params.addBodyParameter("sex", sex);
-        params.addBodyParameter("name", name);
-        params.addBodyParameter("head", head);
-        params.addBodyParameter("unionId", unionId);
-        params.addBodyParameter("outerToken", "a" + token);
-        mgetNetData.GetData(this, UrlConstant.API_WX_BIND, 3, params);
-        setLoading(true,"");
+//        LOG(sex + "," + name + "," + head + "," + unionId);
+//        String token = XGPushConfig.getToken(mContext);
+//
+//        RequestParams params = new RequestParams();
+//        params.addBodyParameter("type", type + "");
+//        params.addBodyParameter("phone", phone);
+//        params.addBodyParameter("vd", ver);
+//        params.addBodyParameter("imei", ApplicationData.imei);
+//        params.addBodyParameter("sex", sex);
+//        params.addBodyParameter("name", name);
+//        params.addBodyParameter("head", head);
+//        params.addBodyParameter("unionId", unionId);
+//        params.addBodyParameter("outerToken", "a" + token);
+//        mgetNetData.GetData(this, UrlConstant.API_WX_BIND, 3, params);
+//        setLoading(true,"");
     }
 
 

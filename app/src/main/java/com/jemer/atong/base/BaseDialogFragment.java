@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-
-import com.dou361.dialogui.DialogUIUtils;
 import com.jemer.atong.R;
 import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
@@ -24,6 +22,7 @@ import huitx.libztframework.utils.LOGUtils;
 import huitx.libztframework.utils.LayoutUtil;
 import huitx.libztframework.utils.NetUtils;
 import huitx.libztframework.utils.TransitionTime;
+import huitx.libztframework.view.dialog.DialogUIUtils;
 
 /**
  * dialogFragment

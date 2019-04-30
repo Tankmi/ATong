@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
-import com.dou361.dialogui.DialogUIUtils;
 import com.jemer.atong.R;
 import com.jemer.atong.activity.user.SelLoginActivity;
 import com.jemer.atong.context.ApplicationData;
@@ -26,6 +25,7 @@ import huitx.libztframework.utils.LayoutUtil;
 import huitx.libztframework.utils.NetUtils;
 import huitx.libztframework.utils.ToastUtils;
 import huitx.libztframework.utils.TransitionTime;
+import huitx.libztframework.view.dialog.DialogUIUtils;
 
 public abstract class BaseFragment extends Fragment  {
 	protected View Mview; // 当前界面的根

@@ -6,10 +6,10 @@ package com.jemer.atong.fragment.user.perfect_info;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.huidf.slimming.R;
-import com.huidf.slimming.base.BaseFragment;
-import com.huidf.slimming.context.PreferenceEntity;
-import com.huidf.slimming.view.perfect_info.BirthdayRelativelayoutWheelView;
+import com.jemer.atong.R;
+import com.jemer.atong.base.BaseFragment;
+import com.jemer.atong.context.PreferenceEntity;
+import com.jemer.atong.view.perfect_info.BirthdayRelativelayoutWheelView;
 
 import huitx.libztframework.utils.PreferencesUtils;
 import huitx.libztframework.utils.ToastUtils;
@@ -99,7 +99,6 @@ public class GuidanceBirthdayFragment extends BaseFragment implements BirthdayRe
 
 	}
 
-	@Override
 	public void paddingDatas(String mData, int type) {
 
 	}

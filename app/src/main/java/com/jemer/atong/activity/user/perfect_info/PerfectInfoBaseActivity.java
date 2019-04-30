@@ -7,11 +7,27 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.gson.Gson;
+import com.jemer.atong.R;
+import com.jemer.atong.activity.HomeActivity;
+import com.jemer.atong.base.BaseFragmentActivity;
+import com.jemer.atong.context.ApplicationData;
+import com.jemer.atong.context.PreferenceEntity;
+import com.jemer.atong.entity.user.UserEntity;
+import com.jemer.atong.fragment.user.perfect_info.GuidanceBirthdayFragment;
+import com.jemer.atong.fragment.user.perfect_info.GuidanceHeightFragment;
+import com.jemer.atong.fragment.user.perfect_info.GuidanceLoseWeightPeriodFragment;
+import com.jemer.atong.fragment.user.perfect_info.GuidanceSexFragment;
+import com.jemer.atong.fragment.user.perfect_info.GuidanceTargetWeightFragment;
+import com.jemer.atong.fragment.user.perfect_info.GuidanceWeightFragment;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import huitx.libztframework.context.ContextConstant;
 import huitx.libztframework.utils.NewWidgetSetting;
 import huitx.libztframework.utils.PreferencesUtils;
 import huitx.libztframework.utils.ToastUtils;
+import huitx.libztframework.view.dialog.DialogUIUtils;
 
 /**
  * 完善信息
@@ -86,24 +102,24 @@ public class PerfectInfoBaseActivity extends BaseFragmentActivity implements Vie
      */
     public void postPerfectInfo()
     {
-        RequestParams params = PreferenceEntity.getLoginParams();
-        String height = PreferencesUtils.getString(mContext, PreferenceEntity.KEY_USER_HEIGHT, 160 + "");
-        float weight = PreferencesUtils.getFloat(mContext, PreferenceEntity.KEY_USER_INITIAL_WEIGHT),
-        targetWeight = PreferencesUtils.getFloat(mContext, PreferenceEntity.KEY_USER_TARGET_WEIGHT, 50.0f );
-        String targetCycle = PreferencesUtils.getString(mContext, PreferenceEntity.KEY_USER_LOSE_WEIGHT_PERIOD, 66 + "");
-        String sex = PreferencesUtils.getString(mContext, PreferenceEntity.KEY_USER_SEX, "1");
-
-        params.addBodyParameter("birthday", PreferenceEntity.perfectInfoBirthday + " 00:00:00");
-        params.addBodyParameter("height", height);
-        params.addBodyParameter("weight", weight + "");
-        params.addBodyParameter("targetWeight", targetWeight + "");
-        params.addBodyParameter("targetCycle", targetCycle);
-        params.addBodyParameter("targetTime", PreferenceEntity.ValueLostWeightTime + "");
-        params.addBodyParameter("sex", sex);
-
-        LOG("PreferenceEntity.perfectInfoBirthday：  " + PreferenceEntity.perfectInfoBirthday + " 00:00:00");
-        mgetNetData.GetData(this, UrlConstant.API_SYSISALL, PerfectInfo, params);
-        setLoading(true, "");
+//        RequestParams params = PreferenceEntity.getLoginParams();
+//        String height = PreferencesUtils.getString(mContext, PreferenceEntity.KEY_USER_HEIGHT, 160 + "");
+//        float weight = PreferencesUtils.getFloat(mContext, PreferenceEntity.KEY_USER_INITIAL_WEIGHT),
+//        targetWeight = PreferencesUtils.getFloat(mContext, PreferenceEntity.KEY_USER_TARGET_WEIGHT, 50.0f );
+//        String targetCycle = PreferencesUtils.getString(mContext, PreferenceEntity.KEY_USER_LOSE_WEIGHT_PERIOD, 66 + "");
+//        String sex = PreferencesUtils.getString(mContext, PreferenceEntity.KEY_USER_SEX, "1");
+//
+//        params.addBodyParameter("birthday", PreferenceEntity.perfectInfoBirthday + " 00:00:00");
+//        params.addBodyParameter("height", height);
+//        params.addBodyParameter("weight", weight + "");
+//        params.addBodyParameter("targetWeight", targetWeight + "");
+//        params.addBodyParameter("targetCycle", targetCycle);
+//        params.addBodyParameter("targetTime", PreferenceEntity.ValueLostWeightTime + "");
+//        params.addBodyParameter("sex", sex);
+//
+//        LOG("PreferenceEntity.perfectInfoBirthday：  " + PreferenceEntity.perfectInfoBirthday + " 00:00:00");
+//        mgetNetData.GetData(this, UrlConstant.API_SYSISALL, PerfectInfo, params);
+//        setLoading(true, "");
     }
 
 
@@ -113,7 +129,6 @@ public class PerfectInfoBaseActivity extends BaseFragmentActivity implements Vie
     protected UserEntity mUserEntity;
     protected final int PerfectInfo = 101;
 
-    @Override
     public void paddingDatas(String mData, int type)
     {
         setLoading(false, "");
@@ -171,12 +186,12 @@ public class PerfectInfoBaseActivity extends BaseFragmentActivity implements Vie
     private GuidanceWeightFragment guidanceWeightFragment;
     private GuidanceTargetWeightFragment guidanceTargetWeightFragment;
     private GuidanceLoseWeightPeriodFragment guidanceLoseWeightPeriodFragment;
-    private androidx.core.app.Fragment[] fragmentlists;
+    private Fragment[] fragmentlists;
     private Fragment mFragment;
 
     private void initMFragments()
     {
-        fragmentlists = new androidx.core.app.Fragment[maxNum];
+        fragmentlists = new Fragment[maxNum];
         pageNum = -1;
         guidanceSexFragment = new GuidanceSexFragment();
         guidanceSexFragment.setOnGuidanceSexListener(this);

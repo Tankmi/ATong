@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.dou361.dialogui.DialogUIUtils;
 import com.jemer.atong.R;
 import com.jemer.atong.activity.user.SelLoginActivity;
 import com.jemer.atong.context.ApplicationData;
@@ -39,6 +38,7 @@ import huitx.libztframework.utils.NetUtils;
 import huitx.libztframework.utils.StatusBarCompat;
 import huitx.libztframework.utils.ToastUtils;
 import huitx.libztframework.utils.TransitionTime;
+import huitx.libztframework.view.dialog.DialogUIUtils;
 
 public abstract class BaseFragmentActivity extends FragmentActivity  {
 

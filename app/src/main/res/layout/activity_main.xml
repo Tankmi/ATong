@@ -10,6 +10,7 @@
         layout="@layout/title_view"
         android:visibility="gone"/>
 
+
     <LinearLayout
         android:id="@+id/lin_tab_home"
         android:layout_width="match_parent"

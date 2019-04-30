@@ -18,7 +18,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.dou361.dialogui.DialogUIUtils;
 import com.jemer.atong.R;
 import com.jemer.atong.base.BaseFragmentActivity;
 import com.jemer.atong.context.ApplicationData;
@@ -30,6 +29,7 @@ import java.lang.ref.WeakReference;
 import huitx.libztframework.utils.PreferencesUtils;
 import huitx.libztframework.utils.ToastUtils;
 import huitx.libztframework.view.FragmentSwitchTool;
+import huitx.libztframework.view.dialog.DialogUIUtils;
 
 
 /**

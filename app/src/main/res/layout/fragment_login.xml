@@ -40,7 +40,7 @@
                 android:layout_marginLeft="@dimen/margin_lr_xlarge"
                 android:layout_marginRight="@dimen/margin_lr_xlarge">
 
-                <com.huidf.slimming.view.edittext_number.EditTextNumberView
+                <com.jemer.atong.view.EditTextNumberView
                     android:id="@+id/et_login_account"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

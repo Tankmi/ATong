@@ -31,16 +31,17 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
+    implementation 'com.google.android.material:material:1.0.0-beta01'
 
-    implementation 'androidx.recyclerview:recyclerview:1.0.0-beta01'
+    //Design Support库
+    //    implementation 'androidx.recyclerview:recyclerview:1.0.0-beta01'
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
-
     //ButterKnife
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
-
     //Rxjava + okhttp + retrofit  ---------------start
     //retrofit log打印
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
@@ -59,5 +60,4 @@ dependencies {
     //EventBus
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation project(':basisModule')
-    implementation project(':jjdxm-dialogui')
 }

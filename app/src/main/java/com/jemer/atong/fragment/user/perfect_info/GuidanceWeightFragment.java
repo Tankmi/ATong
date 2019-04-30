@@ -6,10 +6,11 @@ package com.jemer.atong.fragment.user.perfect_info;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.huidf.slimming.R;
-import com.huidf.slimming.base.BaseFragment;
-import com.huidf.slimming.context.PreferenceEntity;
-import com.huidf.slimming.view.loading.RadioHorizonalRulerDecimals;
+
+import com.jemer.atong.R;
+import com.jemer.atong.base.BaseFragment;
+import com.jemer.atong.context.PreferenceEntity;
+import com.jemer.atong.view.loading.RadioHorizonalRulerDecimals;
 
 import huitx.libztframework.utils.MathUtils;
 import huitx.libztframework.utils.PreferencesUtils;
@@ -21,7 +22,7 @@ import huitx.libztframework.utils.PreferencesUtils;
  * @params 
 */
 
-public class GuidanceWeightFragment extends BaseFragment{
+public class GuidanceWeightFragment extends BaseFragment {
 
 	private ImageView iv_guidance_weight;
 	private TextView tv_guidance_weight;
@@ -108,7 +109,6 @@ public class GuidanceWeightFragment extends BaseFragment{
 
 	}
 
-	@Override
 	public void paddingDatas(String mData, int type) {
 
 	}

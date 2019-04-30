@@ -2,10 +2,11 @@ package com.jemer.atong.fragment.user.bind_phone;
 
 import android.view.View;
 
-import com.huidf.slimming.R;
-import com.huidf.slimming.context.PreferenceEntity;
-import com.huidf.slimming.entity.user.UserEntity;
-import com.huidf.slimming.fragment.user.login.LoginBindBaseFragment;
+
+import com.jemer.atong.R;
+import com.jemer.atong.context.PreferenceEntity;
+import com.jemer.atong.entity.user.UserEntity;
+import com.jemer.atong.fragment.user.login.LoginBindBaseFragment;
 
 import huitx.libztframework.utils.NewWidgetSetting;
 import huitx.libztframework.utils.PreferencesUtils;

@@ -7,10 +7,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huidf.slimming.R;
-import com.huidf.slimming.base.BaseFragment;
-import com.huidf.slimming.context.PreferenceEntity;
-import com.huidf.slimming.view.loading.VerticalRuler;
+
+import com.jemer.atong.R;
+import com.jemer.atong.base.BaseFragment;
+import com.jemer.atong.context.PreferenceEntity;
+import com.jemer.atong.view.loading.VerticalRuler;
 
 import huitx.libztframework.utils.MathUtils;
 import huitx.libztframework.utils.PreferencesUtils;
@@ -117,7 +118,6 @@ public class GuidanceHeightFragment extends BaseFragment {
 
 	}
 
-	@Override
 	public void paddingDatas(String mData, int type) {
 
 	}

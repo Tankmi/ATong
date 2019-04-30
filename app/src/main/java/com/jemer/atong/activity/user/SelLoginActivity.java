@@ -18,10 +18,16 @@ import com.jemer.atong.R;
 import com.jemer.atong.base.BaseFragmentActivity;
 import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
+import com.jemer.atong.fragment.user.bind_phone.BindPhoneFragment;
+import com.jemer.atong.fragment.user.login.LoginFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import huitx.libztframework.context.ContextConstant;
 import huitx.libztframework.utils.NetUtils;
 import huitx.libztframework.utils.NewWidgetSetting;
@@ -60,15 +66,15 @@ public class SelLoginActivity extends BaseFragmentActivity implements View.OnCli
             getPermission();
             return;
         }
-        onResumeNext();
+//        onResumeNext();
     }
 
-    private void onResumeNext(){
-        String code = this.getIntent().getStringExtra("wx_code");
-        if (code != null && !code.equals("")) {   //微信登录
-            WXLogins(code);
-        } else setLoading(false);
-    }
+//    private void onResumeNext(){
+//        String code = this.getIntent().getStringExtra("wx_code");
+//        if (code != null && !code.equals("")) {   //微信登录
+//            WXLogins(code);
+//        } else setLoading(false);
+//    }
 
     @Override
     protected void onNewIntent(Intent intent)
@@ -88,12 +94,12 @@ public class SelLoginActivity extends BaseFragmentActivity implements View.OnCli
     {
         Intent intent = null;
         switch (view.getId()) {
-            case R.id.btn_wx_login: //微信登录
-                WXLogin();
-                break;
-            case R.id.btn_qq_login: //QQ登录
-                QQLogin();
-                break;
+//            case R.id.btn_wx_login: //微信登录
+//                WXLogin();
+//                break;
+//            case R.id.btn_qq_login: //QQ登录
+//                QQLogin();
+//                break;
             case R.id.lin_phone_login: //手机登录
             case R.id.btn_phone_login:
                 ShowOrHideLoginView(true);
@@ -104,89 +110,89 @@ public class SelLoginActivity extends BaseFragmentActivity implements View.OnCli
         }
     }
 
-    protected IWXAPI msgApi;
-
-    private void WXLogin()
-    {
-        if (msgApi == null)
-            msgApi = WXAPIFactory.createWXAPI(mContext, Constantss.APP_ID, false);
-        boolean isPaySupported = msgApi.getWXAppSupportAPI() >= Build.PAY_SUPPORTED_SDK_INT;
-        if (!isPaySupported) {
-            ToastUtils.showToast("您的手机暂不支持微信登录，请下载最新版本的微信！");
-            return;
-        }
-        mHandler.post(new Runnable() {
-            @Override
-            public void run()
-            {
-//                setLoading(true);
-                SendAuth.Req req = new SendAuth.Req();
-                req.scope = "snsapi_userinfo";
-                req.state = "huidaifu_demo_test";
-                msgApi.sendReq(req);
-            }
-        });
-    }
-
-    protected Tencent mTencent;
-
-    private void QQLogin()
-    {
-        mTencent = Tencent.createInstance(Constantss.QQ_APP_ID, this.getApplicationContext());
-        mTencent.login(this, "all", mQQListener);
-    }
-
-    IUiListener mQQListener = new IUiListener() {
-        @Override
-        public void onComplete(Object o)
-        {
-            LOG("登录成功");
-            JSONObject mJson = (JSONObject) o;
-            try {
-                String openID = mJson.getString("openid");
-                String accessToken = mJson.getString("access_token");
-                String expires = mJson.getString("expires_in");
-                mTencent.setOpenId(openID);
-                mTencent.setAccessToken(accessToken, expires);
-
-                QQLogins(accessToken, openID);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public void onError(UiError uiError)
-        {
-            LOG("登录出错");
-        }
-
-        @Override
-        public void onCancel()
-        {
-            LOG("取消登录");
-        }
-    };
-
-    Handler mHandler = new Handler() {
-        public void handleMessage(android.os.Message msg)
-        {
-//			UserEntity user_Entity = (UserEntity) msg.obj;
-            switch (msg.what) {
-
-            }
-        }
-
-    };
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (requestCode == Constants.REQUEST_LOGIN) {
-            mTencent.handleLoginData(data, mQQListener);
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+//    protected IWXAPI msgApi;
+//
+//    private void WXLogin()
+//    {
+//        if (msgApi == null)
+//            msgApi = WXAPIFactory.createWXAPI(mContext, Constantss.APP_ID, false);
+//        boolean isPaySupported = msgApi.getWXAppSupportAPI() >= Build.PAY_SUPPORTED_SDK_INT;
+//        if (!isPaySupported) {
+//            ToastUtils.showToast("您的手机暂不支持微信登录，请下载最新版本的微信！");
+//            return;
+//        }
+//        mHandler.post(new Runnable() {
+//            @Override
+//            public void run()
+//            {
+////                setLoading(true);
+//                SendAuth.Req req = new SendAuth.Req();
+//                req.scope = "snsapi_userinfo";
+//                req.state = "huidaifu_demo_test";
+//                msgApi.sendReq(req);
+//            }
+//        });
+//    }
+//
+//    protected Tencent mTencent;
+//
+//    private void QQLogin()
+//    {
+//        mTencent = Tencent.createInstance(Constantss.QQ_APP_ID, this.getApplicationContext());
+//        mTencent.login(this, "all", mQQListener);
+//    }
+//
+//    IUiListener mQQListener = new IUiListener() {
+//        @Override
+//        public void onComplete(Object o)
+//        {
+//            LOG("登录成功");
+//            JSONObject mJson = (JSONObject) o;
+//            try {
+//                String openID = mJson.getString("openid");
+//                String accessToken = mJson.getString("access_token");
+//                String expires = mJson.getString("expires_in");
+//                mTencent.setOpenId(openID);
+//                mTencent.setAccessToken(accessToken, expires);
+//
+//                QQLogins(accessToken, openID);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        @Override
+//        public void onError(UiError uiError)
+//        {
+//            LOG("登录出错");
+//        }
+//
+//        @Override
+//        public void onCancel()
+//        {
+//            LOG("取消登录");
+//        }
+//    };
+//
+//    Handler mHandler = new Handler() {
+//        public void handleMessage(android.os.Message msg)
+//        {
+////			UserEntity user_Entity = (UserEntity) msg.obj;
+//            switch (msg.what) {
+//
+//            }
+//        }
+//
+//    };
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+//    {
+//        if (requestCode == Constants.REQUEST_LOGIN) {
+//            mTencent.handleLoginData(data, mQQListener);
+//        }
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
 
 
     @Override
@@ -250,96 +256,96 @@ public class SelLoginActivity extends BaseFragmentActivity implements View.OnCli
     {
     }
 
-    /**
-     * 微信登录 2
-     */
-    public void WXLogins(String code)
-    {
-        setLoading(true);
-        String token = XGPushConfig.getToken(mContext);
-
-        final StringBuilder url = new StringBuilder();
-        url.append(UrlConstant.API_WX_LOGIN);
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("code1", code);
-        params.addBodyParameter("imei", ApplicationData.imei);
-
-        params.addBodyParameter("outerToken", "a" + token);
-        LOG("微信登录 code:" + code);
-        LOG("微信登录 ApplicationData.imei:" + ApplicationData.imei);
-        mgetNetData.GetData(this, url.toString(), 2, params);
-    }
-
-    /**
-     * QQ登录 3
-     */
-    public void QQLogins(String accessToken, String openId)
-    {
-        setLoading(true);
-        PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_APP_WX_QQ_UNIONID, openId + "");
-        String token = XGPushConfig.getToken(mContext);
-
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("accessToken", accessToken);
-        params.addBodyParameter("openId", openId);
-        params.addBodyParameter("oauthConsumerKey", "101518907");
-        params.addBodyParameter("imei", ApplicationData.imei);
-        params.addBodyParameter("outerToken", "a" + token);
-
-        LOG("QQ accessToken:" + accessToken);
-        LOG("QQ openId:" + openId);
-        LOG("QQ ApplicationData.imei:" + ApplicationData.imei);
-        mgetNetData.GetData(this, UrlConstant.API_QQ_LOGIN, 3, params);
-    }
-
-    protected UserEntity mUserEntity;
-
-    @Override
-    public void paddingDatas(String mData, int type)
-    {
-        setLoading(false);
-        Gson gson = new Gson();
-        try {
-            mUserEntity = gson.fromJson(mData, UserEntity.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (!NetUtils.isAPNType(mContext)) {
-            } else {
-                ToastUtils.showToast("微信登录失败，请稍候重试！");
-            }
-            return;
-        }
-        if (mUserEntity.code == ContextConstant.RESPONSECODE_200) {
-            if (type == 2 || type == 3) {   //微信登录, QQ登录
-                if (type == 2)  PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_APP_WX_QQ_UNIONID, mUserEntity.data.unionId + "");
-                PreferenceEntity.setUserEntity(mUserEntity.data);
-                if (mUserEntity.data.type.equals("1")) {
-                    ShowOrHideBindPhoneView(true, type);
-                } else {
-                    Intent intent_home;
-                    if (mUserEntity.data.isall.equals("0")) {
-                        intent_home = new Intent(mContext, PerfectInfoActivity.class);
-                    } else {
-                        intent_home = new Intent(mContext, HomeActivity.class);
-                    }
-                    startActivity(intent_home);
-                    finish();
-                }
-            }
-        } else if (mUserEntity.code == ContextConstant.RESPONSECODE_310) {    //登录信息过时跳转到登录页
-            reLoading();
-        } else {
-            ToastUtils.showToast(NewWidgetSetting.getInstance().filtrationStringbuffer(mUserEntity.msg, "接口信息异常！"));
-        }
-    }
-
-    @Override
-    public void error(String msg, int type)
-    {
-        setLoading(false);
-//            if (type == 2 || type == 3)    //微信登录, QQ登录
-//                ToastUtils.showToast("账号绑定失败，请稍候尝试");
-    }
+//    /**
+//     * 微信登录 2
+//     */
+//    public void WXLogins(String code)
+//    {
+//        setLoading(true);
+//        String token = XGPushConfig.getToken(mContext);
+//
+//        final StringBuilder url = new StringBuilder();
+//        url.append(UrlConstant.API_WX_LOGIN);
+//        RequestParams params = new RequestParams();
+//        params.addBodyParameter("code1", code);
+//        params.addBodyParameter("imei", ApplicationData.imei);
+//
+//        params.addBodyParameter("outerToken", "a" + token);
+//        LOG("微信登录 code:" + code);
+//        LOG("微信登录 ApplicationData.imei:" + ApplicationData.imei);
+//        mgetNetData.GetData(this, url.toString(), 2, params);
+//    }
+//
+//    /**
+//     * QQ登录 3
+//     */
+//    public void QQLogins(String accessToken, String openId)
+//    {
+//        setLoading(true);
+//        PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_APP_WX_QQ_UNIONID, openId + "");
+//        String token = XGPushConfig.getToken(mContext);
+//
+//        RequestParams params = new RequestParams();
+//        params.addBodyParameter("accessToken", accessToken);
+//        params.addBodyParameter("openId", openId);
+//        params.addBodyParameter("oauthConsumerKey", "101518907");
+//        params.addBodyParameter("imei", ApplicationData.imei);
+//        params.addBodyParameter("outerToken", "a" + token);
+//
+//        LOG("QQ accessToken:" + accessToken);
+//        LOG("QQ openId:" + openId);
+//        LOG("QQ ApplicationData.imei:" + ApplicationData.imei);
+//        mgetNetData.GetData(this, UrlConstant.API_QQ_LOGIN, 3, params);
+//    }
+//
+//    protected UserEntity mUserEntity;
+//
+//    @Override
+//    public void paddingDatas(String mData, int type)
+//    {
+//        setLoading(false);
+//        Gson gson = new Gson();
+//        try {
+//            mUserEntity = gson.fromJson(mData, UserEntity.class);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            if (!NetUtils.isAPNType(mContext)) {
+//            } else {
+//                ToastUtils.showToast("微信登录失败，请稍候重试！");
+//            }
+//            return;
+//        }
+//        if (mUserEntity.code == ContextConstant.RESPONSECODE_200) {
+//            if (type == 2 || type == 3) {   //微信登录, QQ登录
+//                if (type == 2)  PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_APP_WX_QQ_UNIONID, mUserEntity.data.unionId + "");
+//                PreferenceEntity.setUserEntity(mUserEntity.data);
+//                if (mUserEntity.data.type.equals("1")) {
+//                    ShowOrHideBindPhoneView(true, type);
+//                } else {
+//                    Intent intent_home;
+//                    if (mUserEntity.data.isall.equals("0")) {
+//                        intent_home = new Intent(mContext, PerfectInfoActivity.class);
+//                    } else {
+//                        intent_home = new Intent(mContext, HomeActivity.class);
+//                    }
+//                    startActivity(intent_home);
+//                    finish();
+//                }
+//            }
+//        } else if (mUserEntity.code == ContextConstant.RESPONSECODE_310) {    //登录信息过时跳转到登录页
+//            reLoading();
+//        } else {
+//            ToastUtils.showToast(NewWidgetSetting.getInstance().filtrationStringbuffer(mUserEntity.msg, "接口信息异常！"));
+//        }
+//    }
+//
+//    @Override
+//    public void error(String msg, int type)
+//    {
+//        setLoading(false);
+////            if (type == 2 || type == 3)    //微信登录, QQ登录
+////                ToastUtils.showToast("账号绑定失败，请稍候尝试");
+//    }
 
     /**
      * 显示或者隐藏登录页
@@ -465,7 +471,7 @@ public class SelLoginActivity extends BaseFragmentActivity implements View.OnCli
         if(requestCode == READ_PHONE_STATEDATA){
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // 授予权限
-                onResumeNext();
+//                onResumeNext();
             } else {
                 getPermission();
             }

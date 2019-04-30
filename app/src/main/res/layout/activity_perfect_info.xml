@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/all_bg"
+    android:fitsSystemWindows="true"
+    >
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/title_view"
+        android:visibility="gone"/>
+
+    <FrameLayout
+        android:id="@+id/fram_perfect_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title"
+        android:fitsSystemWindows="true"/>
+
+    <Button
+        android:id="@+id/btn_perfect_info_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_lr_normal"
+        android:layout_marginTop="@dimen/margin_tb_normal"
+        android:background="@drawable/btn_back"
+        />
+
+    <Button
+        android:id="@+id/btn_perfect_info_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/margin_lr_large"
+        android:layout_marginRight="@dimen/margin_lr_large"
+        android:text="继续"
+        android:textSize="@dimen/text_size_large"
+        android:textColor="@color/btn_perfect_info_draw"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/back_perfect_infogreen_90_draw" />
+</RelativeLayout>

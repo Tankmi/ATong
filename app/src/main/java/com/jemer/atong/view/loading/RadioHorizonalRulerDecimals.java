@@ -1,0 +1,436 @@
+package com.jemer.atong.view.loading;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.text.Layout;
+import android.text.TextPaint;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.widget.Scroller;
+
+import huitx.libztframework.utils.LayoutUtil;
+import huitx.libztframework.utils.NumberConversion;
+
+
+/**
+ * 水平刻度尺,带小数点
+ *
+ * @author ZhuTao
+ * @date 2017/3/17
+ * @params
+ */
+
+public class RadioHorizonalRulerDecimals extends View {
+
+    public interface OnValueChangeListener {
+        public void onValueChange(float value);
+    }
+
+    private Scroller mScroller;  //滑动
+    private VelocityTracker mVelocityTracker;    //滑动速率的控制
+
+    private OnValueChangeListener mListener;
+
+    @SuppressWarnings("deprecation")
+    public RadioHorizonalRulerDecimals(Context context, AttributeSet attrs)
+    {
+        super(context, attrs);
+        mScroller = new Scroller(getContext());
+        mDensity = getContext().getResources().getDisplayMetrics().density;
+        mMinVelocity = ViewConfiguration.get(getContext()).getScaledMinimumFlingVelocity();  //获得允许fling动作的最小速度值 150
+//          setBackgroundResource(R.mipmap.rules_bg);  //设置显示的背景
+//        setBackgroundDrawable(createBackground());  //使用下面的画的方法！自定义绘制背景色
+
+    }
+
+    /**
+     * 初始值，最大值，最小值，间隔
+     */
+    public void initViewParam(float defaultValue, float maxValue, float minValue, int model)
+    {
+        switch (model) {
+            case MOD_TYPE_HALF:
+                mDividendType = DIVIDEEND_HALF;
+                mModType = MOD_TYPE_HALF;
+                mLineDivider = ITEM_HALF_DIVIDER * mDensity;
+                mValue = defaultValue;
+                mMaxValue = maxValue;
+                mMinValue = minValue;
+                break;
+            case MOD_TYPE_TEN:
+                mDividendType = DIVIDEEND_TEN;
+                mModType = MOD_TYPE_TEN;
+                mLineDivider = ITEM_TEN_DIVIDER * mDensity;
+                mValue = defaultValue;
+                mMaxValue = maxValue;
+                mMinValue = minValue;
+                break;
+
+            default:
+                break;
+        }
+        invalidate();  //执行computeScroll方法,实现滚动效果
+
+        mLastX = 0;
+        mMove = 0;
+        notifyValueChange();
+    }
+
+    /**
+     * 设置用于接收结果的监听器
+     *
+     * @param listener
+     */
+    public void setValueChangeListener(OnValueChangeListener listener)
+    {
+        LOG( "setValueChangeListener");
+        mListener = listener;
+    }
+
+    /**
+     * 获取当前刻度值
+     *
+     * @return
+     */
+    public float getValue()
+    {
+        LOG( "getValue");
+        return mValue;
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom)
+    {
+        mWidth = getWidth();
+        mHeight = getHeight();
+        super.onLayout(changed, left, top, right, bottom);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas)
+    {
+        super.onDraw(canvas);
+//         canvas.drawColor(0xffffccbb);
+        drawScaleLine(canvas);  //绘制刻度线
+        drawMiddleLine(canvas);  //绘制红色指示线，以及阴影效果
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+
+        int action = event.getAction();
+        int xPosition = (int) event.getX();
+
+        if (mVelocityTracker == null) {
+            mVelocityTracker = VelocityTracker.obtain();  //获得VelocityTracker的实例
+        }
+        mVelocityTracker.addMovement(event);  //将event事件，加入到VelocityTracker实例中
+
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                mScroller.forceFinished(true);  //停止所有滑动动画
+                mLastX = xPosition;
+                mMove = 0;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                mMove += (mLastX - xPosition);
+//                LOG("ACTION_MOVE  mMove: " + mMove );
+                changeMoveAndValue();
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:  //后续触屏事件取消，
+                countMoveEnd();
+                countVelocityTracker(event);  //手势抬起后，判断时候需要再滚动一段距离
+                return false;
+            // break;
+            default:
+                break;
+        }
+
+        mLastX = xPosition;
+        return true;
+    }
+
+    private void countVelocityTracker(MotionEvent event) {
+
+        mVelocityTracker.computeCurrentVelocity(1000);  //计算一秒（1000毫秒）的速度
+        float xVelocity = mVelocityTracker.getXVelocity();  //获取当前的横向的滚动速率
+        LOG( "countVelocityTracker 滑动速率计算，判断是否滚动 横向滚动速率xVelocity" + xVelocity);
+        if (Math.abs(xVelocity) > mMinVelocity) {  //通过横行速率的绝对值与mMinVelocity对比，大于的话就让Scroll进行滚动
+            mScroller.fling(0, 0, (int) xVelocity, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0, 0);
+        }
+    }
+
+    private void changeMoveAndValue()  {
+        int tValue = (int)(mMove / mLineDivider);
+        LOG("mMove: " + mMove + "  ;tValue: " + tValue);
+        if (Math.abs(tValue) > 0) {  //计算绝对值
+            float mtValue = tValue / mDividendType;
+            mValue += mtValue;
+            mMove -= tValue * mLineDivider;
+//            mMove -= (int)(tValue * mLineDivider * 10.0f);
+//            mMove -= (int)(tValue * mLineDivider);
+            LOG("22222mMove: " + mMove);
+            if (mValue <= mMinValue || mValue > mMaxValue) {
+                mValue = mValue <= mMinValue ? mMinValue : mMaxValue;
+                mMove = 0;
+                mScroller.forceFinished(true);
+            }
+            dynamicValue();
+            notifyValueChange();
+        }
+        postInvalidate();
+    }
+
+    private void dynamicValue(){
+        mValue = NumberConversion.preciseNumber(mValue,1);
+    }
+
+    private void countMoveEnd() {
+        int roundMove = Math.round(mMove / mLineDivider); //差值不大于1的时候，四舍五入
+//        mValue = mValue + roundMove/10.0f;
+        mValue = mValue + roundMove/mDividendType;
+        mValue = mValue <= mMinValue ? mMinValue : mValue;
+        mValue = mValue > mMaxValue ? mMaxValue : mValue;
+        dynamicValue();
+
+        mLastX = 0;
+        mMove = 0;
+
+        notifyValueChange();
+        postInvalidate();
+    }
+
+    private void notifyValueChange() {
+        if (null != mListener) {
+            if (mModType == MOD_TYPE_TEN) {
+                mListener.onValueChange(mValue);
+            }
+            if (mModType == MOD_TYPE_HALF) {
+//                mListener.onValueChange(mValue / 2);
+                mListener.onValueChange(mValue);
+            }
+        }
+    }
+
+    /**
+     * 刷新界面，实现滚动效果
+     * 界面有变化的时候就会执行此方法
+     */
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
+        if (mScroller.computeScrollOffset()) {  //界面正在滚动
+            if (mScroller.getCurrX() == mScroller.getFinalX()) { // over  滚动方向X的偏移，滚动结束时的位置（仅对fling手势有效）
+                countMoveEnd();
+            } else {
+                int xPosition = mScroller.getCurrX();
+                mMove += (mLastX - xPosition);
+                changeMoveAndValue();
+                mLastX = xPosition;
+            }
+        }
+    }
+
+    private static float EPSINON = 0.00001f;
+    /**
+     * 从中间往两边开始画刻度线
+     *
+     * @param canvas
+     */
+    private void drawScaleLine(Canvas canvas) {
+        canvas.save();
+
+        Paint linePaint = new Paint();
+        linePaint.setStrokeWidth(2);
+        linePaint.setColor(Color.parseColor("#dcdcdc"));
+
+        TextPaint textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+        textPaint.setColor(Color.parseColor("#999999"));
+        textPaint.setTextSize(TEXT_SIZE * mDensity);
+
+        int width = mWidth, drawCount = 0;
+        float xPosition = 0, textWidth = Layout.getDesiredWidth("0", textPaint);
+
+        for (int i = 0; drawCount <= (width - 30 * mDensity); i++) {
+            float mDrawValue = mValue + i;
+//            LOG("mDrawValue: " + mDrawValue);
+//            LOG("(int)mDrawValue: " + (int)mDrawValue);
+//            LOG("MathUtils.compareFloat(mDrawValue,(int)mDrawValue): " + MathUtils.compareFloat(mDrawValue,(int)mDrawValue));
+            int numSize = String.valueOf(mDrawValue).length();  //获取文本的字数
+
+            xPosition = (width / 2 - mMove) + i * mLineDivider * mModType;
+            if (xPosition + getPaddingRight() < mWidth) {
+                for (int j=0; j<mModType; j++) {
+
+                    float mFloatValue = mDrawValue + (1/mDividendType)*j;
+//                    float mFloatValue = mDrawValue + 0.1f*j;
+                     mFloatValue = NumberConversion.preciseNumber(mFloatValue,1);
+                    float mFloatxPosition = xPosition + j * mLineDivider;
+
+                    if ((int)(mFloatValue*10) % 10 == 0) {   //整数位，长刻度
+                        canvas.drawLine(mFloatxPosition, 0, mFloatxPosition, ITEM_MAX_HEIGHT, linePaint);
+                        if (mFloatValue < mMaxValue) {
+                            if (mMaxValue - mFloatValue >= 0.5f) //值与首尾值离的太近时，避免重叠，不绘制
+                                canvas.drawText(String.valueOf((int)mFloatValue), mFloatxPosition - (textWidth * numSize / 2),
+                                        getHeight() - textWidth / 4, textPaint);
+                        }
+                    }
+                    else if ((int)(mFloatValue*10) % 10 == 5) {  //绘制中间半长线
+                        canvas.drawLine(mFloatxPosition, 0, mFloatxPosition, ITEM_MEDIUM_HEIGHT, linePaint);
+                    }
+                    else {
+                        canvas.drawLine(mFloatxPosition, 0, mFloatxPosition, ITEM_MIN_HEIGHT, linePaint);
+                    }
+
+                    if (mFloatValue == mMaxValue) {  //绘制最大值,最大值有可能不是刻度间隔的整数倍
+//                        canvas.drawText(String.valueOf(mFloatValue), mFloatxPosition - (textWidth * numSize / 2), getHeight() - textWidth / 4, textPaint);
+                        canvas.drawText(NumberConversion.reducedPoint(mFloatValue), mFloatxPosition - (textWidth * numSize / 2), getHeight() - textWidth / 4, textPaint);
+                    }
+                }
+
+
+            }
+
+            xPosition = (width / 2 - mMove) - i * mLineDivider * mModType;
+            float mDrawValueLeft = mValue - i;
+            if (xPosition > getPaddingLeft()) {
+
+                for (int j=0; j<mModType; j++) {
+
+                    float mFloatValue = mDrawValueLeft - (1/mDividendType)*j;
+//                    float mFloatValue = mDrawValueLeft - 0.1f*j;
+                    mFloatValue = NumberConversion.preciseNumber(mFloatValue,1);
+                    float mFloatxPosition = xPosition - j * mLineDivider;
+
+                    if ((int) (mFloatValue * 10) % 10 == 0) {   //整数位，长刻度
+                        canvas.drawLine(mFloatxPosition, 0, mFloatxPosition, ITEM_MAX_HEIGHT, linePaint);
+                        if (mFloatValue - mMinValue >= 0.5f) //值与首尾值离的太近时，避免重叠，不绘制
+                            canvas.drawText(String.valueOf((int) mFloatValue), mFloatxPosition - (textWidth * numSize / 2),
+                                    getHeight() - textWidth / 4, textPaint);
+                    }
+                    else if ((int)(mFloatValue*10) % 10 == 5) {  //绘制中间半长线
+                        canvas.drawLine(mFloatxPosition, 0, mFloatxPosition, ITEM_MEDIUM_HEIGHT, linePaint);
+                    }
+                    else {
+                        canvas.drawLine(mFloatxPosition, 0, mFloatxPosition, ITEM_MIN_HEIGHT, linePaint);
+                    }
+
+                    if (mFloatValue == mMinValue) {  //绘制最值,最大值有可能不是刻度间隔的整数倍
+//                        canvas.drawText(String.valueOf(mFloatValue), mFloatxPosition - (textWidth * numSize / 2), getHeight() - textWidth / 4, textPaint);
+                        canvas.drawText(NumberConversion.reducedPoint(mFloatValue), mFloatxPosition - (textWidth * numSize / 2), getHeight() - textWidth / 4, textPaint);
+
+                    }
+                }
+
+
+            }
+            drawCount += 2 * mLineDivider;
+        }
+
+        canvas.restore();
+    }
+
+    /**
+     * 画中间的指示线、阴影等。
+     *
+     * @param canvas
+     */
+    private void drawMiddleLine(Canvas canvas)
+    {
+
+        // TOOD 常量太多，暂时放这，最终会放在类的开始，放远了怕很快忘记
+        int gap = 12, indexWidth = LayoutUtil.getInstance().getWidgetWidth(6), indexTitleWidth = 24, indexTitleHight = 10, shadow = 6;
+        int color = 0xff22d7bb;
+
+        canvas.save();
+
+        Paint redPaint = new Paint();
+        redPaint.setStrokeWidth(indexWidth);
+        redPaint.setColor(color);
+        canvas.drawLine(mWidth / 2, 0, mWidth / 2, ITEM_SELECT_HEIGHT, redPaint);
+
+//        Paint ovalPaint = new Paint();
+//        ovalPaint.setColor(Color.RED);
+//        ovalPaint.setStrokeWidth(indexTitleWidth);
+//        canvas.drawLine(mWidth / 2, 0, mWidth / 2, indexTitleHight, ovalPaint);
+//        canvas.drawLine(mWidth / 2, mHeight - indexTitleHight, mWidth / 2, mHeight, ovalPaint);
+
+//绘制投影  
+//        Paint shadowPaint = new Paint();
+//        shadowPaint.setStrokeWidth(shadow);
+//        shadowPaint.setColor(Color.parseColor(color));
+//        canvas.drawLine(mWidth / 2 + gap, 0, mWidth / 2 + gap, mHeight, shadowPaint);
+
+        canvas.restore();
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
+        // TODO Auto-generated method stub
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+//         setMeasuredDimension(LayoutUtil.getInstance().getWidgetWidth(644,false),LayoutUtil.getInstance().getWidgetHeight(110));
+
+    }
+
+
+    /**
+     * 屏幕密度
+     */
+    private float mDensity;
+    private int mLastX, mMove;  //猜测，结束时的X坐标，滑动距离
+    private int mWidth, mHeight;    //视图的宽高
+    private static final int TEXT_SIZE = 12;  //字体大小 15
+
+    /**
+     * 允许fling动作的最小速度值
+     */
+    private int mMinVelocity;
+
+    //两个默认的间隔数
+    /** 2个间隔 ，没怎么用过，也没做具体适配 */
+    private static final float DIVIDEEND_HALF = 2.0f;
+    /** 10个间隔  */
+    private static final float DIVIDEEND_TEN = 10.0f;
+
+    /** 2个间隔 ，没怎么用过，也没做具体适配 */
+    private static final int MOD_TYPE_HALF = 2;
+    /** 10个间隔  */
+    private static final int MOD_TYPE_TEN = 10;
+
+    private static final int ITEM_HALF_DIVIDER = 40;  //设置每个间隔的单位宽度  40
+    private static final int ITEM_TEN_DIVIDER = 10;  //设置每个间隔的单位宽度  10
+
+    private float mValue = 50, mMaxValue = 100, mMinValue = 0, mDividendType = DIVIDEEND_HALF,
+            mLineDivider = ITEM_TEN_DIVIDER;
+            int mModType = MOD_TYPE_HALF;  //给这两位加了默认值 2 40
+
+    /** 选中刻度线的长度（中间的标识线）  */
+    private static final int ITEM_SELECT_HEIGHT = LayoutUtil.getInstance().getWidgetHeight(65);
+    /** 长刻度线的长度（中间的标识线） */
+    private static final int ITEM_MAX_HEIGHT = LayoutUtil.getInstance().getWidgetHeight(35);
+    /** 中等长度刻度线的长度 */
+    private static final int ITEM_MEDIUM_HEIGHT = LayoutUtil.getInstance().getWidgetHeight(20);   //35
+    /** 短刻度线的长度 */
+    private static final int ITEM_MIN_HEIGHT = LayoutUtil.getInstance().getWidgetHeight(13);
+
+
+    /**
+     * 打印日志
+     *
+     * @param data 需要打印的内容
+     */
+    public void LOG(String data)
+    {
+        Log.i("spoort_list", "RadioRuler:" + data + "");
+    }
+}

@@ -9,9 +9,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.huidf.slimming.R;
-import com.huidf.slimming.base.BaseFragment;
-import com.huidf.slimming.context.PreferenceEntity;
+import com.jemer.atong.R;
+import com.jemer.atong.base.BaseFragment;
+import com.jemer.atong.context.PreferenceEntity;
 
 import huitx.libztframework.utils.PreferencesUtils;
 
@@ -118,7 +118,6 @@ public class GuidanceSexFragment extends BaseFragment implements OnClickListener
 
 	}
 
-	@Override
 	public void paddingDatas(String mData, int type) {
 
 	}

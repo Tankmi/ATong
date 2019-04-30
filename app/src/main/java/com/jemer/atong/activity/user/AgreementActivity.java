@@ -7,10 +7,8 @@ import android.webkit.WebView;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-import com.huidf.slimming.R;
-import com.huidf.slimming.base.BaseFragmentActivity;
-
-import huitx.libztframework.interf.ConsultNet;
+import com.jemer.atong.R;
+import com.jemer.atong.base.BaseFragmentActivity;
 
 
 /**
@@ -21,7 +19,7 @@ import huitx.libztframework.interf.ConsultNet;
 * @date 2015年12月9日 下午3:57:39
 * @version V1.0
 */
-public class AgreementActivity extends BaseFragmentActivity implements OnClickListener, OnCheckedChangeListener,ConsultNet {
+public class AgreementActivity extends BaseFragmentActivity implements OnClickListener, OnCheckedChangeListener{
 
    private WebView web_agreement;
 
@@ -43,12 +41,6 @@ public class AgreementActivity extends BaseFragmentActivity implements OnClickLi
        web_agreement.loadUrl("file:///android_asset/policy.html");
 //		web_agreement.loadUrl("assets://policy.html");
    }
-
-   @Override
-   public void paddingDatas(String mData, int type) {}
-
-   @Override
-   public void error(String msg, int type) {}
 
 
    @Override
