@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/rel_ear_hint_vs_main"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+    >
+
+
+    <com.jemer.atong.view.verify_code.VerificationCodeView
+        android:id="@+id/view_verifycode_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        app:vcv_code_bg_focus="@drawable/bg_text_focused"
+        app:vcv_code_bg_normal="@drawable/bg_text_normal"
+        app:vcv_code_color="@color/text_color_normal"
+        app:vcv_code_number="6"
+        app:vcv_code_size="@dimen/text_size_tiny"
+        app:vcv_code_width="78"
+        app:vcv_code_height="88"
+        />
+
+    <Button
+        android:id="@+id/btn_login_verifycode"
+        android:layout_toRightOf="@+id/view_verifycode_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_login_arrow"
+        android:layout_centerVertical="true"
+        />
+
+
+
+</RelativeLayout>

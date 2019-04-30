@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="roundedimageview">
+        <attr name="border_thickness" format="dimension" />
+        <attr name="border_inside_color" format="color" />
+        <attr name="border_outside_color" format="color"></attr>
+    </declare-styleable>
+
+    <!-- 自定义验证码-->
+    <declare-styleable name="VerificationCodeView">
+        <!--输入框的数量-->
+        <attr name="vcv_code_number" format="integer" />
+        <!--&lt;!&ndash;单个验证码的宽度&ndash;&gt;-->
+        <!--<attr name="vcv_code_width" format="dimension|reference" />-->
+        <!--&lt;!&ndash;单个验证码的高度&ndash;&gt;-->
+        <!--<attr name="vcv_code_height" format="dimension|reference" />-->
+        <!--单个验证码的宽度-->
+        <attr name="vcv_code_width" format="integer" />
+        <!--单个验证码的高度-->
+        <attr name="vcv_code_height" format="integer" />
+        <!--输入框文字颜色-->
+        <attr name="vcv_code_color" format="color|reference" />
+        <!--输入框文字大小-->
+        <attr name="vcv_code_size" format="dimension|reference" />
+        <!--输入框获取焦点时边框-->
+        <attr name="vcv_code_bg_focus" format="reference" />
+        <!--输入框没有焦点时边框-->
+        <attr name="vcv_code_bg_normal" format="reference" />
+    </declare-styleable>
+</resources>

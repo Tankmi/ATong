@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 自定义绘图Y坐标轴 -->
+    <declare-styleable name="chart_ycoords">
+        <attr name="ycoordinate" format="string" />	<!-- Y坐标轴数值集合 用于展示-->
+        <attr name="ycoordcut" format="integer" />	<!-- 换行字数（满多少行换行，不需要设置的话，把值设置大一些） -->
+        <attr name="ycoordraw_height" format="float" />	<!-- 绘制区域的高度 -->
+        <attr name="ycoormargin_bottom" format="float" />	<!-- 距离画布底部（原点）的距离 -->
+    </declare-styleable>
+
+    <!-- 线形图 -->
+    <declare-styleable name="chart_line_table">
+        <attr name="clinet_ycoordinate" format="string" />	<!-- Y坐标轴数值集合 具体数值 -->
+        <attr name="clinet_draw_height" format="float" />	<!-- 绘制区域的高度 -->
+        <attr name="clinet_margin_bottom" format="float" />	<!-- 距离画布底部（原点）的距离 -->
+        <attr name="clinet_margin_left" format="float" />	<!--  距离画布左边距（原点）的距离 -->
+        <attr name="clinet_margin_horizonal" format="float" />	<!-- 横向坐标的间距 -->
+    </declare-styleable>
+
+    <!-- 柱状图 -->
+    <declare-styleable name="chart_columnar_table">
+        <attr name="ccolumnart_height" format="integer" />	<!-- 柱状图高度 -->
+        <attr name="ccolumnart_width" format="integer" />	<!-- 柱状图宽度 -->
+        <attr name="ccolumnart_padding" format="integer" />	<!-- 柱状图间距 -->
+        <attr name="ccolumnart_marginleft" format="integer" />	<!-- 距离画布左边距（原点）的距离 -->
+
+    <!-- 运动柱状图，区别楼上的柱状图，楼上的没有坐标轴线 -->
+        <declare-styleable name="columnar_detection">
+            <attr name="view_height" format="float" />	<!-- 视图高度 -->
+            <attr name="view_width" format="float" />
+            <attr name="ycoordinate_data" format="string" />	<!-- y轴数据集合 -->
+            <attr name="margin_left" format="float"/> <!-- 第一个圆柱中心距离画布左边的距离 -->
+            <attr name="interval_left_right" format="float"/> <!-- 左右间距 两个圆柱的间距，加上圆柱的直径 -->
+            <attr name="device_type" format="string"/> <!-- 设备类型012血糖血压体重 -->
+            <attr name="low_pressure_normal_limit" format="string" />	<!-- 低压正常值上 -->
+            <attr name="low_pressure_warning_limit" format="string" />	<!-- 低压警告值上 -->
+            <attr name="low_pressure_danger_limit" format="string" />	<!-- 低压危险值上 -->
+            <attr name="normal_limit" format="string" />	<!-- 血糖正常值 低压正常值下 -->
+            <attr name="warning_limit" format="string" />	<!-- 血糖警告值 低压警告值下 -->
+            <attr name="danger_limit" format="string" />	<!-- 血糖危险值 低压危险值下-->
+        </declare-styleable>
+
+    </declare-styleable>
+
+    <declare-styleable name="FlowLayout">
+        <attr name="horizontalSpacing" format="dimension" />
+        <attr name="verticalSpacing" format="dimension" />
+        <attr name="orientation" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+        <attr name="debugDraw" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="FlowLayout_LayoutParams">
+        <attr name="layout_newLine" format="boolean" />
+        <attr name="layout_horizontalSpacing" format="dimension" />
+        <attr name="layout_verticalSpacing" format="dimension" />
+    </declare-styleable>
+</resources>

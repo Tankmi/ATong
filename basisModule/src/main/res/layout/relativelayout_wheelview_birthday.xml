@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/linear_account_date_main"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:gravity="center"
+              android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/linear_account_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <huitx.libztframework.view.wheel.WheelView
+            android:id="@+id/wv_ad_year"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center_vertical"
+            android:layout_weight="4"/>
+
+        <huitx.libztframework.view.wheel.WheelView
+            android:id="@+id/wv_ad_month"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2"/>
+
+        <huitx.libztframework.view.wheel.WheelView
+            android:id="@+id/wv_ad_day"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="left|center_vertical"
+            android:layout_weight="4"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- 纯色 -->
+    <color name="transparency">#00ffffff</color>
+    <color name="translucence">#50000000</color>
+    <color name="translucence_white">#50ffffff</color>
+    <color name="white">#ffffffff</color>
+    <color name="black">#ff000000</color>
+    <color name="green">#00ff00</color>
+    <color name="red">#ffff0000</color>
+    <color name="blue">#ff0000ff</color>
+    <color name="orange">#ffa500</color>
+    <color name="yellow">#ffff00</color>
+    <color name="cyan">#00ffff</color>
+    <color name="gray">#808080</color>
+
+    <!-- APP主色 -->
+    <color name="all_bg">#f3f3f3</color>
+
+    <!-- 状态栏颜色 -->
+    <color name="status_bar_color">#ffffffff</color>
+
+    <!-- 设置控件的焦点获取背景色（点击前后状态颜色提示） -->
+    <color name="item_click_normal">#ffffffff</color>
+    <color name="item_click_pressed">#55999999</color>
+
+    <!-- 线条颜色-->
+    <color name="line_full">#ffeeeeee</color>
+    <color name="line_title_view_bottom">#ffd2d2d2</color>
+    <color name="line_imaginary">#ffeeeeee</color>
+
+    <!--字体颜色-->
+    <color name="text_color_title">#ffffffff</color>
+    <color name="text_color_normal">#ff333333</color>   <!-- 最黑 272729 -->
+    <color name="text_color_hint">#ff666666</color>     <!-- 次之 -->
+    <color name="text_color_undertint">#ff999999</color>    <!-- 最浅 -->
+
+    <!--背景色-->
+    <color name="back_color_main">#fff0f0f0</color>
+    <color name="back_color_gray">#ff666666</color>
+    <color name="back_color_title">#ff1d89e4</color>
+    <color name="back_color_item">#ffffff</color>
+    <color name="back_color_dynamic_list">#ffededed</color>
+
+    <!-- 自定义验证码输入框 -->
+    <color name="verifycode_border_focused">#22d7bb</color>
+    <color name="verifycode_border_normal">#f3f3f3</color>
+
+    <!-- 线条默认颜色  可改 -->
+    <color name="line_bg">#ffd0d0d0</color>
+    <!-- 虚线默认颜色  可改 -->
+    <color name="line_bg_e1e1e1">#e1e1e1</color>
+
+</resources>

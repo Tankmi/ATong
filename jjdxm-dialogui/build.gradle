@@ -1,0 +1,96 @@
+apply plugin: 'com.android.library'
+
+ext {
+    //类库的module名、bintray上项目名、artifactId最好是一致的
+    jjdxm_bintrayRepo = 'maven'
+    jjdxm_bintrayName = 'jjdxm-dialogui'
+
+    jjdxm_packaging = 'aar'
+    jjdxm_groupId = 'com.dou361.dialogui'
+    jjdxm_artifactId = 'jjdxm-dialogui'
+
+    jjdxm_libraryVersion = '1.0.3'
+    jjdxm_libraryName = 'jjdxm-dialogui'
+    jjdxm_libraryDescription = 'this is a dialogui dialogui of the application'
+
+    jjdxm_siteUrl = 'https://github.com/jjdxmashl/jjdxm_dialogui'
+    jjdxm_gitUrl = 'https://github.com/jjdxmashl/jjdxm_dialogui.git'
+
+    jjdxm_developerId = 'jjdxmashl'
+    jjdxm_developerName = 'jjdxmashl'
+    jjdxm_developerEmail = '316988670@qq.com'
+
+    jjdxm_licenseName = 'The Apache Software License, Version 2.0'
+    jjdxm_licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    jjdxm_allLicenses = ["Apache-2.0"]
+
+    jjdxm_singlePath = 'build/intermediates/classes/release'
+    jjdxm_singleJar = jjdxm_artifactId + '-' + jjdxm_libraryVersion + '.jar'
+}
+
+android {
+    compileSdkVersion 28
+//    buildToolsVersion "28.0.2"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 28
+    }
+//    buildTypes {
+//        release {
+//            //混淆
+////            minifyEnabled false
+//            //Zipalign优化
+////            zipAlignEnabled true
+//            // 移除无用的resource文件
+////            shrinkResources true
+////            consumerProguardFiles 'proguard-rules.pro'
+//        }
+//    }
+    buildTypes {
+        release {
+//            //混淆
+////            minifyEnabled false
+//            //Zipalign优化
+//            zipAlignEnabled true
+//            // 移除无用的resource文件
+//            shrinkResources true
+//            consumerProguardFiles 'proguard-rules.pro'
+
+            //混淆
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        repositories {
+            maven {
+                url "http://maven.google.com"
+            }
+            maven { url 'https://maven.aliyun.com/repository/google' }
+            maven { url 'https://maven.aliyun.com/repository/jcenter' }
+            maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+
+//    implementation 'com.android.support:appcompat-v7:24.2.1'
+//    implementation 'com.android.support:recyclerview-v7:24.2.1'
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+
+//    implementation 'com.android.support:appcompat-v7:24.2.1'
+////    compile 'com.android.support:recyclerview-v7:24.2.1'
+//    api fileTree(dir: 'libs', include: ['*.jar'])
+//    testImplementation 'junit:junit:4.12'
+}
+
+//apply from: 'https://raw.githubusercontent.com/jjdxmashl/jjdxm_ecodingprocess/master/bulidlib.gradle'
+//apply from: 'https://raw.githubusercontent.com/jjdxmashl/jjdxm_ecodingprocess/master/bintray.gradle'

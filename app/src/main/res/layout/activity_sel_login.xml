@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/all_bg"
+    >
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/title_view"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/iv_sel_login_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/icon_logo"/>
+
+    <LinearLayout
+        android:id="@+id/lin_other_login_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_sel_login_logo"
+        android:layout_marginLeft="@dimen/margin_lr_large"
+        android:layout_marginRight="@dimen/margin_lr_large"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_weight="2"
+            style="@style/horizontal_line_style"
+            />
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:gravity="center_horizontal"
+            android:text="第三方账号登录"
+            android:layout_marginLeft="@dimen/margin_lr_normal"
+            android:layout_marginRight="@dimen/margin_lr_normal"
+            android:textColor="@color/text_color_undertint"
+            android:textSize="@dimen/text_size_normal"/>
+
+        <ImageView
+            android:layout_weight="2"
+            style="@style/horizontal_line_style"
+            />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_other_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lin_other_login_hint"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_wx_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/iv_wx"
+            />
+
+        <Button
+            android:id="@+id/btn_qq_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/iv_qq"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:id="@+id/lin_phone_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_lr_large"
+        android:layout_marginRight="@dimen/margin_lr_large"
+        android:background="@drawable/back_transparency_r90"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_phone_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:drawablePadding="@dimen/margin_lr_small"
+            android:gravity="center"
+            android:letterSpacing="0.5"
+            android:text="手机登录"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_large"/>
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/fram_login_sel"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title"/>
+
+</RelativeLayout>

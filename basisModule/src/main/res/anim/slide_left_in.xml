@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <objectAnimator
+        android:duration="500"
+        android:propertyName="translationX"
+        android:valueFrom="-1000"
+        android:valueTo="0" />
+    <!-- android:valueType="floatType" -->
+    <!-- 默认就是floatType,不写就行. 没搞懂和intType的区别,用intType会有失效 -->
+
+</set>

@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">慧大夫瘦身</string>
+    <string name="login_hint_title">登录信息过时</string>
+    <string name="login_hint_body">请先登录</string>
+
+    <!-- 动态 -->
+    <string name="dynamic_input_dismiss_hint">仅自己可见</string>
+    <string name="dynamic_input_hint">请输入此刻的想法</string>
+    <string name="picture_camera">拍照</string>
+    <string name="picture_photo">相册</string>
+    <string name="picture_picture_num">已添加 %d/%d 张图片</string>
+
+    <!-- 微信 start -->
+    <string name="errcode_success">发送成功</string>
+    <string name="errcode_cancel">发送取消</string>
+    <string name="errcode_deny">发送被拒绝</string>
+    <string name="errcode_unknown">发送返回</string>
+    <string name="app_tip">提示</string>
+    <string name="getting_access_token">正在获取access token...</string>
+    <string name="get_access_token_succ">获取access token成功</string>
+    <string name="get_access_token_fail" formatted="false">获取access token失败，原因%s</string>
+    <string name="getting_prepayid">正在获取预支付订单...</string>
+    <string name="paying">支付中</string>
+    <string name="get_prepayid_succ">获取prepayid成功</string>
+    <string name="get_prepayid_fail" formatted="false">获取prepayid失败，原因%s</string>
+    <string name="launch_from_wx">Launch From Weixin</string>
+    <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
+    <string name="pay_result_tip">这个界面用于显示第三方app通过微信支付的结果</string>
+    <!-- 微信 end -->
+</resources>

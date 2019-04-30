@@ -1,0 +1,4 @@
+<resources>
+    <!-- tab下面选中横线的高度 -->
+    <dimen name="tab_line_height">5px</dimen>
+</resources>
