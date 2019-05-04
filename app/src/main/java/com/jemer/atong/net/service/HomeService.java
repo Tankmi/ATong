@@ -1,8 +1,17 @@
 package com.jemer.atong.net.service;
 
+import com.jemer.atong.context.UrlConstant;
+import com.jemer.atong.context.UrlConstantRx;
+
+import java.util.Map;
+
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * 作者：ZhuTao
@@ -14,7 +23,16 @@ public interface HomeService {
     //获取首页内容
     @GET("main/mainPage.do")
     Observable<ResponseBody> getHomeChoiceness();
-//    Observable<ResponseBody> getHomeChoiceness(@HeaderMap Map<String, String> map);
+
+
+    @GET(UrlConstant.API_VERIFICATION)
+    Observable<ResponseBody> getVerifyCode(@Query("phone") String phone,@Query("imei") String imei);
+
+    @POST(UrlConstantRx.API_LOGIN)
+    @FormUrlEncoded
+    Observable<ResponseBody> login(@FieldMap Map<String, String> map);
+
+
 
     //@path 用于匹配大括号中的缺省值
 //    @GET("weather/{city_name}")

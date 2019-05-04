@@ -1,0 +1,58 @@
+project.ext {
+    android = [
+            compileSdkVersion : 28,
+//            buildToolsVersion : "",
+            applicationId    : "com.jemer.atong",
+            minSdkVersion    : 19,
+            targetSdkVersion : 28,
+            versionCode      : 1,
+            versionName      : "1.0"
+    ]
+
+    dependencies = [
+            //rxJava
+            "RxJava" : "io.reactivex.rxjava2:rxjava:2.2.6",
+            "RxAndroid" : "io.reactivex.rxjava2:rxandroid:2.1.1",
+            //retrofit
+            "retrofit" : "com.squareup.retrofit2:retrofit:2.4.0",
+            "retrofitlog" : "com.squareup.okhttp3:logging-interceptor:3.4.1",
+            // 衔接 Retrofit & RxJava
+            // 此处一定要注意使用RxJava2的版本
+            "retrofitRxJava" : "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0",
+            // 此处一定要注意使用RxJava2的版本
+            "retrofitGson" : "com.squareup.retrofit2:converter-gson:2.4.0"
+    ]
+
+//    dependencies {
+//
+//        //Design Support库
+//        //    implementation 'androidx.recyclerview:recyclerview:1.0.0-beta01'
+//        //Glide
+//        implementation 'com.github.bumptech.glide:glide:4.9.0'
+//        annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+//        //ButterKnife
+//        implementation 'com.jakewharton:butterknife:10.1.0'
+//        annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+//
+//        //Rxjava + okhttp + retrofit  ---------------start
+//
+//        // Android 支持 Rxjava
+//        // 此处一定要注意使用RxJava2的版本
+////        implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
+////        implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+//        // Android 支持 Retrofit
+////        implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+//        // 衔接 Retrofit & RxJava
+//        // 此处一定要注意使用RxJava2的版本
+//        implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+//        // 支持Gson解析
+//        implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+//        //retrofit log打印
+//        implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+//        //Rxjava + okhttp + retrofit  ---------------end
+//        //EventBus
+//        implementation 'org.greenrobot:eventbus:3.0.0'
+//        implementation project(':basisModule')
+//    }
+
+}

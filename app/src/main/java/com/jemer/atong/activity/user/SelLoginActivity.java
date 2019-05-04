@@ -6,12 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.jemer.atong.R;
@@ -28,11 +30,17 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 import huitx.libztframework.context.ContextConstant;
 import huitx.libztframework.utils.NetUtils;
 import huitx.libztframework.utils.NewWidgetSetting;
 import huitx.libztframework.utils.PreferencesUtils;
 import huitx.libztframework.utils.ToastUtils;
+import huitx.libztframework.utils.permission.IPermissionListenerWrap;
+import huitx.libztframework.utils.permission.Permission;
+import huitx.libztframework.utils.permission.PermissionsHelper;
 
 
 /**
@@ -43,29 +51,48 @@ import huitx.libztframework.utils.ToastUtils;
  * @params
  */
 
-public class SelLoginActivity extends BaseFragmentActivity implements View.OnClickListener {
+public class SelLoginActivity extends BaseFragmentActivity {
 
-    public SelLoginActivity()
-    {
+    @BindView(R.id.iv_sel_login_logo)
+    protected ImageView iv_sel_login_logo;
+    @BindView(R.id.lin_other_login_hint)
+    protected LinearLayout lin_other_login_hint;
+    @BindView(R.id.rel_other_login)
+    protected RelativeLayout rel_other_login;
+    @BindView(R.id.btn_wx_login)
+    protected Button btn_wx_login;
+    @BindView(R.id.btn_qq_login)
+    protected Button btn_qq_login;
+    @BindView(R.id.lin_phone_login)
+    protected LinearLayout lin_phone_login;
+    @BindView(R.id.btn_phone_login)
+    protected Button btn_phone_login;
+
+    private String MAIN_CONTENT_TAG = "main_content";
+    private LoginFragment loginFragment;
+    private BindPhoneFragment bindPhoneFragment;
+    private FragmentManager fragmentManager;
+
+    public SelLoginActivity() {
         super(R.layout.activity_sel_login);
         TAG = getClass().getName();
     }
 
     @Override
-    protected void initHead()
-    {
+    protected void initHead() {
         PreferenceEntity.isSyncUserDatas = false;
         setStatusBarColor(true, true, mContext.getResources().getColor(R.color.transparency));
     }
 
     @Override
-    public void onResume()
-    {
+    protected void initContent() {
+
+    }
+
+    @Override
+    public void onResume() {
         super.onResume();
-        if(ApplicationData.imei == null || ApplicationData.imei.equals("")){
-            getPermission();
-            return;
-        }
+        LOG("onResume");
 //        onResumeNext();
     }
 
@@ -77,21 +104,14 @@ public class SelLoginActivity extends BaseFragmentActivity implements View.OnCli
 //    }
 
     @Override
-    protected void onNewIntent(Intent intent)
-    {
+    protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         LOG("onNewIntent");
         setIntent(intent);
     }
 
-    private String MAIN_CONTENT_TAG = "main_content";
-    private LoginFragment loginFragment;
-    private BindPhoneFragment bindPhoneFragment;
-    private FragmentManager fragmentManager;
-
-    @Override
-    public void onClick(View view)
-    {
+    @OnClick({R.id.btn_wx_login, R.id.btn_qq_login, R.id.lin_phone_login, R.id.btn_phone_login})
+    void click(View view) {
         Intent intent = null;
         switch (view.getId()) {
 //            case R.id.btn_wx_login: //微信登录
@@ -102,12 +122,21 @@ public class SelLoginActivity extends BaseFragmentActivity implements View.OnCli
 //                break;
             case R.id.lin_phone_login: //手机登录
             case R.id.btn_phone_login:
-                ShowOrHideLoginView(true);
+               if(isPermission())
+                   ShowOrHideLoginView(true);
                 break;
         }
         if (intent != null) {
             startActivity(intent);
         }
+    }
+
+    private boolean isPermission(){
+        if (ApplicationData.imei == null || ApplicationData.imei.equals("")) {
+            requestPermission(new String[]{Manifest.permission.READ_PHONE_STATE});
+            return false;
+        }
+        return true;
     }
 
 //    protected IWXAPI msgApi;
@@ -196,43 +225,14 @@ public class SelLoginActivity extends BaseFragmentActivity implements View.OnCli
 
 
     @Override
-    protected void onPause()
-    {
+    protected void onPause() {
         super.onPause();
         setLoading(false);
     }
 
-    private ImageView iv_sel_login_logo;
-    private LinearLayout lin_other_login_hint;
-    private RelativeLayout rel_other_login;
-    private Button btn_wx_login;
-    private Button btn_qq_login;
-    private LinearLayout lin_phone_login;
-    private Button btn_phone_login;
-
     @Override
-    protected void initContent()
-    {
-        iv_sel_login_logo = findViewByIds(R.id.iv_sel_login_logo);
-        lin_other_login_hint = findViewByIds(R.id.lin_other_login_hint);
-        rel_other_login = findViewByIds(R.id.rel_other_login);
-        btn_wx_login = findViewByIds(R.id.btn_wx_login);
-        btn_qq_login = findViewByIds(R.id.btn_qq_login);
-        lin_phone_login = findViewByIds(R.id.lin_phone_login);
-        btn_phone_login = findViewByIds(R.id.btn_phone_login);
-
-        btn_wx_login.setOnClickListener(this);
-        btn_qq_login.setOnClickListener(this);
-        lin_phone_login.setOnClickListener(this);
-        btn_phone_login.setOnClickListener(this);
-
-//        btn_wx_login.setCompoundDrawables(NewWidgetSetting.getInstance().getWeightDrawable(R.drawable.iv_wx, 36, 36, false), null, null, null);
-    }
-
-    @Override
-    protected void initLocation()
-    {
-        mLayoutUtil.drawViewRBLayout(iv_sel_login_logo, 251, 213, 0, 0, 180, 0);
+    protected void initLocation() {
+//        mLayoutUtil.drawViewRBLayout(iv_sel_login_logo, 251, 213, 0, 0, 180, 0);
         mLayoutUtil.drawViewRBLayout(lin_other_login_hint, 0, 0, 0, 0, 242, 0);
         mLayoutUtil.drawViewRBLayout(rel_other_login, 350, 0, 0, 0, 36, 0);
         mLayoutUtil.drawViewRBLayout(btn_wx_login, 99, 154, 0, 0, 0, 0);
@@ -241,19 +241,16 @@ public class SelLoginActivity extends BaseFragmentActivity implements View.OnCli
     }
 
     @Override
-    protected void initLogic()
-    {
+    protected void initLogic() {
     }
 
 
     @Override
-    protected void pauseClose()
-    {
+    protected void pauseClose() {
     }
 
     @Override
-    protected void destroyClose()
-    {
+    protected void destroyClose() {
     }
 
 //    /**
@@ -347,15 +344,22 @@ public class SelLoginActivity extends BaseFragmentActivity implements View.OnCli
 ////                ToastUtils.showToast("账号绑定失败，请稍候尝试");
 //    }
 
+
+    FragmentTransaction fragmentTran;
     /**
      * 显示或者隐藏登录页
      */
-    private void ShowOrHideLoginView(boolean isShow)
-    {
-        if (loginFragment == null) loginFragment = new LoginFragment();
-        if (fragmentManager == null) fragmentManager = getSupportFragmentManager();
+    private void ShowOrHideLoginView(boolean isShow) {
+        if (loginFragment == null){
+            LOG("init LoginFragment");
+            loginFragment = new LoginFragment();
+        }
+        if (fragmentManager == null){
+            fragmentManager = getSupportFragmentManager();
+        }
+        fragmentTran = fragmentManager.beginTransaction();
 
-        FragmentTransaction fragmentTran = fragmentManager.beginTransaction();
+
 
         if (isShow) {
             if (loginFragment.isAdded()) fragmentTran.show(loginFragment);
@@ -380,8 +384,7 @@ public class SelLoginActivity extends BaseFragmentActivity implements View.OnCli
      * @param isShow
      * @param type   isShow为true时传，绑定手机号 微信2 QQ3
      */
-    private void ShowOrHideBindPhoneView(boolean isShow, int type)
-    {
+    private void ShowOrHideBindPhoneView(boolean isShow, int type) {
         if (bindPhoneFragment == null) bindPhoneFragment = new BindPhoneFragment();
         if (fragmentManager == null) fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTran = fragmentManager.beginTransaction();
@@ -400,10 +403,8 @@ public class SelLoginActivity extends BaseFragmentActivity implements View.OnCli
     }
 
 
-
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             ShowOrHideLoginView(false);
             return true;
@@ -416,8 +417,7 @@ public class SelLoginActivity extends BaseFragmentActivity implements View.OnCli
      *
      * @param state
      */
-    public void setControlEnable(boolean state)
-    {
+    public void setControlEnable(boolean state) {
         if (state) {
             btn_wx_login.setEnabled(true);
             btn_phone_login.setEnabled(true);
@@ -427,73 +427,42 @@ public class SelLoginActivity extends BaseFragmentActivity implements View.OnCli
         }
     }
 
-    private int READ_PHONE_STATEDATA = 100;
+    private void requestPermission(final String[] permissions) {
+        PermissionsHelper
+                .init(SelLoginActivity.this)
+                .requestEachPermissions(permissions, new IPermissionListenerWrap.IEachPermissionListener() {
+                    @Override
+                    public void onAccepted(Permission permission) {
+                        show(permission);
+                    }
 
-    private void getPermission()
-    {
-        // 判断没有获取权限的话，申请获取权限
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                    @Override
+                    public void onException(Throwable throwable) {
 
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)){
-                // 向用户详细解释申请该权限的原因
-                new AlertDialog.Builder(this)
-                        .setCancelable(false)
-                        .setMessage("向服务端进行进口请求需要获取手机设备号信息，用以保证请求安全，如果拒绝此权限，将无法正常进行数据请求！")
-                        .setPositiveButton("好的", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                ActivityCompat.requestPermissions(SelLoginActivity.this,
-                                        new String[]{Manifest.permission.READ_PHONE_STATE}, READ_PHONE_STATEDATA);
-                                dialog.dismiss();
-                            }
-                        })
-                        .setNegativeButton("不给", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                finish();
-                            }
-                        })
-                        .show();
-            }else{
-                ActivityCompat.requestPermissions(SelLoginActivity.this,
-                        new String[]{Manifest.permission.READ_PHONE_STATE}, READ_PHONE_STATEDATA);
-            }
+                    }
+                });
+    }
 
-        } else {
+    private void show(Permission permission) {
+        if (permission.granted) {
+//            show("授予权限 ：" + permission.name);
             ApplicationData.getDatas();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
-    {
-        if(requestCode == READ_PHONE_STATEDATA){
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // 授予权限
-//                onResumeNext();
+        } else {
+            if (permission.shouldShowRequestPermissionRationale) {
+//                show("没有勾选不再提醒，拒绝权限 ：" + permission.name);
             } else {
-                getPermission();
+                PermissionsHelper
+                        .requestDialogAgain(SelLoginActivity.this, "温馨提示",
+                                "向服务端进行进口请求需要获取手机设备号信息，用以保证请求安全，如果拒绝此权限，将无法正常进行数据请求！"
+                                , "好的", "不给");
+//                show("勾选不再提醒，拒绝权限 ：" + permission.name);
             }
-        }else{
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
-//    //获取弹窗权限
-//    private void getDialogPermission(){
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-//            if (Settings.canDrawOverlays(SelLoginActivity.this)) {
-////                Intent intent = new Intent(MainActivity.this, MainService.class);
-////                startService(intent);
-////                finish();
-//            } else {
-//                //若没有权限，提示获取.
-//                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-//                Toast.makeText(SelLoginActivity.this,"需要取得权限以使用悬浮窗",Toast.LENGTH_SHORT).show();
-//                startActivity(intent);
-//            }
-//
-//        }
-//    }
+    void show(CharSequence text) {
+        Toast.makeText(SelLoginActivity.this, text, Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "show: text =" + text);
+
+    }
 }

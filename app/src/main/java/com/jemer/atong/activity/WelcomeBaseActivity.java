@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.Window;
 
 import com.jemer.atong.R;
+import com.jemer.atong.activity.user.SelLoginActivity;
+import com.jemer.atong.activity.user.perfect_info.PerfectInfoActivity;
+import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
 import com.jemer.atong.entity.user.UserEntity;
 
@@ -49,27 +52,27 @@ public class WelcomeBaseActivity extends Activity {
         public void handleMessage(Message msg)
         {
             Intent intent_home = null;
-//            switch (msg.what) {
-//                case 0:    //没有登录成功
-//                    intent_home = new Intent(mContext, SelLoginActivity.class);
-//                    break;
-//                case 1:    //登录成功
-//                    String isall = PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_USER_ISALL, "");
-//                    if (isall.equals("0")) {
-//                        intent_home = new Intent(mContext, PerfectInfoActivity.class);
-//                    } else {
-////                        if (intent_state == -1)
-//                        intent_home = new Intent(mContext, HomeActivity.class);
-////                        else if (intent_state == 100)
-////                            intent_home = new Intent(mContext, EarActivity.class);    //耳穴检测
-//                    }
-//                    break;
-//                default:
-//                    break;
-//            }
+            switch (msg.what) {
+                case 0:    //没有登录成功
+                    intent_home = new Intent(mContext, SelLoginActivity.class);
+                    break;
+                case 1:    //登录成功
+                    String isall = PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_USER_ISALL, "");
+                    if (isall.equals("0")) {
+                        intent_home = new Intent(mContext, PerfectInfoActivity.class);
+                    } else {
+//                        if (intent_state == -1)
+                        intent_home = new Intent(mContext, HomeActivity.class);
+//                        else if (intent_state == 100)
+//                            intent_home = new Intent(mContext, EarActivity.class);    //耳穴检测
+                    }
+                    break;
+                default:
+                    break;
+            }
 //            intent_home = new Intent(mContext, PerfectInfoActivity.class);
 //            intent_home = new Intent(mContext, PerfectInfoActivity.class);
-//            intent_home = new Intent(mContext, SelLoginActivity.class);
+            intent_home = new Intent(mContext, SelLoginActivity.class);
 
             startActivity(intent_home);
             toFinish();

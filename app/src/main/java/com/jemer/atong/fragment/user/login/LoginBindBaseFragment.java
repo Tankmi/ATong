@@ -23,8 +23,13 @@ import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
 import com.jemer.atong.context.UrlConstant;
 import com.jemer.atong.entity.user.UserEntity;
+import com.jemer.atong.fragment.user.LoginController;
+import com.jemer.atong.fragment.user.LoginPresenter;
 import com.jemer.atong.view.EditTextNumberView;
 import com.jemer.atong.view.verify_code.VerificationCodeView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import huitx.libztframework.context.ContextConstant;
 import huitx.libztframework.utils.NetUtils;
@@ -42,7 +47,10 @@ import huitx.libztframework.utils.ToastUtils;
  * @date 2015年12月9日 下午3:57:39
  */
 @SuppressLint("ValidFragment")
-public class LoginBindBaseFragment extends BaseFragment implements OnClickListener, VerificationCodeView.VerifyCodeInterface {
+public class LoginBindBaseFragment extends BaseFragment implements OnClickListener, VerificationCodeView.VerifyCodeInterface,
+        LoginController.LoginView {
+
+    LoginPresenter mPresenter;
 
     protected UserEntity mUserEntity;
     String phone;
@@ -59,7 +67,21 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
 
     @Override
     protected void initHead() {
+        if(mPresenter == null){
+            mPresenter = new LoginPresenter();
+        }
+        mPresenter.attachView(this);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void destroyClose() {
+        mPresenter.detachView();
     }
 
     @Override
@@ -67,6 +89,7 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
         findView();
         if(state == 0) tv_login_hint.setText("请输入手机号");
         else tv_login_hint.setText("绑定手机号");
+
 
 //        initVerifyCodeView();
     }
@@ -144,17 +167,15 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
      * 登录 1
      */
     public void login(String verifyCode) {
-//        phone = tv_login_veri_account.getText().toString();
+        phone = tv_login_veri_account.getText().toString();
 //        String token = 	XGPushConfig.getToken(mContext);
-//
-//        RequestParams params = new RequestParams();
-//        params.addBodyParameter("phone", phone);
-////        params.addBodyParameter("psw", MD5Utils.md5(psw)); //md5加密
-//        params.addBodyParameter("vd", verifyCode);
-//        params.addBodyParameter("imei", ApplicationData.imei);
-//        params.addBodyParameter("outerToken", "a" + token);
-//        mgetNetData.GetData(this, UrlConstant.API_LOGIN, 1, params);
-//        setLoading(true,"");
+        Map<String,String> mMap = new HashMap<>();
+        mMap.put("phone", phone);
+        mMap.put("vd", verifyCode);
+        mMap.put("imei", ApplicationData.imei);
+        mMap.put("outerToken", "a12312313123123123" );
+
+        mPresenter.login(mMap);
     }
 
     /**
@@ -162,16 +183,8 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
      * 32592659
      */
     public void getVerification() {
-
-//        String phone = et_login_account.getRealNumber().toString();
-//
-//        final StringBuilder url = new StringBuilder();
-//        url.append(UrlConstant.API_VERIFICATION);
-//        RequestParams params = new RequestParams();
-//        params.addBodyParameter("phone", phone);
-//        params.addBodyParameter("imei", ApplicationData.imei);
-//        mgetNetData.GetData(this, url.toString(), 2, params);
-//        setLoading(true,"");
+        String phone = et_login_account.getRealNumber().toString();
+        mPresenter.getVerifyCode(phone);
     }
 
     /**
@@ -362,9 +375,6 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
 
     }
 
-    @Override
-    protected void destroyClose() {
-    }
 
     @Override
     protected void pauseClose() {
@@ -385,6 +395,53 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
     }
 
     protected TimeCount mTimeCount;
+
+    @Override
+    public void getVerifyCodeState(boolean state) {
+        if(state){
+            ToastUtils.showToast("验证码已发送至手机");
+            mTimeCount.start();
+            isShowVerifyCode(true);
+        }
+    }
+
+    @Override
+    public void loginState(boolean state,String isall) {
+        if(!state){
+            LOG("登录失败，错误信息：" + isall);
+            return;
+        }
+        PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_USER_ACCOUNT, phone);
+        Intent intent_home;
+        if (isall.equals("0")) {
+            intent_home = new Intent(mContext, PerfectInfoActivity.class);
+        } else {
+            intent_home = new Intent(mContext, HomeActivity.class);
+        }
+        startActivity(intent_home);
+        getActivity().finish();
+        LOG("登录：" + state);
+    }
+
+    @Override
+    public void loadingShow() {
+        setLoading(true);
+    }
+
+    @Override
+    public void loadingDissmis() {
+        setLoading(false);
+    }
+
+    @Override
+    public void loginOut() {
+        loginOut();
+    }
+
+    @Override
+    public void setPresenter(Object presenter) {
+
+    }
 
     /* 定义一个倒计时的内部类 */
     protected class TimeCount extends CountDownTimer {

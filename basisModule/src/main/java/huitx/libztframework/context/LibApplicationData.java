@@ -1,14 +1,22 @@
 package huitx.libztframework.context;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Build;
+import android.telephony.TelephonyManager;
+
+import androidx.annotation.RequiresApi;
+
 import java.util.LinkedList;
 import java.util.List;
 
 import huitx.libztframework.utils.CrashHandler;
+import huitx.libztframework.utils.LOGUtils;
+import huitx.libztframework.utils.PreferencesUtils;
 
 public class LibApplicationData extends Application {
 
@@ -28,10 +36,11 @@ public class LibApplicationData extends Application {
     public void onCreate() {
         // TODO Auto-generated method stub
         super.onCreate();
+        context = getApplicationContext();
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(getApplicationContext());//初始化抓取异常的工具类！
 
-        context = getApplicationContext();
+        imei = PreferencesUtils.getString(context, "app_imei", "");
 //        getDatas(this);
         getInstance();
 
@@ -41,12 +50,13 @@ public class LibApplicationData extends Application {
      * 获取imei号
      *
      */
-//    public static void getDatas() {
-//        // 获取IMEI号
-//        TelephonyManager tele = (TelephonyManager) context .getSystemService(TELEPHONY_SERVICE);
-//        imei = tele.getDeviceId();
-//        LOGUtils.LOG("LibApplicationData 获取IMEI号   " + imei);
-//    }
+    public static void getDatas() {
+        // 获取IMEI号
+        TelephonyManager tele = (TelephonyManager) context.getSystemService(TELEPHONY_SERVICE);
+        imei = tele.getDeviceId();
+        PreferencesUtils.putString(context,"app_imei", imei);
+        LOGUtils.LOG("LibApplicationData 获取IMEI号   " + imei);
+    }
 
 
     /**

@@ -2,6 +2,7 @@ package com.jemer.atong.net;
 
 import java.net.ConnectException;
 
+import huitx.libztframework.utils.NetUtils;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -21,7 +22,10 @@ public abstract class DefaultObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        if (e instanceof ConnectException){
+        if(!NetUtils.isAPNType()){
+            onError("");
+            onFinish();
+        } else if (e instanceof ConnectException){
             ERROR_TOAST="连接超时，请稍后重试！";
             onError(ERROR_TOAST);
             onFinish();

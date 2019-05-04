@@ -51,7 +51,8 @@ public class UrlConstant {
      * @param phone  ：手机号
      * @param imei ：手机imei号
      */
-    public static final String API_VERIFICATION = API_BASE + "sys/validcode.do";
+//    public static final String API_VERIFICATION = API_BASE + "sys/validcode.do";
+    public static final String API_VERIFICATION = "sys/validcode.do";
 
 
     /**

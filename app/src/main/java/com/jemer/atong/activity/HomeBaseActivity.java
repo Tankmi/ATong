@@ -77,6 +77,7 @@ public class HomeBaseActivity extends BaseFragmentActivity implements OnClickLis
     //
     @Override
     protected void initContent() {
+
         rel_home_main = findViewByIds(R.id.rel_home_main);
         lin_tab_home = findViewByIds(R.id.lin_tab_home);
         lin_tab_home_choiceness = findViewByIds(R.id.lin_tab_home_choiceness);

@@ -1,24 +1,10 @@
 package huitx.libztframework.view;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
-import android.text.SpannableString;
-import android.text.style.ImageSpan;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import java.lang.ref.SoftReference;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
 * @Title: MTextView.java
@@ -41,10 +27,13 @@ public class MEditText extends EditText {
 
     public MEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+
     }
 
     @Override
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
+
         InputConnection connection = super.onCreateInputConnection(outAttrs);
         int imeActions = outAttrs.imeOptions&EditorInfo.IME_MASK_ACTION;
         if ((imeActions&EditorInfo.IME_ACTION_DONE) != 0) {

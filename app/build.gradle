@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -42,6 +43,7 @@ dependencies {
     //ButterKnife
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+
     //Rxjava + okhttp + retrofit  ---------------start
     //retrofit log打印
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'

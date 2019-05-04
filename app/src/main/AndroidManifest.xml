@@ -4,6 +4,7 @@
 
 
     <application
+        android:name=".context.ApplicationData"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -38,6 +39,28 @@
                 <data android:scheme="znn" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activity.HomeActivity"
+            android:theme="@style/ThemeSplash"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+
+        <activity
+            android:name=".activity.user.perfect_info.PerfectInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+
+        <activity
+            android:name=".activity.user.AgreementActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+
+        <activity
+            android:name=".activity.user.SelLoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
 
        <!-- <activity android:name=".MainActivity">
             <intent-filter>
