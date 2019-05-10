@@ -50,20 +50,20 @@ public class BindPhoneFragment extends LoginBindBaseFragment {
         super.onClick(arg0);
         LOG("close");
         switch (arg0.getId()) {
-            case R.id.btn_login_account:    //发送手机号获取验证码
-                getVerification();
-                break;
-            case R.id.btn_login_close:    //关闭页面
-                isCanGoBack();
-                break;
-            case R.id.tv_login_veri:    //获取验证码
-                getVerification();
-                break;
-            case R.id.btn_login_verifycode:    //提交验证码
-                if(view_verifycode_login.isFinish()){
-                    bindPhoneNumber(view_verifycode_login.getContent());
-                }
-                break;
+//            case R.id.btn_login_account:    //发送手机号获取验证码
+//                getVerification();
+//                break;
+//            case R.id.btn_login_close:    //关闭页面
+//                isCanGoBack();
+//                break;
+//            case R.id.tv_login_veri:    //获取验证码
+//                getVerification();
+//                break;
+//            case R.id.btn_login_verifycode:    //提交验证码
+//                if(view_verifycode_login.isFinish()){
+//                    bindPhoneNumber(view_verifycode_login.getContent());
+//                }
+//                break;
         }
     }
 

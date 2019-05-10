@@ -3,10 +3,13 @@ package com.jemer.atong.base;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import com.jemer.atong.R;
 import com.jemer.atong.context.ApplicationData;
@@ -79,7 +82,6 @@ public abstract class BaseDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-
         Mview = View.inflate(getActivity(), MlayoutId, null);
         unbinder = ButterKnife.bind(this, Mview);
 
@@ -90,6 +92,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
         initLogic(); // 初始化逻辑
         return Mview;
     }
+
 
     /**
      * 初始化头中的各个控件,以及公共控件ImageLoader

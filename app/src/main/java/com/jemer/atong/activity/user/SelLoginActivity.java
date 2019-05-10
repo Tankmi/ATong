@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -87,6 +88,11 @@ public class SelLoginActivity extends BaseFragmentActivity {
     @Override
     protected void initContent() {
 
+    }
+
+    @Override
+    protected void initLogic() {
+        ShowOrHideLoginView(true);
     }
 
     @Override
@@ -232,7 +238,7 @@ public class SelLoginActivity extends BaseFragmentActivity {
 
     @Override
     protected void initLocation() {
-//        mLayoutUtil.drawViewRBLayout(iv_sel_login_logo, 251, 213, 0, 0, 180, 0);
+        mLayoutUtil.drawViewRBLayout(iv_sel_login_logo, 251, 213, 0, 0, 180, 0);
         mLayoutUtil.drawViewRBLayout(lin_other_login_hint, 0, 0, 0, 0, 242, 0);
         mLayoutUtil.drawViewRBLayout(rel_other_login, 350, 0, 0, 0, 36, 0);
         mLayoutUtil.drawViewRBLayout(btn_wx_login, 99, 154, 0, 0, 0, 0);
@@ -240,9 +246,7 @@ public class SelLoginActivity extends BaseFragmentActivity {
         mLayoutUtil.drawViewRBLayout(lin_phone_login, 0, 0, 0, 0, 0, 195);
     }
 
-    @Override
-    protected void initLogic() {
-    }
+
 
 
     @Override
@@ -351,7 +355,6 @@ public class SelLoginActivity extends BaseFragmentActivity {
      */
     private void ShowOrHideLoginView(boolean isShow) {
         if (loginFragment == null){
-            LOG("init LoginFragment");
             loginFragment = new LoginFragment();
         }
         if (fragmentManager == null){
@@ -359,13 +362,11 @@ public class SelLoginActivity extends BaseFragmentActivity {
         }
         fragmentTran = fragmentManager.beginTransaction();
 
-
-
         if (isShow) {
             if (loginFragment.isAdded()) fragmentTran.show(loginFragment);
             else fragmentTran.replace(R.id.fram_login_sel, loginFragment, MAIN_CONTENT_TAG);
             fragmentTran.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            fragmentTran.addToBackStack(null);
+//            fragmentTran.addToBackStack(null);
         } else if (loginFragment.isVisible()) {
             if (loginFragment.fragementIsGoBack()) {
                 fragmentTran.hide(loginFragment);
@@ -405,10 +406,10 @@ public class SelLoginActivity extends BaseFragmentActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            ShowOrHideLoginView(false);
-            return true;
-        }
+//        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+//            ShowOrHideLoginView(false);
+//            return true;
+//        }
         return super.onKeyDown(event.getKeyCode(), event);
     }
 

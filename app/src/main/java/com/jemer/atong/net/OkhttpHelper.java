@@ -50,24 +50,38 @@ public class OkhttpHelper {
         return client;
     }
 
+//    public OkHttpClient getClient(){
+//        HashMap<String,String> mDataMap = null;
+//        mOkhttpClient = new OkHttpClient().newBuilder()
+//                .writeTimeout(WRITE_OUT_TIME,  TimeUnit.SECONDS)
+//                .readTimeout(READ_OUT_TIME, TimeUnit.SECONDS)
+//                .connectTimeout(CONNECT_OUT_TIME, TimeUnit.SECONDS)
+////                .retryOnConnectionFailure(true) //设置超时时再请求一次
+//                .addInterceptor(new HeaderParameterInter())     //添加请求头参数
+////                .addInterceptor(new BodyParameterInter())     //添加公共查询参数
+////                .addInterceptor(new MutiBaseUrlInterceptor())   //添加可以处理多个Baseurl的拦截器
+//                .addInterceptor(new LoggingInterceptor())     //添加请求信息拦截器
+//                .addInterceptor(new CacheInterceptor())
+////                .addNetworkInterceptor(new CacheInterceptor())//必须要有，否则会返回504，addNetWoekInterceptor()是在网络畅通的情况下调用，addInterceptor在任何情况下都会调用
+//                .cache(new Cache(new File(ApplicationData.context.getExternalFilesDir
+//                        (PreferenceEntity.KEY_CACHE_PATH), "HDFS_HttpCache"), 14 * 1024 * 100))         //设置缓存目录，以及缓存大小
+//                .build();
+//        return mOkhttpClient;
+//    }
+
     public OkHttpClient getClient(){
         HashMap<String,String> mDataMap = null;
         mOkhttpClient = new OkHttpClient().newBuilder()
                 .writeTimeout(WRITE_OUT_TIME,  TimeUnit.SECONDS)
                 .readTimeout(READ_OUT_TIME, TimeUnit.SECONDS)
                 .connectTimeout(CONNECT_OUT_TIME, TimeUnit.SECONDS)
-//                .retryOnConnectionFailure(true) //设置超时时再请求一次
                 .addInterceptor(new HeaderParameterInter())     //添加请求头参数
-//                .addInterceptor(new BodyParameterInter())     //添加公共查询参数
-//                .addInterceptor(new MutiBaseUrlInterceptor())   //添加可以处理多个Baseurl的拦截器
                 .addInterceptor(new LoggingInterceptor())     //添加请求信息拦截器
-                .addInterceptor(new CacheInterceptor())
-//                .addNetworkInterceptor(new CacheInterceptor())//必须要有，否则会返回504，addNetWoekInterceptor()是在网络畅通的情况下调用，addInterceptor在任何情况下都会调用
-                .cache(new Cache(new File(ApplicationData.context.getExternalFilesDir
-                        (PreferenceEntity.KEY_CACHE_PATH), "HDFS_HttpCache"), 14 * 1024 * 100))         //设置缓存目录，以及缓存大小
                 .build();
         return mOkhttpClient;
     }
+
+
 
 //拦截器1、请求头参数添加   2、公共请求参数添加   3、请求信息  4、缓存   5、 log
 

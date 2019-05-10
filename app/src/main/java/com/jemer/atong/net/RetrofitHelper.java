@@ -11,6 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * 3、RetrofitHelper
  */
 public class RetrofitHelper {
+
     private static RetrofitHelper mHelper;
     //http://v.juhe.cn/weather/index?cityname=%E5%8C%97%E4%BA%AC&dtype=&format=&key=69edcefe693173e720380d6334d15e1f
     private static String BASE_URL = UrlConstant.API_BASE;

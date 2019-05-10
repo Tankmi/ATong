@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android" >
+            <corners
+                android:topLeftRadius="45dp"
+                android:topRightRadius="45dp"
+                />
+            <solid android:color="@color/white"/>
+            <padding
+                android:top="@dimen/margin_tb_normal"
+                /><!-- 各方向的间隔 -->
+        </shape>
+    </item>
+</selector>

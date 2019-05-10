@@ -64,18 +64,6 @@ public class HomeActivity extends HomeBaseActivity {
         }
     };
 
-    @Override
-   public void onClick(View view) {
-       switch(view.getId()){
-           case R.id.lin_tab_home_market:
-//               Intent intent = new Intent(HomeActivity.this, CreateDynamicActivity.class);
-////               Intent intent = new Intent(HomeActivity.this, WebViewActivity.class);
-////               intent.putExtra("url", HtmlUrlConstant.HTML_RELEASEDYNAMIC);
-////               intent.putExtra("is_refresh", false);
-//               startActivity(intent);
-               break;
-       }
-   }
 
    //保存页面的缓存信息，在onCreate方法中可以进行数据的初始化
    @Override

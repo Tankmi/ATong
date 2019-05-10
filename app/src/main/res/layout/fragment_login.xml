@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <include
         android:id="@+id/title"
         layout="@layout/title_view"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <ScrollView
         android:id="@+id/sc_login_main"
@@ -27,17 +26,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_lr_xlarge"
                 android:letterSpacing="0.1"
-                android:text="绑定手机号"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_normal"
-                />
+                android:text="登录"
+                android:textColor="#959595"
+                android:textSize="35sp" />
 
             <RelativeLayout
                 android:id="@+id/rel_login_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_tb_normal"
                 android:layout_marginLeft="@dimen/margin_lr_xlarge"
+                android:layout_marginTop="100dp"
                 android:layout_marginRight="@dimen/margin_lr_xlarge">
 
                 <com.jemer.atong.view.EditTextNumberView
@@ -51,52 +49,43 @@
                     android:inputType="phone"
                     android:letterSpacing="0.1"
                     android:maxLength="20"
+                    android:textColor="@color/text_color_login"
                     android:textColorHint="@color/text_color_hint"
-                    android:textColor="@color/text_color_normal"
-                    android:textSize="@dimen/text_size_xlarge"/>
+                    android:textSize="@dimen/text_size_xlarge" />
 
-                <Button
-                    android:id="@+id/btn_login_account"
-                    android:layout_marginTop="@dimen/margin_tb_normal"
-                    android:layout_marginBottom="@dimen/margin_tb_normal"
-                    android:layout_marginRight="@dimen/margin_lr_normal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/btn_login_arrow"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    />
 
                 <ImageView
                     style="@style/horizontal_line_style"
-                    android:layout_alignParentBottom="true"
-                    />
+                    android:layout_below="@id/et_login_account"
+                    android:layout_marginTop="@dimen/margin_tb_large" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/rel_login_verification"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/rel_login_account"
                 android:layout_marginLeft="@dimen/margin_lr_xlarge"
-                android:layout_marginRight="@dimen/margin_lr_xlarge"
                 android:layout_marginTop="@dimen/margin_tb_normal"
-                >
+                android:layout_marginRight="@dimen/margin_lr_xlarge">
 
 
-                <TextView
-                    android:id="@+id/tv_login_veri_account"
+                <EditText
+                    android:id="@+id/et_login_veri"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:background="@null"
                     android:gravity="left"
+                    android:hint="请输入验证码"
                     android:inputType="phone"
+                    android:letterSpacing="0.1"
                     android:lines="1"
                     android:maxLength="20"
-                    android:textColor="@color/text_color_hint"
-                    android:textSize="@dimen/text_size_small"/>
+                    android:textColor="@color/text_color_login"
+                    android:textColorHint="@color/text_color_hint"
+                    android:textSize="@dimen/text_size_xlarge"
+
+                    />
 
                 <TextView
                     android:id="@+id/tv_login_veri"
@@ -104,21 +93,44 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:background="@drawable/btn_verification_draw"
                     android:gravity="center"
-                    android:letterSpacing="0.1"
+                    android:letterSpacing="0.2"
                     android:paddingLeft="@dimen/margin_lr_small"
                     android:paddingRight="@dimen/margin_lr_small"
                     android:text="获取验证码"
-                    android:textColor="@color/text_color_hint"
-                    android:textSize="@dimen/text_size_small"/>
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/settings_text_size" />
+
+                <ImageView
+                    style="@style/horizontal_line_style"
+                    android:layout_below="@id/et_login_veri"
+                    android:layout_marginTop="@dimen/margin_tb_large" />
             </RelativeLayout>
 
-            <ViewStub
-                android:id="@+id/views_login_verifycode"
+            <LinearLayout
+                android:id="@+id/lin_phone_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout="@layout/viewstub_verify_code"
-                />
+                android:layout_marginTop="100dp"
+                android:layout_marginLeft="64dp"
+                android:layout_marginRight="64dp"
+                android:background="@drawable/back_transparent_login_90"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_phone_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:drawablePadding="@dimen/margin_lr_small"
+                    android:gravity="center"
+                    android:letterSpacing="0.5"
+                    android:text="登录"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_large" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -128,16 +140,9 @@
         android:id="@+id/btn_login_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_back"
         android:layout_marginLeft="@dimen/margin_lr_normal"
         android:layout_marginTop="@dimen/margin_tb_normal"
-        />
+        android:background="@drawable/btn_back" />
 
-    <ProgressBar
-        android:id="@+id/login_pb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
 
 </RelativeLayout>

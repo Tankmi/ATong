@@ -16,6 +16,7 @@ import com.jemer.atong.activity.user.perfect_info.PerfectInfoActivity;
 import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
 import com.jemer.atong.entity.user.UserEntity;
+import com.jemer.atong.web.activity.WebViewActivity;
 
 import java.lang.ref.WeakReference;
 
@@ -71,8 +72,8 @@ public class WelcomeBaseActivity extends Activity {
                     break;
             }
 //            intent_home = new Intent(mContext, PerfectInfoActivity.class);
-//            intent_home = new Intent(mContext, PerfectInfoActivity.class);
             intent_home = new Intent(mContext, SelLoginActivity.class);
+            intent_home = new Intent(mContext, HomeActivity.class);
 
             startActivity(intent_home);
             toFinish();

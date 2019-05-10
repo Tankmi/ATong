@@ -1,4 +1,4 @@
-package com.jemer.atong.view.swiperecyclerview;
+package huitx.libztframework.view.swiperecyclerview;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -16,10 +16,9 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jemer.atong.R;
-
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import huitx.libztframework.R;
 
 
 /**

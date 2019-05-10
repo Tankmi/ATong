@@ -22,6 +22,7 @@ import com.jemer.atong.R;
 import com.jemer.atong.base.BaseFragmentActivity;
 import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
+import com.jemer.atong.fragment.personal_center.PersonalCenterFragment;
 import com.jemer.atong.util.VersionTools;
 
 import java.lang.ref.WeakReference;
@@ -43,7 +44,7 @@ public class HomeBaseActivity extends BaseFragmentActivity implements OnClickLis
 //    protected HomeFragment homeFragment;
 //    protected RankingListFragment rankingFragment;
 //    protected DynamicWebViewFragment dynamicFoodFragment;
-//    protected PersonalCenterFragment settingsFragment;
+    protected PersonalCenterFragment settingsFragment;
     protected FragmentSwitchTool mFragmentSwitch;
 
     private final int VERSION_UPDATE = 100;
@@ -57,15 +58,11 @@ public class HomeBaseActivity extends BaseFragmentActivity implements OnClickLis
     private LinearLayout lin_tab_home_choiceness;
     private ImageView iv_tab_home_choiceness;
     private TextView tv_tab_home_choiceness;
+
     protected LinearLayout lin_tab_home_dynamic;
     private ImageView iv_tab_home_dynamic;
     private TextView tv_tab_home_dynamic;
-    private LinearLayout lin_releaseDynamic;
-    private ImageView iv_tab_home_market;
-    private TextView tv_tab_home_market;
-    private LinearLayout lin_tab_home4;
-    private ImageView iv_tab_home4;
-    private TextView tv_tab_home4;
+
     private LinearLayout lin_tab_home_settings;
     private ImageView iv_tab_home_settings;
     private TextView tv_tab_home_settings;
@@ -86,17 +83,10 @@ public class HomeBaseActivity extends BaseFragmentActivity implements OnClickLis
         lin_tab_home_dynamic = findViewByIds(R.id.lin_tab_home_dynamic);
         iv_tab_home_dynamic = findViewByIds(R.id.iv_tab_home_dynamic);
         tv_tab_home_dynamic = findViewByIds(R.id.tv_tab_home_dynamic);
-        lin_releaseDynamic = findViewByIds(R.id.lin_tab_home_market);
-        iv_tab_home_market = findViewByIds(R.id.iv_tab_home_market);
-        tv_tab_home_market = findViewByIds(R.id.tv_tab_home_market);
-        lin_tab_home4 = findViewByIds(R.id.lin_tab_home4);
-        iv_tab_home4 = findViewByIds(R.id.iv_tab_home4);
-        tv_tab_home4 = findViewByIds(R.id.tv_tab_home4);
         lin_tab_home_settings = findViewByIds(R.id.lin_tab_home_settings);
         iv_tab_home_settings = findViewByIds(R.id.iv_tab_home_settings);
         tv_tab_home_settings = findViewByIds(R.id.tv_tab_home_settings);
 
-        lin_releaseDynamic.setOnClickListener(this);
         initFragment();
     }
 
@@ -104,19 +94,19 @@ public class HomeBaseActivity extends BaseFragmentActivity implements OnClickLis
 //        homeFragment = new HomeFragment();
 //        dynamicFoodFragment = new DynamicWebViewFragment();
 //        rankingFragment = new RankingListFragment();
-//        settingsFragment = new PersonalCenterFragment();
-//
-//        mFragmentSwitch = new FragmentSwitchTool(getSupportFragmentManager(), R.id.fl_home);
-//        mFragmentSwitch.setClickableViews(lin_tab_home_choiceness, lin_tab_home_dynamic, lin_tab_home4, lin_tab_home_settings);
-//        mFragmentSwitch.addSelectedViews(new View[]{iv_tab_home_choiceness})
-//                .addSelectedViews(new View[]{iv_tab_home_dynamic})
-//                .addSelectedViews(new View[]{iv_tab_home4})
-//                .addSelectedViews(new View[]{iv_tab_home_settings});
-//        mFragmentSwitch.setFragments(homeFragment.getClass(), dynamicFoodFragment.getClass(),
-//                  rankingFragment.getClass(), settingsFragment.getClass());
-//
+        settingsFragment = new PersonalCenterFragment();
+
+        mFragmentSwitch = new FragmentSwitchTool(getSupportFragmentManager(), R.id.fl_home);
+        mFragmentSwitch.setClickableViews(lin_tab_home_choiceness, lin_tab_home_dynamic, lin_tab_home_settings);
+        mFragmentSwitch.addSelectedViews(new View[]{iv_tab_home_choiceness})
+                .addSelectedViews(new View[]{iv_tab_home_dynamic})
+                .addSelectedViews(new View[]{iv_tab_home_settings});
+
+        mFragmentSwitch.setFragments(settingsFragment.getClass(), settingsFragment.getClass(),
+                settingsFragment.getClass(), settingsFragment.getClass());
+
 //        mFragmentSwitch.changeTag(lin_tab_home_choiceness);
-////        mFragmentSwitch.changeTag(lin_tab_home_dynamic);
+        mFragmentSwitch.changeTag(lin_tab_home_settings);
     }
 
     @Override
@@ -199,15 +189,14 @@ public class HomeBaseActivity extends BaseFragmentActivity implements OnClickLis
         }
 
     }
+
     @Override
     protected void initLocation() {
         mLayoutUtil.setIsFullScreen(true);
         lin_tab_home.setMinimumHeight(mLayoutUtil.getWidgetHeight(100));
-        mLayoutUtil.drawViewRBLinearLayout(iv_tab_home_choiceness, 58, 58, 0, 0, 0, 0);
-        mLayoutUtil.drawViewRBLinearLayout(iv_tab_home_dynamic, 58, 58, 0, 0, 0, 0);
-        mLayoutUtil.drawViewRBLinearLayout(iv_tab_home_market, 58, 58, 0, 0, 0, 0);
-        mLayoutUtil.drawViewRBLinearLayout(iv_tab_home4, 58, 58, 0, 0, 0, 0);
-        mLayoutUtil.drawViewRBLinearLayout(iv_tab_home_settings, 58, 58, 0, 0, 0, 0);
+//        mLayoutUtil.drawViewRBLinearLayout(iv_tab_home_choiceness, 49, 44, 0, 0, 0, 0);
+//        mLayoutUtil.drawViewRBLinearLayout(iv_tab_home_dynamic, 49, 41, 0, 0, 0, 0);
+//        mLayoutUtil.drawViewRBLinearLayout(iv_tab_home_settings, 48, 45, 0, 0, 0, 0);
     }
 
     private View mDialogView;

@@ -47,7 +47,7 @@
         android:textSize="@dimen/text_size_large"
         />
 
-    <com.huidf.slimming.view.perfect_info.BirthdayRelativelayoutWheelView
+    <com.jemer.atong.view.perfect_info.BirthdayRelativelayoutWheelView
         android:id="@+id/view_guidance_birthday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

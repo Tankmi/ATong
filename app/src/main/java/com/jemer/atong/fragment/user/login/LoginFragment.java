@@ -1,14 +1,20 @@
 package com.jemer.atong.fragment.user.login;
 
+import android.Manifest;
 import android.view.View;
 
 
 import com.jemer.atong.R;
+import com.jemer.atong.activity.user.SelLoginActivity;
+import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
 import com.jemer.atong.entity.user.UserEntity;
 
 import huitx.libztframework.utils.NewWidgetSetting;
 import huitx.libztframework.utils.PreferencesUtils;
+import huitx.libztframework.utils.permission.IPermissionListenerWrap;
+import huitx.libztframework.utils.permission.Permission;
+import huitx.libztframework.utils.permission.PermissionsHelper;
 
 
 /**
@@ -38,7 +44,6 @@ public class LoginFragment extends LoginBindBaseFragment {
         mUserEntity = new UserEntity();
         mTimeCount = new TimeCount(60000, 1000);// 构造CountDownTimer对象
         et_login_account.setText(NewWidgetSetting.getInstance().filtrationStringbuffer(PreferencesUtils.getString(mContext, PreferenceEntity.KEY_USER_ACCOUNT),""));
-//        et_login_account.setText("18612037398");
     }
 
 
@@ -47,28 +52,14 @@ public class LoginFragment extends LoginBindBaseFragment {
         super.onClick(arg0);
         LOG("close");
         switch (arg0.getId()) {
-//            case R.id.btn_login_ok:
-//                setOnloginState(false);
-//                login(1);
-//                break;
-            case R.id.btn_login_account:    //发送手机号获取验证码
-                getVerification();
-                break;
             case R.id.btn_login_close:    //关闭页面
-                isCanGoBack();
+//                isCanGoBack();
+                getActivity().finish();
                 break;
             case R.id.tv_login_veri:    //获取验证码
-                getVerification();
+                if(isPermission())
+                    getVerification();
                 break;
-            case R.id.btn_login_verifycode:    //提交验证码
-                if(view_verifycode_login.isFinish()){
-                    login(view_verifycode_login.getContent());
-                }
-                break;
-//            case R.id.tv_login_aggrement:
-//                Intent intent_aggrement = new Intent(mContext, AgreementActivity.class);
-//                startActivity(intent_aggrement);
-//                break;
         }
     }
 
@@ -81,6 +72,47 @@ public class LoginFragment extends LoginBindBaseFragment {
         super.onHiddenChanged(hidden);
     }
 
+
+    private boolean isPermission(){
+        if (ApplicationData.imei == null || ApplicationData.imei.equals("")) {
+            requestPermission(new String[]{Manifest.permission.READ_PHONE_STATE });
+            return false;
+        }
+        return true;
+    }
+
+    private void requestPermission(final String[] permissions) {
+        PermissionsHelper
+                .init(getActivity())
+                .requestEachPermissions(permissions, new IPermissionListenerWrap.IEachPermissionListener() {
+                    @Override
+                    public void onAccepted(Permission permission) {
+                        show(permission);
+                    }
+
+                    @Override
+                    public void onException(Throwable throwable) {
+
+                    }
+                });
+    }
+
+    private void show(Permission permission) {
+        if (permission.granted) {
+//            show("授予权限 ：" + permission.name);
+            ApplicationData.getDatas();
+        } else {
+            if (permission.shouldShowRequestPermissionRationale) {
+//                show("没有勾选不再提醒，拒绝权限 ：" + permission.name);
+            } else {
+                PermissionsHelper
+                        .requestDialogAgain(getActivity(), "温馨提示",
+                                "向服务端进行进口请求需要获取手机设备号信息，用以保证请求安全，如果拒绝此权限，将无法正常进行数据请求！"
+                                , "好的", "不给");
+//                show("勾选不再提醒，拒绝权限 ：" + permission.name);
+            }
+        }
+    }
 
     @Override
     protected void pauseClose() {

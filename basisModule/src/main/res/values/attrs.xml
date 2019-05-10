@@ -28,4 +28,11 @@
         <!--输入框没有焦点时边框-->
         <attr name="vcv_code_bg_normal" format="reference" />
     </declare-styleable>
+
+    <!-- 引导页 -->
+    <declare-styleable name="GuideIndicator">
+        <attr name="dotMargin" format="dimension" />
+        <attr name="dotSize" format="dimension" />
+        <attr name="dot" format="reference" />
+    </declare-styleable>
 </resources>

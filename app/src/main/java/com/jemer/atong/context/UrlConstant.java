@@ -8,8 +8,8 @@ package com.jemer.atong.context;
  */
 public class UrlConstant {
 
-//    public static final String IP = "192.168.0.126:8090"; // 测试服务器地址
-    public static final String IP = "182.92.109.146:7779"; // 正式服务器地址
+    public static final String IP = "192.168.0.126:8080"; // 测试服务器地址
+//    public static final String IP = "182.92.109.146:7779"; // 正式服务器地址
 
 	public static final String API_BASE = "http://" + IP +"/";
 	public static final String API_BASEH5 =  "http://" + IP +"/";

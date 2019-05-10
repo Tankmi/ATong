@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewStub;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -31,6 +33,8 @@ import com.jemer.atong.view.verify_code.VerificationCodeView;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.OnClick;
 import huitx.libztframework.context.ContextConstant;
 import huitx.libztframework.utils.NetUtils;
 import huitx.libztframework.utils.NewWidgetSetting;
@@ -47,7 +51,7 @@ import huitx.libztframework.utils.ToastUtils;
  * @date 2015年12月9日 下午3:57:39
  */
 @SuppressLint("ValidFragment")
-public class LoginBindBaseFragment extends BaseFragment implements OnClickListener, VerificationCodeView.VerifyCodeInterface,
+public class LoginBindBaseFragment extends BaseFragment implements OnClickListener,
         LoginController.LoginView {
 
     LoginPresenter mPresenter;
@@ -87,8 +91,6 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
     @Override
     protected void initContent() {
         findView();
-        if(state == 0) tv_login_hint.setText("请输入手机号");
-        else tv_login_hint.setText("绑定手机号");
 
 
 //        initVerifyCodeView();
@@ -96,46 +98,46 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
 
 //    @Override
     public void paddingDatas(String mData, int type) {
-        setLoading(false,"");
-        setOnloginState(true);
-        Gson gson = new Gson();
-        try {
-            mUserEntity = gson.fromJson(mData, UserEntity.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (!NetUtils.isAPNType(mContext)) {
-            } else {
-                String str;
-                if(type==2) str = "验证码发送失败，请稍候重试！";
-                else str = ((state==0)?"登录":(state==1)?"绑定手机号":"") + "失败，请稍候重试！";
-                ToastUtils.showToast(str);
-            }
-            setOnloginState(true);
-            return;
-        }
-        if (mUserEntity.code == ContextConstant.RESPONSECODE_200) {
-            if (type == 1 || type == 3) {    //登录 || 绑定手机号
-                PreferenceEntity.isLogin = true;
-                PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_USER_ACCOUNT, phone);
-                PreferenceEntity.setUserEntity(mUserEntity.data);
-                Intent intent_home;
-                if (mUserEntity.data.isall.equals("0")) {
-                    intent_home = new Intent(mContext, PerfectInfoActivity.class);
-                } else {
-                    intent_home = new Intent(mContext, HomeActivity.class);
-                }
-                startActivity(intent_home);
-                getActivity().finish();
-            } else if (type == 2) {
-                ToastUtils.showToast("验证码已发送至手机");
-                mTimeCount.start();
-                isShowVerifyCode(true);
-            }
-        } else if (mUserEntity.code == ContextConstant.RESPONSECODE_310) {    //登录信息过时跳转到登录页
-            reLoading();
-        } else {
-            ToastUtils.showToast(NewWidgetSetting.getInstance().filtrationStringbuffer(mUserEntity.msg, "接口信息异常！"));
-        }
+//        setLoading(false,"");
+//        setOnloginState(true);
+//        Gson gson = new Gson();
+//        try {
+//            mUserEntity = gson.fromJson(mData, UserEntity.class);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            if (!NetUtils.isAPNType(mContext)) {
+//            } else {
+//                String str;
+//                if(type==2) str = "验证码发送失败，请稍候重试！";
+//                else str = ((state==0)?"登录":(state==1)?"绑定手机号":"") + "失败，请稍候重试！";
+//                ToastUtils.showToast(str);
+//            }
+//            setOnloginState(true);
+//            return;
+//        }
+//        if (mUserEntity.code == ContextConstant.RESPONSECODE_200) {
+//            if (type == 1 || type == 3) {    //登录 || 绑定手机号
+//                PreferenceEntity.isLogin = true;
+//                PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_USER_ACCOUNT, phone);
+//                PreferenceEntity.setUserEntity(mUserEntity.data);
+//                Intent intent_home;
+//                if (mUserEntity.data.isall.equals("0")) {
+//                    intent_home = new Intent(mContext, PerfectInfoActivity.class);
+//                } else {
+//                    intent_home = new Intent(mContext, HomeActivity.class);
+//                }
+//                startActivity(intent_home);
+//                getActivity().finish();
+//            } else if (type == 2) {
+//                ToastUtils.showToast("验证码已发送至手机");
+//                mTimeCount.start();
+//                isShowVerifyCode(true);
+//            }
+//        } else if (mUserEntity.code == ContextConstant.RESPONSECODE_310) {    //登录信息过时跳转到登录页
+//            reLoading();
+//        } else {
+//            ToastUtils.showToast(NewWidgetSetting.getInstance().filtrationStringbuffer(mUserEntity.msg, "接口信息异常！"));
+//        }
     }
 
     @Override
@@ -153,21 +155,13 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
 
     }
 
-    Handler handler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-//			UserEntity user_Entity = (UserEntity) msg.obj;
-            switch (msg.what) {
-
-            }
-        }
-
-    };
 
     /**
      * 登录 1
      */
     public void login(String verifyCode) {
-        phone = tv_login_veri_account.getText().toString();
+        phone = et_login_account.getRealNumber();
+        LOG("phone:" + phone);
 //        String token = 	XGPushConfig.getToken(mContext);
         Map<String,String> mMap = new HashMap<>();
         mMap.put("phone", phone);
@@ -183,161 +177,73 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
      * 32592659
      */
     public void getVerification() {
-        String phone = et_login_account.getRealNumber().toString();
+        String phone = et_login_account.getRealNumber();
         mPresenter.getVerifyCode(phone);
     }
 
-    /**
-     * 绑定手机号 3
-     */
-    public void bindPhoneNumber(String ver) {
-        phone = tv_login_veri_account.getText().toString();
-        String sex = PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_USER_SEX, "");
-        String name = PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_USER_NICK, "");
-        String head = PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_USER_HEADER, "");
-        String unionId = PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_APP_WX_QQ_UNIONID, "");
-
-//        LOG(sex + "," + name + "," + head + "," + unionId);
-//        String token = XGPushConfig.getToken(mContext);
-//
-//        RequestParams params = new RequestParams();
-//        params.addBodyParameter("type", type + "");
-//        params.addBodyParameter("phone", phone);
-//        params.addBodyParameter("vd", ver);
-//        params.addBodyParameter("imei", ApplicationData.imei);
-//        params.addBodyParameter("sex", sex);
-//        params.addBodyParameter("name", name);
-//        params.addBodyParameter("head", head);
-//        params.addBodyParameter("unionId", unionId);
-//        params.addBodyParameter("outerToken", "a" + token);
-//        mgetNetData.GetData(this, UrlConstant.API_WX_BIND, 3, params);
-//        setLoading(true,"");
-    }
 
 
     @Override
     protected void initLocation() {
         mLayoutUtil.setIsFullScreen(true);
         mLayoutUtil.drawViewDefaultLayout(btn_login_close, 120, 56, -1, 0, -1, 0);
+        mLayoutUtil.drawViewRBLinearLayout(tv_login_hint, 0, 0, -1, 0, 180, 0);
+//        mLayoutUtil.drawViewRBLinearLayout(rel_login_account, 0, 0, -1, -1, -1, 0);
+//        mLayoutUtil.drawViewDefaultLayout(tv_login_veri, -1, -1, 0, -1, 0, 0);
+        tv_login_veri.setMinimumWidth(mLayoutUtil.getWidgetWidth(250));
 
-        mLayoutUtil.drawViewRBLinearLayout(tv_login_hint, 0, 0, -1, 0, 232, 0);
-
-        mLayoutUtil.drawViewRBLinearLayout(rel_login_account, 0, 0, -1, -1, -1, 0);
-        mLayoutUtil.drawViewDefaultLayout(btn_login_account, 46, 46, -1, -1, -1, -1);
-
-        mLayoutUtil.drawViewDefaultLayout(tv_login_veri, -1, -1, 0, -1, 0, 0);
-        tv_login_veri.setMinimumWidth(mLayoutUtil.getWidgetWidth(148));
-
-        mLayoutUtil.drawViewRBLinearLayout(views_login_verifycode, 0, 0, 0, 0, 84, 0);
 
     }
 
     public void findView() {
         btn_login_close = findViewByIds(R.id.btn_login_close);
         sc_login_main = findViewByIds(R.id.sc_login_main);
-        rel_login_account = findViewByIds(R.id.rel_login_account);
-        tv_login_hint = findViewByIds(R.id.tv_login_hint);
-        et_login_account = findViewByIds(R.id.et_login_account);
-        btn_login_account = findViewByIds(R.id.btn_login_account);
-        rel_login_verification = findViewByIds(R.id.rel_login_verification);
-        tv_login_veri_account = findViewByIds(R.id.tv_login_veri_account);
-        tv_login_veri = findViewByIds(R.id.tv_login_veri);
-        views_login_verifycode = findViewByIds(R.id.views_login_verifycode);
 
-        btn_login_account.setOnClickListener(this);
+        rel_login_account = findViewByIds(R.id.rel_login_account);
+        et_login_account = findViewByIds(R.id.et_login_account);
+        rel_login_verification = findViewByIds(R.id.rel_login_verification);
+        tv_login_veri = findViewByIds(R.id.tv_login_veri);
+
         btn_login_close.setOnClickListener(this);
         tv_login_veri.setOnClickListener(this);
         addTextchange();
     }
 
-    /**
-     * 展示/隐藏 验证码输入框
-     */
-    protected void initVerifyCodeView() {
-        if (view_verifycode_login == null) {
-            views_login_verifycode.inflate();
-            view_verifycode_login = findViewByIds(R.id.view_verifycode_login);
-            btn_login_verifycode = findViewByIds(R.id.btn_login_verifycode);
-            view_verifycode_login.setVerifyCodeListener(this);
-            btn_login_verifycode.setOnClickListener(this);
-            btn_login_verifycode.setEnabled(false);
-            mLayoutUtil.drawViewRBLayout(view_verifycode_login, 532, 0, 0, 0, 0, 0);
-            mLayoutUtil.drawViewRBLayout(btn_login_verifycode, 46, 46, 8, -1, -1, -1);
-            view_verifycode_login.isShowCursor(false);
 
-            views_login_verifycode.setVisibility(View.VISIBLE);
-            view_verifycode_login.setVisibility(View.VISIBLE);
-
-        } else {
-            views_login_verifycode.setVisibility(View.VISIBLE);
-            view_verifycode_login.setVisibility(View.VISIBLE);
-        }
-        view_verifycode_login.clear();
-        view_verifycode_login.isShowkeyBoard(true,imm);
-    }
-
-    /** 点击返回键后的操作
-     *
-     * */
-    protected boolean isCanGoBack(){
-        if(view_verifycode_login != null && view_verifycode_login.getVisibility() == View.VISIBLE){
-            isShowVerifyCode(false);
-            return false;
-        }else{
-            et_login_account.setText("");
-            view_verifycode_login = null;
-            getFragmentManager().popBackStack();
-            return true;
-        }
-    }
 
     /** 返回false，本级消化
      * 返回true,本级没有操作，交给下一级做处理 */
     public boolean fragementIsGoBack(){
-        return isCanGoBack();
+//        return isCanGoBack();
+        return  true;
     }
 
-    protected void isShowVerifyCode(boolean isShow){
-        if(isShow){
-            tv_login_hint.setText("验证码码已发送至");
-            tv_login_veri_account.setText(et_login_account.getRealNumber().toString());
-            rel_login_account.setVisibility(View.GONE);
-            rel_login_verification.setVisibility(View.VISIBLE);
-            initVerifyCodeView();
-        }else{
-            if(state == 0) tv_login_hint.setText("请输入手机号");
-            else tv_login_hint.setText("绑定手机号");
-
-            tv_login_veri_account.setText(et_login_account.getRealNumber().toString());
-            rel_login_account.setVisibility(View.VISIBLE);
-            rel_login_verification.setVisibility(View.GONE);
-            views_login_verifycode.setVisibility(View.GONE);
-            view_verifycode_login.setVisibility(View.GONE);
-        }
-
-    }
 
     protected Button btn_login_close;
+    @BindView(R.id.tv_login_hint) protected TextView tv_login_hint;
     /** 全局父包裹 */
     protected ScrollView sc_login_main;
-    protected TextView tv_login_hint;
     /** 帐号父包裹 */
     protected RelativeLayout rel_login_account;
     /**  帐号  */
     protected EditTextNumberView et_login_account;
-    protected Button btn_login_account;
     /** 验证码父包裹  */
-    protected RelativeLayout rel_login_verification;
-    protected TextView tv_login_veri_account;
+    @BindView(R.id.rel_login_verification) protected RelativeLayout rel_login_verification;
+    @BindView(R.id.et_login_veri) protected EditText et_login_veri;
     /** 验证码按钮 */
     protected TextView tv_login_veri;
+    @BindView(R.id.lin_phone_login) protected LinearLayout lin_phone_login;
+    @BindView(R.id.btn_phone_login) protected Button btn_phone_login;
 
-    protected ViewStub views_login_verifycode;
-    protected VerificationCodeView view_verifycode_login;
-    protected Button btn_login_verifycode;
+    @OnClick({R.id.lin_phone_login,R.id.btn_phone_login}) void login(){
+        LOG("登录");
+        if(canLogin())
+        login(et_login_veri.getText().toString());
+        else
+            ToastUtils.showToast("请检查输入内容是否正确！");
 
-    /** 进度条 */
-//    protected ProgressBar login_pb;
+
+    }
 
     /**
      * 输入框添加监听
@@ -350,13 +256,12 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
                 if (s.length() > 0) {    //有内容
-                    LOG("有内容：" + (et_login_account.getRealNumber().toString()));
-                    if (StringUtils.isMobileNO(et_login_account.getRealNumber().toString()))
-//                    if (StringUtils.isMobileNO(et_login_account.getText().toString()))
-                        btn_login_account.setEnabled(true);
-                    else btn_login_account.setEnabled(false);
+                    canLogin();
+                    if (StringUtils.isMobileNO(et_login_account.getRealNumber()))
+                        tv_login_veri.setEnabled(true);
+                    else tv_login_veri.setEnabled(false);
                 } else {    //无内容
-                    btn_login_account.setEnabled(false);
+                    tv_login_veri.setEnabled(false);
                 }
             }
 
@@ -368,6 +273,13 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
             public void afterTextChanged(Editable s) {
             }
         });
+    }
+
+    public boolean canLogin() {
+        if (et_login_veri.getText().length() > 0 && StringUtils.isMobileNO(et_login_account.getRealNumber())) {
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -386,22 +298,18 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
 
 
 
-    @Override
-    public void onVerifyCodeListener(boolean isEnter, String data)
-    {
-        if(isEnter){
-            btn_login_verifycode.setEnabled(true);
-        }else btn_login_verifycode.setEnabled(false);
-    }
 
     protected TimeCount mTimeCount;
 
     @Override
     public void getVerifyCodeState(boolean state) {
+        if(!state){
+            LOG("验证码获取失败，错误信息：");
+            return;
+        }
         if(state){
             ToastUtils.showToast("验证码已发送至手机");
             mTimeCount.start();
-            isShowVerifyCode(true);
         }
     }
 
@@ -420,7 +328,6 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
         }
         startActivity(intent_home);
         getActivity().finish();
-        LOG("登录：" + state);
     }
 
     @Override

@@ -29,6 +29,8 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
+    implementation 'com.google.android.gms:play-services-plus:16.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
@@ -59,7 +61,14 @@ dependencies {
     // 支持Gson解析
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     //Rxjava + okhttp + retrofit  ---------------end
+
     //EventBus
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation project(':basisModule')
+
+    //微信分享
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+
+    //banner  github: https://github.com/threeloe/FBanner
+    implementation 'com.pngfi:fbanner:0.9.1'
 }

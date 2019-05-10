@@ -5,6 +5,7 @@ import com.jemer.atong.entity.user.UserEntity;
 import java.util.HashMap;
 
 import huitx.libztframework.context.LibPreferenceEntity;
+import huitx.libztframework.utils.LOGUtils;
 import huitx.libztframework.utils.MD5Utils;
 import huitx.libztframework.utils.NewWidgetSetting;
 import huitx.libztframework.utils.PreferencesUtils;
@@ -50,11 +51,7 @@ public class PreferenceEntity extends LibPreferenceEntity {
 		PreferencesUtils.putString(ApplicationData.context, KEY_USER_MONEY, NewWidgetSetting.getInstance().filtrationStringbuffer(data.money, "0"));
 		PreferencesUtils.putString(ApplicationData.context, KEY_APP_UPDATE_URL, NewWidgetSetting.getInstance().filtrationStringbuffer(data.url, ""));
 		PreferencesUtils.putInt(ApplicationData.context, KEY_APP_UPDATE_VERSION, data.version );
-//		PreferencesUtils.putString(ApplicationData.context, KEY_APP_WX_QQ_UNIONID, NewWidgetSetting.getInstance().filtrationStringbuffer(data.unionId,"0"));
 		PreferencesUtils.putString(ApplicationData.context, KEY_USER_SIGNATURE, "" + NewWidgetSetting.getInstance().filtrationStringbuffer(data.sign, ""));
-		PreferencesUtils.putFloat(ApplicationData.context, KEY_USER_INITIAL_WEIGHT, NewWidgetSetting.getInstance().filtrationStringbuffer(data.weight, 50.0f));
-		PreferencesUtils.putFloat(ApplicationData.context, KEY_USER_CURRENT_WEIGHT, NewWidgetSetting.getInstance().filtrationStringbuffer(data.latestWeight, 50.0f));
-		PreferencesUtils.putFloat(ApplicationData.context, KEY_USER_TARGET_WEIGHT, NewWidgetSetting.getInstance().filtrationStringbuffer(data.targetWeight, 50.0f));
 		PreferencesUtils.putString(ApplicationData.context, KEY_USER_SIGNATURE, "" + NewWidgetSetting.getInstance().filtrationStringbuffer(data.sign, ""));
 	}
 
@@ -81,24 +78,12 @@ public class PreferenceEntity extends LibPreferenceEntity {
 	/** 用户个人信息 */
 	public static void setUserInfoEntity(UserEntity.Data data) {
 		PreferencesUtils.putString(ApplicationData.context, KEY_USER_SIGNATURE, NewWidgetSetting.getInstance().filtrationStringbuffer(data.sign, ""));
-		PreferencesUtils.putString(ApplicationData.context, KEY_USER_ACCOUNT, NewWidgetSetting.getInstance().filtrationStringbuffer(data.account	, ""));
+		PreferencesUtils.putString(ApplicationData.context, KEY_USER_ACCOUNT, NewWidgetSetting.getInstance().filtrationStringbuffer(data.phone	, ""));
 		PreferencesUtils.putString(ApplicationData.context, KEY_USER_NICK, NewWidgetSetting.getInstance().filtrationStringbuffer(data.name	, ""));
 		PreferencesUtils.putString(ApplicationData.context, KEY_USER_HEADER, NewWidgetSetting.getInstance().filtrationStringbuffer(data.head, ""));
-		PreferencesUtils.putString(ApplicationData.context, KEY_USER_BMI, NewWidgetSetting.getInstance().filtrationStringbuffer(data.bmi, ""));
-		PreferencesUtils.putString(ApplicationData.context, KEY_USER_HEIGHT, NewWidgetSetting.getInstance().filtrationStringbuffer(data.height, ""));
 		PreferencesUtils.putString(ApplicationData.context, KEY_USER_SEX, NewWidgetSetting.getInstance().filtrationStringbuffer(data.sex, ""));
 		PreferencesUtils.putString(ApplicationData.context, KEY_USER_AGE, NewWidgetSetting.getInstance().filtrationStringbuffer(data.age, ""));
 		PreferencesUtils.putString(ApplicationData.context, KEY_USER_BIR, NewWidgetSetting.getInstance().filtrationStringbuffer(data.birthday, ""));
-		PreferencesUtils.putFloat(ApplicationData.context, KEY_USER_INITIAL_WEIGHT, NewWidgetSetting.getInstance().filtrationStringbuffer(data.weight, 50.0f));
-		PreferencesUtils.putFloat(ApplicationData.context, KEY_USER_CURRENT_WEIGHT, NewWidgetSetting.getInstance().filtrationStringbuffer(data.latestWeight, 50.0f));
-		PreferencesUtils.putFloat(ApplicationData.context, KEY_USER_TARGET_WEIGHT, NewWidgetSetting.getInstance().filtrationStringbuffer(data.targetWeight, 50.0f));
-		PreferencesUtils.putString(ApplicationData.context, KEY_USER_LOSE_WEIGHT_PERIOD, NewWidgetSetting.getInstance().filtrationStringbuffer(data.targetCycle, ""));
-		PreferencesUtils.putString(ApplicationData.context, KEY_USER_DYNAMIC, NewWidgetSetting.getInstance().filtrationStringbuffer(data.count, ""));
-		PreferencesUtils.putString(ApplicationData.context, KEY_USER_TARGET_WEIGHT_TIME, NewWidgetSetting.getInstance().filtrationStringbuffer(data.targetTime, ""));
-//		PreferencesUtils.putString(ApplicationData.context, KEY_PRAISE_NUM, NewWidgetSetting.getInstance().filtrationStringbuffer(data.count, "0"));
-//		PreferencesUtils.putString(ApplicationData.context, KEY_ATT_NUM, NewWidgetSetting.getInstance().filtrationStringbuffer(data.count2, "0"));
-//		PreferencesUtils.putString(ApplicationData.context, KEY_FANS_NUM, NewWidgetSetting.getInstance().filtrationStringbuffer(data.count3, "0"));
-//		PreferencesUtils.putString(ApplicationData.context, KEY_USER_MONEY, NewWidgetSetting.getInstance().filtrationStringbuffer(data.money, "0"));
 	}
 
 	/** 清空用户信息 */
@@ -157,9 +142,12 @@ public class PreferenceEntity extends LibPreferenceEntity {
 //		return params;
 //	}
 
-
 	public  static Request getLoginParamsForOkHttp(Request request){
 		HashMap map = PreferenceEntity.getLoginData();
+
+		LOGUtils.LOG("请求参数：id" + (String) map.get("id"));
+		LOGUtils.LOG("请求参数：user" + (String) map.get("user"));
+		LOGUtils.LOG("请求参数：imei" + (String) map.get("imei"));
 		return request.newBuilder()
 				.addHeader("id", (String) map.get("id"))
 				.addHeader("user", (String) map.get("user"))

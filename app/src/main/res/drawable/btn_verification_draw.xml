@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_enabled="false">
+
+        <shape>
+            <corners android:radius="90dp" />
+            <solid android:color="#dcdcdc" />
+            <padding android:bottom="@dimen/margin_tb_small" android:left="@dimen/margin_lr_small" android:right="@dimen/margin_lr_small" android:top="@dimen/margin_tb_small" /><!-- 各方向的间隔 -->
+        </shape>
+    </item>
+
+    <item android:state_enabled="true" >
+        <shape xmlns:android="http://schemas.android.com/apk/res/android" >
+            <corners android:radius="90dp" />
+            <solid   android:color="@color/text_color_login"/>
+            <padding
+                android:left="@dimen/margin_lr_small"
+                android:top="@dimen/margin_tb_xsmall"
+                android:right="@dimen/margin_lr_small"
+                android:bottom="@dimen/margin_tb_xsmall"/><!-- 各方向的间隔 -->
+        </shape>
+    </item>
+
+</selector>

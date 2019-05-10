@@ -1,5 +1,6 @@
-package com.jemer.atong.view.swiperecyclerview;
+package huitx.libztframework.view.swiperecyclerview;
 
+import android.annotation.SuppressLint;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.View;
@@ -122,6 +123,7 @@ public class GridEntrust extends SpacesItemDecorationEntrust {
         }
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         GridLayoutManager layoutManager = (GridLayoutManager) parent.getLayoutManager();

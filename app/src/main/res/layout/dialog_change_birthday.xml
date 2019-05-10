@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_account_date_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rel_account_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/back_con_time" >
+
+        <RelativeLayout
+            android:id="@+id/rel_account_date_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" >
+
+            <ImageView
+                style="@style/horizontal_line_style"
+                android:layout_alignParentBottom="true" />
+
+            <TextView
+                android:id="@+id/tv_ad_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="请选择查看明细起始日期"
+                android:textColor="#666666"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_account_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rel_account_date_title"
+            android:gravity="center_vertical" >
+
+            <huitx.libztframework.view.wheel.WheelView
+                android:id="@+id/wv_ad_year"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical" />
+
+            <huitx.libztframework.view.wheel.WheelView
+                android:id="@+id/wv_ad_month"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical" />
+
+            <huitx.libztframework.view.wheel.WheelView
+                android:id="@+id/wv_ad_day"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel_account_date_child"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" >
+
+            <ImageView
+                style="@style/horizontal_line_style"
+                android:layout_alignParentTop="true" />
+
+            <ImageView
+                style="@style/vertical_line_style"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/btn_adc_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="取消"
+                android:textColor="@color/text_color_normal"
+                android:textSize="@dimen/settings_text_size" />
+
+            <TextView
+                android:id="@+id/btn_adc_sure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/btn_adc_cancel"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="@color/text_color_normal"
+                android:textSize="@dimen/settings_text_size" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/xml_bg_white_90_pad"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="出生日期"
+        android:gravity="center"
+        android:textColor="@color/text_color_normal"
+        android:textSize="@dimen/text_size_big"
+        />
+
+    <com.jemer.atong.view.perfect_info.BirthdayRelativelayoutWheelView
+        android:id="@+id/view_birthday_dialog_wheel"
+        android:layout_marginTop="@dimen/margin_tb_large"
+        android:layout_marginLeft="@dimen/margin_lr_normal"
+        android:layout_marginRight="@dimen/margin_lr_normal"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_birthday_dialog_affirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_tb_normal"
+        android:layout_marginLeft="@dimen/margin_lr_xlarge"
+        android:layout_marginRight="@dimen/margin_lr_xlarge"
+        android:background="@drawable/back_transparent_login_90"
+        android:drawablePadding="@dimen/margin_lr_small"
+        android:gravity="center"
+        android:letterSpacing="0.5"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_large" />
+
+</LinearLayout>

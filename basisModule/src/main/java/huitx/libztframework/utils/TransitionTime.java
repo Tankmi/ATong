@@ -1,5 +1,6 @@
 package huitx.libztframework.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,6 +37,23 @@ public class TransitionTime {
     public void setEndDate(long endTime)
     {
         endDate = new Date(endTime);
+    }
+
+
+    /**
+     * 将格式化时间转换为时间戳
+     * @param s 时间的格式化字符串
+     * @param timeFormat  时间的格式 eg: yyyy-MM-dd hh:mm:ss
+     * @return
+     * @throws ParseException
+     */
+    public String dateToStamp(String s, String timeFormat) throws ParseException {
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(timeFormat);
+        Date date = simpleDateFormat.parse(s);
+        long ts = date.getTime();
+        res = String.valueOf(ts);
+        return res;
     }
 
     /**

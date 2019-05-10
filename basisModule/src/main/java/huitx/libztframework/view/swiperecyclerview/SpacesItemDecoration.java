@@ -1,4 +1,4 @@
-package com.jemer.atong.view.swiperecyclerview;
+package huitx.libztframework.view.swiperecyclerview;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;

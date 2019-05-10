@@ -1,4 +1,4 @@
-package com.jemer.atong.view.swiperecyclerview;
+package huitx.libztframework.view.swiperecyclerview;
 
 import android.annotation.SuppressLint;
 import android.graphics.Canvas;
@@ -21,7 +21,6 @@ public class LinearEntrust extends SpacesItemDecorationEntrust {
         super(leftRight, topBottom, mColor);
     }
 
-    @SuppressLint("WrongConstant")
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         LinearLayoutManager layoutManager = (LinearLayoutManager) parent.getLayoutManager();

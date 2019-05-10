@@ -7,6 +7,7 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -25,42 +26,28 @@ public interface HomeService {
     Observable<ResponseBody> getHomeChoiceness();
 
 
-    @GET(UrlConstant.API_VERIFICATION)
-    Observable<ResponseBody> getVerifyCode(@Query("phone") String phone,@Query("imei") String imei);
+//    @GET(UrlConstantRx.API_VERIFICATION)
+//    Observable<ResponseBody> getVerifyCode(@Query("phone") String phone,@Query("imei") String imei);
+
+    @POST(UrlConstantRx.API_VERIFICATION)
+    @FormUrlEncoded
+    Observable<ResponseBody> getVerifyCode(@Field("phone") String phone, @Field("imei") String imei);
 
     @POST(UrlConstantRx.API_LOGIN)
     @FormUrlEncoded
     Observable<ResponseBody> login(@FieldMap Map<String, String> map);
 
 
+    @POST(UrlConstantRx.API_SYSISALL)
+    @FormUrlEncoded
+    Observable<ResponseBody> perfectInfo(@FieldMap Map<String, String> map);
 
-    //@path 用于匹配大括号中的缺省值
-//    @GET("weather/{city_name}")
-//    Call<ResponseBody> getWeather(@Path("city_name") String cityName);
+    @GET(UrlConstantRx.GET_PERSONAL_CENTER)
+    Observable<ResponseBody> getUserInfo();
 
-    //@Query  用于在域名后面添加请求值（key-map形式）
-//    @GET("weather")
-//    Call<ResponseBody> getWeather(@Query("city") String cityName);
+    @POST(UrlConstantRx.API_UPDATEPERSONAL)
+    @FormUrlEncoded
+    Observable<ResponseBody> updateUserInfo(@FieldMap Map<String, String> map);
 
-//    @GET("weather")
-//    Call<ResponseBody> getWeather(@QueryMap() Map<String,String> map);
 
-    //情形 http://192.168.0.1/comment
-    //body参数：{"comment_id":"1","content":"我是评论","user_id":"1001"}
-//    @FormUrlEncoded
-//    @POST("comment")
-//    Observable<ResponseBody> createDynamic(@Field("comment_id") String comment_id, @Field("content") String content, @Field("user_id") String user_id);
-
-//    @FormUrlEncoded
-//    @POST("comment")
-//    Observable<ResponseBody> createDynamic(@FieldMap() Map<String,String> map);
-
-//    @POST("comment")
-//    Observable<ResponseBody> createDynamic(@Body Object requestBean);
-//
-//    @POST("comment")
-//    Observable<ResponseBody> createDynamic(@Body List<Object> requestBean);
-
-//    @POST("upload/")
-//    Observable<ResponseBody> createDynamic(@Body RequestBody requestBody);
 }

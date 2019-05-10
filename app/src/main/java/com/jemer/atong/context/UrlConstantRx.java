@@ -8,25 +8,16 @@ package com.jemer.atong.context;
  */
 public class UrlConstantRx {
 
-//    public static final String IP = "192.168.0.126:8090"; // 测试服务器地址
-    public static final String IP = "182.92.109.146:7779"; // 正式服务器地址
 
-	public static final String API_BASE = "http://" + IP +"/";
-	public static final String API_BASEH5 =  "http://" + IP +"/";
 
-//    public static final String API_BASE = "http://192.168.0.126:8090/"; // 测试服务器地址  张琪
-//    public static final String API_BASE = "http://192.168.0.28:8090/"; // 测试服务器地址  高玲
-//    public static final String API_BASEH5 = "http://192.168.0.142:8090/"; // H5测试服务器地址
-    /**
-     * 示例： 接口介绍
-     * @param 参数名  ：参数介绍 ...
-     */
-    public static final String API_XXX = API_BASE + "...";
 
     /**
-     * 获取精选内容
+     * 获取验证码
+     *
+     * @param phone  ：手机号
+     * @param imei ：手机imei号
      */
-    public static final String POST_POST_MAINPAGE = API_BASE + "main/mainPage.do";
+    public static final String API_VERIFICATION = "sys/validcode.do";
 
     /**
      * 登录
@@ -35,6 +26,13 @@ public class UrlConstantRx {
      * @param imei  ：手机imei号
      */
     public static final String API_LOGIN = "sys/login.do";
+
+
+    /**
+     * 注册成功后补全信息
+     */
+    public static final String API_SYSISALL = "user/isall.do";
+
 
     /** 微信登录 */
     public static final String API_WX_LOGIN = "sys/wechatLogin.do";
@@ -45,25 +43,8 @@ public class UrlConstantRx {
     /** QQ登录 */
     public static final String API_QQ_LOGIN = "sys/qqLogin.do";
 
-    /**
-     * 获取验证码
-     *
-     * @param phone  ：手机号
-     * @param imei ：手机imei号
-     */
-//    public static final String API_VERIFICATION = "sys/validcode.do";
-    public static final String API_VERIFICATION = "sys/validcode.do";
 
 
-    /**
-     * 注册成功后补全信息
-     *
-     * @param birthday" : "生日"
-     * @param "height" : "升高"   double类型
-     * @param isDiabetes" : "是否糖尿病"  0是  1否
-     * @param "isKedneyDisease" : "是否肾功能不全"  0是  1否
-     */
-    public static final String API_SYSISALL = "user/isall.do";
 
     /**
      * 修改用户信息

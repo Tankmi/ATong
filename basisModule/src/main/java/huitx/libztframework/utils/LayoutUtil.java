@@ -62,7 +62,9 @@ public class LayoutUtil {
 
     public LayoutUtil() {
         normalW = 750;
-        normalH = 1344;
+        normalH = 1334;
+//        normalW = 1125;
+//        normalH = 2436;
         StatusBarHeight = LibPreferenceEntity.ScreenTop;    //虚拟键盘的高
         navigationBarHeight = LibPreferenceEntity.ScreenTitle_navigationBarHeight;    //虚拟键盘的高
         ScreenWidth = LibPreferenceEntity.screenWidth;    //屏幕的宽
