@@ -33,7 +33,7 @@
                     android:id="@+id/rel_sett_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
                     android:layout_marginLeft="@dimen/margin_lr_normal"
                     android:layout_marginRight="@dimen/margin_lr_normal"
                     >
@@ -77,6 +77,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/margin_tb_xsmall"
                         android:layout_marginLeft="@dimen/margin_lr_large"
                         android:layout_toRightOf="@id/rl_sett_header"
                         android:background="@drawable/bg_white_90_pad"

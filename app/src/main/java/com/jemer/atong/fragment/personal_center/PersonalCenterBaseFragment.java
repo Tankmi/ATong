@@ -353,7 +353,7 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
     @Override
     protected void initLocation() {
         mLayoutUtil.drawViewRBLinearLayout(rl_settings_title, 0, 415, 0, 0, 0, 0);
-        mLayoutUtil.drawViewRBLayout(rel_sett_info, 0, 123, -1, -1, 80, -1);
+        mLayoutUtil.drawViewRBLayout(rel_sett_info, 0, 114, -1, -1, 80, -1);
 //        rel_sett_info.setMinimumHeight(mLayoutUtil.getWidgetHeight(123));
 //        mLayoutUtil.drawViewDefaultLayout(rel_settings_title, -1,
 //                mLayoutUtil.getWidgetHeight(362) - (int) PreferenceEntity.ScreenTop + mLayoutUtil.getWidgetHeight(215) / 2,

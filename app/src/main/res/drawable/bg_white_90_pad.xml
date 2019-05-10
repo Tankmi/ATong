@@ -7,8 +7,7 @@
             <padding
                 android:left="@dimen/margin_lr_normal"
                 android:right="@dimen/margin_lr_normal"
-                android:top="2dp"
-                android:bottom="2dp"/><!-- 各方向的间隔 -->
+                /><!-- 各方向的间隔 -->
         </shape>
     </item>
 </selector>
