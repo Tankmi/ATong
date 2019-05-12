@@ -296,11 +296,7 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
     public void onClick(View arg0) {
     }
 
-
-
-
     protected TimeCount mTimeCount;
-
     @Override
     public void getVerifyCodeState(boolean state) {
         if(!state){

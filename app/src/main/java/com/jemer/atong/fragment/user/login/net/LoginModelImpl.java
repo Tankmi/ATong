@@ -87,6 +87,35 @@ public class LoginModelImpl implements LoginController.LoginModel {
                         entity.onFinish();
                     }
                 });
+
+    }
+
+    @Override
+    public void updatePhone(BaseHttpEntity<ResponseBody> entity, Map<String, String> map) {
+        service.changePhone(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DefaultObserver<ResponseBody>() {
+                    @Override
+                    public void onSuccess(ResponseBody data) {
+                        LOGUtils.LOG("getModel  onSuccess");
+                        entity.onSuccess(data);
+                        entity.onFinish();
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        LOGUtils.LOG("getModel  onError" + error);
+                        entity.onFinish();
+                        entity.onError(error);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        LOGUtils.LOG("getModel  onFinish");
+                        entity.onFinish();
+                    }
+                });
     }
 
 }

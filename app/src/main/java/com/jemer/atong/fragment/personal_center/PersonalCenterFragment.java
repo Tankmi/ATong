@@ -56,7 +56,7 @@ public class PersonalCenterFragment extends PersonalCenterBaseFragment {
                 requestPermission(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE});
                 break;
             case R.id.ll_sett_phone:    //手机号
-
+                ShowAlterPhoneDialog();
                 break;
             case R.id.ll_sett_bir:    //生日
                 ShowBirthdayDialog();

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- solid指定形状的填充色，只有android:color一个属性 -->
+    <solid android:color="@color/back_update_progress_pb" />
+    <!-- 设置渐变色，起始颜色，结束颜色 -->
+    <!--<gradient android:startColor="#fadd9b" />-->
+    <!--<gradient android:endColor="#fa8419" />-->
+    <!-- padding设置内容区域离边界的间距 -->
+    <!-- corners设置圆角，只适用于rectangle -->
+    <corners android:radius="10dp" />
+
+</shape>

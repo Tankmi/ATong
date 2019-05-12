@@ -26,6 +26,7 @@ import com.jemer.atong.base.BaseFragment;
 import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
 import com.jemer.atong.entity.user.UserEntity;
+import com.jemer.atong.fragment.personal_center.dialog.AlterPhoneDialogFragment;
 import com.jemer.atong.fragment.personal_center.dialog.BirthdayDialogFragment;
 import com.jemer.atong.fragment.personal_center.dialog.SexDialogFragment;
 import com.jemer.atong.net.DefaultObserver;
@@ -62,7 +63,7 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
     private String birthday;
     private String user_header;
     //1男2女
-    private String user_sex;
+    private String user_sex="";
 
     public PersonalCenterBaseFragment(int layoutId) {
         super(layoutId);
@@ -144,10 +145,12 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
 
     SexDialogFragment playQueueFragment;
     BirthdayDialogFragment birthDialogFragment;
+    AlterPhoneDialogFragment alterPhoneDialogFragment;
     private FragmentManager fragmentManager;
     private String DIALOG_SEX_TAG = "sexdialog";
     private String DIALOG_BIR_TAG = "birdialog";
-    
+    private String DIALOG_AP_TAG = "apdialog";
+
     /**
      * 显示选择性别框
      */
@@ -165,7 +168,7 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
     }
 
     /**
-     * 显示选择性别框
+     * 显示选择生日框
      */
     protected void ShowBirthdayDialog()
     {
@@ -180,6 +183,16 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
 
         });
         birthDialogFragment.show(fragmentManager,DIALOG_BIR_TAG);
+    }
+
+    /**
+     * 显示修改手机号框
+     */
+    protected void ShowAlterPhoneDialog()
+    {
+        if (alterPhoneDialogFragment == null) alterPhoneDialogFragment = new AlterPhoneDialogFragment();
+        if (fragmentManager == null) fragmentManager = getChildFragmentManager();
+        alterPhoneDialogFragment.show(fragmentManager,DIALOG_AP_TAG);
     }
 
 
@@ -352,8 +365,8 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
 
     @Override
     protected void initLocation() {
-        mLayoutUtil.drawViewRBLinearLayout(rl_settings_title, 0, 415, 0, 0, 0, 0);
-        mLayoutUtil.drawViewRBLayout(rel_sett_info, 0, 114, -1, -1, 80, -1);
+        mLayoutUtil.drawViewRBLinearLayout(rl_settings_title, 0, 433, 0, 0, 0, 0);
+        mLayoutUtil.drawViewRBLayout(rel_sett_info, 0, 114, -1, -1, 120, -1);
 //        rel_sett_info.setMinimumHeight(mLayoutUtil.getWidgetHeight(123));
 //        mLayoutUtil.drawViewDefaultLayout(rel_settings_title, -1,
 //                mLayoutUtil.getWidgetHeight(362) - (int) PreferenceEntity.ScreenTop + mLayoutUtil.getWidgetHeight(215) / 2,
@@ -364,8 +377,6 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
         mLayoutUtil.drawViewRBLayout(rl_sett_header, 114, 114, 0, 0, -1, -1);
         mLayoutUtil.drawViewRBLayout(iv_sett_header, 114, 114, 0, 0, -1, -1);
         mLayoutUtil.drawViewRBLayout(iv_sett_header_sex, 40, 40, 0, 0, -1, -1);
-//        mLayoutUtil.drawViewRBLayout(tv_setti_name, -1, -1, -1, -1, 10, -1);
-//        mLayoutUtil.drawViewRBLayout(tv_setti_phone, -1, -1, -1, -1, -1, 15);
     }
 
     @Override

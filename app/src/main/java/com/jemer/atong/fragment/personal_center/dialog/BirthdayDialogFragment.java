@@ -53,7 +53,7 @@ public class BirthdayDialogFragment extends BaseDialogFragment implements Birthd
         //设置从底部弹出
         WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
         params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+//        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setAttributes(params);
     }
 

@@ -6,7 +6,7 @@
         <shape>
             <corners android:radius="90dp" />
             <solid android:color="#dcdcdc" />
-            <padding android:bottom="@dimen/margin_tb_small" android:left="@dimen/margin_lr_small" android:right="@dimen/margin_lr_small" android:top="@dimen/margin_tb_small" /><!-- 各方向的间隔 -->
+            <padding android:bottom="@dimen/margin_tb_small" android:left="@dimen/margin_lr_8" android:right="@dimen/margin_lr_8" android:top="@dimen/margin_tb_small" /><!-- 各方向的间隔 -->
         </shape>
     </item>
 
@@ -15,9 +15,9 @@
             <corners android:radius="90dp" />
             <solid   android:color="@color/text_color_login"/>
             <padding
-                android:left="@dimen/margin_lr_small"
+                android:left="@dimen/margin_lr_8"
+                android:right="@dimen/margin_lr_8"
                 android:top="@dimen/margin_tb_xsmall"
-                android:right="@dimen/margin_lr_small"
                 android:bottom="@dimen/margin_tb_xsmall"/><!-- 各方向的间隔 -->
         </shape>
     </item>

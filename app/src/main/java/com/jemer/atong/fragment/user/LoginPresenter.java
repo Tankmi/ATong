@@ -130,4 +130,46 @@ public class LoginPresenter implements LoginController.LoginPresenter {
         },map);
         return false;
     }
+
+    /** 修改手机号 */
+    public boolean UpdatePhone(Map<String, String> map){
+        mView.loadingShow();
+        mModel.Login(new BaseHttpEntity<ResponseBody>() {
+            @Override
+            public void onSuccess(ResponseBody data) {
+
+                Gson gson = new Gson();
+                UserEntity mEntity;
+                try {
+                    String str = StringUtils.replaceJson(data.string());
+                    mEntity = gson.fromJson(str, UserEntity.class);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return;
+                }
+
+                if (mEntity.code == ContextConstant.RESPONSECODE_200) {
+                    ToastUtils.showToast(mEntity.msg);
+                    mView.loginState(true, mEntity.msg);
+
+                } else if (mEntity.code == ContextConstant.RESPONSECODE_310) {    //登录信息过时跳转到登录页
+                    mView.loginOut();
+                } else {
+                    ToastUtils.showToast(NewWidgetSetting.getInstance().filtrationStringbuffer(mEntity.msg, "接口信息异常！"));
+                }
+
+            }
+
+            @Override
+            public void onError(String error) {
+                mView.loginState(false,error);
+            }
+
+            @Override
+            public void onFinish() {
+                mView.loadingDissmis();
+            }
+        },map);
+        return false;
+    }
 }

@@ -32,5 +32,6 @@ public class LoginController {
     public interface LoginModel{
         void GetVerification(BaseHttpEntity<ResponseBody> entity, String phone, String key);
         void Login(BaseHttpEntity<ResponseBody> entity, Map<String, String> map);
+        void updatePhone(BaseHttpEntity<ResponseBody> entity, Map<String, String> map);
     }
 }

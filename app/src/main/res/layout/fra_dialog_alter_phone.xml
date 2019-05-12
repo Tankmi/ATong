@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog_white_5"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btn_ap_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="@dimen/margin_lr_normal"
+        android:background="@drawable/btn_close"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_alter_phone_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/margin_lr_normal"
+        android:layout_marginTop="@dimen/margin_tb_large"
+        android:layout_marginRight="@dimen/margin_lr_normal">
+
+        <EditText
+            android:id="@+id/et_ap_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入新手机号"
+            android:inputType="phone"
+            android:letterSpacing="0.1"
+            android:maxLength="20"
+            android:textColor="@color/text_color_login"
+            android:textColorHint="@color/text_color_hint"
+            android:textSize="@dimen/text_size_large" />
+
+
+        <ImageView
+            style="@style/horizontal_line_style"
+            android:layout_marginTop="@dimen/margin_tb_normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_alter_phone_verification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/margin_lr_normal"
+        android:layout_marginRight="@dimen/margin_lr_normal"
+        android:layout_marginTop="@dimen/margin_tb_normal"
+        >
+
+
+        <EditText
+            android:id="@+id/et_ap_veri"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:gravity="left"
+            android:hint="请输入验证码"
+            android:inputType="phone"
+            android:letterSpacing="0.1"
+            android:lines="1"
+            android:maxLength="8"
+            android:textColor="@color/text_color_login"
+            android:textColorHint="@color/text_color_hint"
+            android:textSize="@dimen/text_size_large"
+
+            />
+
+        <TextView
+            android:id="@+id/tv_ap_veri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_verification_draw"
+            android:gravity="center"
+            android:letterSpacing="0.2"
+            android:paddingRight="@dimen/margin_lr_small"
+            android:text="获取验证码"
+            android:textColor="@color/white"
+            android:textSize="@dimen/settings_text_size" />
+
+    </LinearLayout>
+
+    <ImageView
+        style="@style/horizontal_line_style"
+        android:layout_marginLeft="@dimen/margin_lr_normal"
+        android:layout_marginRight="@dimen/margin_lr_normal"
+        android:layout_marginTop="@dimen/margin_tb_normal" />
+
+    <Button
+        android:id="@+id/btn_ap_dialog_affirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_lr_xlarge"
+        android:layout_marginRight="@dimen/margin_lr_xlarge"
+        android:layout_marginTop="@dimen/margin_tb_xlarge"
+        android:background="@drawable/back_transparent_login_90"
+        android:drawablePadding="@dimen/margin_lr_small"
+        android:gravity="center"
+        android:letterSpacing="0.1"
+        android:text="修改手机号"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_large" />
+
+</LinearLayout>

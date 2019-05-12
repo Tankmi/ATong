@@ -74,6 +74,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         //设置样式
         setStyle(DialogFragment.STYLE_NO_FRAME, R.style.CustomDatePickerDialog);
+
         super.onCreate(savedInstanceState);
 
     }

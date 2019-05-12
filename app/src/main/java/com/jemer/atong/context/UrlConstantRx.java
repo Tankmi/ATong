@@ -28,6 +28,10 @@ public class UrlConstantRx {
     public static final String API_LOGIN = "sys/login.do";
 
 
+    /** 修改绑定的手机号 */
+    public static final String API_CHANGE_PHONE = "user/chgphone.do";
+
+
     /**
      * 注册成功后补全信息
      */
@@ -86,8 +90,6 @@ public class UrlConstantRx {
     /** 获取用户个人信息 */
     public static final String GET_PERSONAL_CENTER= "personal/myCenter.do";
 
-    /** 修改绑定的手机号 */
-    public static String API_CHANGE_PHONE = "user/chgphone.do";
 
 
     // ***********************************动态

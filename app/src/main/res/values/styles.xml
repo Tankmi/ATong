@@ -34,6 +34,12 @@
         <item name="android:windowAnimationStyle">@style/dialog_fragment_animation</item>
     </style>
 
+    <!-- dialog fragment弹框 -->
+    <style name="AlterPhoneDialog" parent="@style/CustomDatePickerDialog">
+        <item name="android:paddingLeft">@dimen/margin_lr_xlarge</item>
+        <item name="android:paddingRight">@dimen/margin_lr_xlarge</item>
+    </style>
+
     <!-- 选择生日对话框样式 -->
     <style name="ShareDialog" parent="@android:Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>

@@ -216,66 +216,66 @@ public class HomeBaseActivity extends BaseFragmentActivity implements OnClickLis
      * 1,提示更新，2，更新
      */
     protected void initDialogView(int type, final String url) {
-//        if (dialog != null && dialog.isShowing()) {
-//            dialog.dismiss();
-//        }
-//        if (mDialogView == null) {
-//            mDialogView = View.inflate(this, R.layout.dialog_update_affirm, null);
-//            lin_dialog_update_affirm = findViewByIds(mDialogView, R.id.lin_dialog_update_affirm);
-//            iv_dialog_update_affirm = findViewByIds(mDialogView, R.id.iv_dialog_update_affirm);
-//            tv_dialog_update_affirm = findViewByIds(mDialogView, R.id.tv_dialog_update_affirm);
-//            progress = findViewByIds(mDialogView, R.id.progress);
-//            tv_dua_progress = findViewByIds(mDialogView, R.id.tv_dua_progress);
-//            lin_dia_update_bottom = findViewByIds(mDialogView, R.id.lin_dia_update_bottom);
-//            lin_dia_update_sel = findViewByIds(mDialogView, R.id.lin_dia_update_sel);
-//            btn_dia_update_cancel = findViewByIds(mDialogView, R.id.btn_dia_update_cancel);
-//            btn_dia_update_affirm = findViewByIds(mDialogView, R.id.btn_dia_update_affirm);
-//
-//            lin_dialog_update_affirm.setMinimumHeight(mLayoutUtil.getWidgetHeight(232));
-//            mLayoutUtil.drawViewRBLinearLayouts(lin_dialog_update_affirm, 0.7f, 0, 0, 0, 0, 0);
-//            mLayoutUtil.drawViewRBLinearLayout(iv_dialog_update_affirm, 150, 150, 0, 0, 54, 0);
-//
-//            btn_dia_update_cancel.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (dialog != null) {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+        if (mDialogView == null) {
+            mDialogView = View.inflate(this, R.layout.dialog_update_affirm, null);
+            lin_dialog_update_affirm = findViewByIds(mDialogView, R.id.lin_dialog_update_affirm);
+            iv_dialog_update_affirm = findViewByIds(mDialogView, R.id.iv_dialog_update_affirm);
+            tv_dialog_update_affirm = findViewByIds(mDialogView, R.id.tv_dialog_update_affirm);
+            progress = findViewByIds(mDialogView, R.id.progress);
+            tv_dua_progress = findViewByIds(mDialogView, R.id.tv_dua_progress);
+            lin_dia_update_bottom = findViewByIds(mDialogView, R.id.lin_dia_update_bottom);
+            lin_dia_update_sel = findViewByIds(mDialogView, R.id.lin_dia_update_sel);
+            btn_dia_update_cancel = findViewByIds(mDialogView, R.id.btn_dia_update_cancel);
+            btn_dia_update_affirm = findViewByIds(mDialogView, R.id.btn_dia_update_affirm);
+
+            lin_dialog_update_affirm.setMinimumHeight(mLayoutUtil.getWidgetHeight(232));
+            mLayoutUtil.drawViewRBLinearLayouts(lin_dialog_update_affirm, 0.7f, 0, 0, 0, 0, 0);
+            mLayoutUtil.drawViewRBLinearLayout(iv_dialog_update_affirm, 150, 150, 0, 0, 54, 0);
+
+            btn_dia_update_cancel.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (dialog != null) {
+                        DialogUIUtils.dismiss(dialog);
+                    }
+                }
+            });
+            btn_dia_update_affirm.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (dialog != null) {
+
+                        initDialogView(2, "");
+                        updateVersion(url);
 //                        DialogUIUtils.dismiss(dialog);
-//                    }
-//                }
-//            });
-//            btn_dia_update_affirm.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (dialog != null) {
-//
-//                        initDialogView(2, "");
-//                        updateVersion(url);
-////                        DialogUIUtils.dismiss(dialog);
-//                    }
-//                }
-//            });
-//        }
-//        if (type == 1) {
-//            tv_dialog_update_affirm.setText("慧大夫减肥瘦身有新的版本升级");
-//            iv_dialog_update_affirm.setVisibility(View.VISIBLE);
-//            progress.setVisibility(View.GONE);
-//            tv_dua_progress.setVisibility(View.GONE);
-//            lin_dia_update_bottom.setVisibility(View.VISIBLE);
-//        } else {
-//            tv_dialog_update_affirm.setText("正在更新中");
-//            tv_dua_progress.setText("0%");
-//            iv_dialog_update_affirm.setVisibility(View.GONE);
-//            progress.setVisibility(View.VISIBLE);
-//            tv_dua_progress.setVisibility(View.VISIBLE);
-//            lin_dia_update_bottom.setVisibility(View.GONE);
-//        }
-//
-//
-//        if (dialog == null)
-//            dialog = DialogUIUtils.showCustomAlert(this, mDialogView, Gravity.CENTER, true, false).show();
-//        else dialog.show();
-//
-//        dialog.setOnDismissListener(this);
+                    }
+                }
+            });
+        }
+        if (type == 1) {
+            tv_dialog_update_affirm.setText("慧大夫减肥瘦身有新的版本升级");
+            iv_dialog_update_affirm.setVisibility(View.VISIBLE);
+            progress.setVisibility(View.GONE);
+            tv_dua_progress.setVisibility(View.GONE);
+            lin_dia_update_bottom.setVisibility(View.VISIBLE);
+        } else {
+            tv_dialog_update_affirm.setText("正在更新中");
+            tv_dua_progress.setText("0%");
+            iv_dialog_update_affirm.setVisibility(View.GONE);
+            progress.setVisibility(View.VISIBLE);
+            tv_dua_progress.setVisibility(View.VISIBLE);
+            lin_dia_update_bottom.setVisibility(View.GONE);
+        }
+
+
+        if (dialog == null)
+            dialog = DialogUIUtils.showCustomAlert(this, mDialogView, Gravity.CENTER, true, false).show();
+        else dialog.show();
+
+        dialog.setOnDismissListener(this);
 
     }
 
@@ -345,11 +345,11 @@ public class HomeBaseActivity extends BaseFragmentActivity implements OnClickLis
 //        }
     }
 
-    WebViewClient mWebViewClient = new WebViewClient() {
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
-            LOG("加载url结束:" + url);
-        }
-    };
+//    WebViewClient mWebViewClient = new WebViewClient() {
+//        @Override
+//        public void onPageFinished(WebView view, String url) {
+//            super.onPageFinished(view, url);
+//            LOG("加载url结束:" + url);
+//        }
+//    };
 }

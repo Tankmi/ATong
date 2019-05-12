@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@android:id/background">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <corners android:radius="10dp" />
+            <solid android:color="@color/back_update_progress" />
+
+        </shape>
+    </item>
+
+    <item android:id="@android:id/progress">
+
+        <!--<shape xmlns:android="http://schemas.android.com/apk/res/android">-->
+            <!--<corners android:radius="10dp" />-->
+            <!--<solid android:color="@color/back_update_progress_pb" />-->
+        <!--</shape>-->
+
+        <scale android:scaleWidth="100%"
+            android:drawable="@drawable/back_progressbar_pb"/>
+    </item>
+
+</layer-list>

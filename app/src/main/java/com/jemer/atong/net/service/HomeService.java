@@ -37,6 +37,10 @@ public interface HomeService {
     @FormUrlEncoded
     Observable<ResponseBody> login(@FieldMap Map<String, String> map);
 
+    @POST(UrlConstantRx.API_CHANGE_PHONE)
+    @FormUrlEncoded
+    Observable<ResponseBody> changePhone(@FieldMap Map<String, String> map);
+
 
     @POST(UrlConstantRx.API_SYSISALL)
     @FormUrlEncoded
