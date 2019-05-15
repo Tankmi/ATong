@@ -221,12 +221,12 @@ public class SelLoginActivity extends BaseFragmentActivity {
 //    };
 //
 //    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+//    protected void onActivityResult(int requestCode, int resultCode, Intent list)
 //    {
 //        if (requestCode == Constants.REQUEST_LOGIN) {
-//            mTencent.handleLoginData(data, mQQListener);
+//            mTencent.handleLoginData(list, mQQListener);
 //        }
-//        super.onActivityResult(requestCode, resultCode, data);
+//        super.onActivityResult(requestCode, resultCode, list);
 //    }
 
 
@@ -318,13 +318,13 @@ public class SelLoginActivity extends BaseFragmentActivity {
 //        }
 //        if (mUserEntity.code == ContextConstant.RESPONSECODE_200) {
 //            if (type == 2 || type == 3) {   //微信登录, QQ登录
-//                if (type == 2)  PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_APP_WX_QQ_UNIONID, mUserEntity.data.unionId + "");
-//                PreferenceEntity.setUserEntity(mUserEntity.data);
-//                if (mUserEntity.data.type.equals("1")) {
+//                if (type == 2)  PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_APP_WX_QQ_UNIONID, mUserEntity.list.unionId + "");
+//                PreferenceEntity.setUserEntity(mUserEntity.list);
+//                if (mUserEntity.list.type.equals("1")) {
 //                    ShowOrHideBindPhoneView(true, type);
 //                } else {
 //                    Intent intent_home;
-//                    if (mUserEntity.data.isall.equals("0")) {
+//                    if (mUserEntity.list.isall.equals("0")) {
 //                        intent_home = new Intent(mContext, PerfectInfoActivity.class);
 //                    } else {
 //                        intent_home = new Intent(mContext, HomeActivity.class);

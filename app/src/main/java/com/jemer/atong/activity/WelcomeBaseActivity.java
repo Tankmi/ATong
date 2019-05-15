@@ -72,7 +72,7 @@ public class WelcomeBaseActivity extends Activity {
                     break;
             }
 //            intent_home = new Intent(mContext, PerfectInfoActivity.class);
-            intent_home = new Intent(mContext, SelLoginActivity.class);
+//            intent_home = new Intent(mContext, SelLoginActivity.class);
             intent_home = new Intent(mContext, HomeActivity.class);
 
             startActivity(intent_home);

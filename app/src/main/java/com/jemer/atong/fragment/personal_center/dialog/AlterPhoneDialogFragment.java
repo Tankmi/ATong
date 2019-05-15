@@ -32,6 +32,8 @@ import com.jemer.atong.fragment.user.login.LoginBindBaseFragment;
 import com.jemer.atong.view.EditTextNumberView;
 import com.jemer.atong.view.perfect_info.BirthdayRelativelayoutWheelView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,7 +65,7 @@ public class AlterPhoneDialogFragment extends BaseDialogFragment implements Logi
     protected EditText et_ap_account;
     @BindView(R.id.et_ap_veri) protected EditText et_ap_veri;
     @BindView(R.id.tv_ap_veri) protected TextView tv_ap_veri;
-//    @BindView(R.id.btn_ap_dialog_affirm) protected Button btn_ap_dialog_affirm;
+    @BindView(R.id.btn_ap_dialog_affirm) protected Button btn_ap_dialog_affirm;
 
     LoginPresenter mPresenter;
     private String phoneNumber;
@@ -85,17 +87,18 @@ public class AlterPhoneDialogFragment extends BaseDialogFragment implements Logi
                 mPresenter.getVerifyCode(phoneNumber);
                 break;
             case R.id.btn_ap_dialog_affirm:   //修改手机号
-                LOG("登录");
-                if(canLogin())
-                {
+                LOG("修改手机号");
+//                if(canLogin())
+//                {
                     String verifyCode = et_ap_veri.getText().toString();
                     Map<String,String> mMap = new HashMap<>();
                     mMap.put("phone", phoneNumber);
-                    mMap.put("vd", verifyCode);
+                    mMap.put("code", verifyCode);
+                    mMap.put("imei", ApplicationData.imei);
                     mPresenter.UpdatePhone(mMap);
-                }
-                else
-                    ToastUtils.showToast("请检查输入内容是否正确！");
+//                }
+//                else
+//                    ToastUtils.showToast("请检查输入内容是否正确！");
 
                 break;
         }
@@ -134,6 +137,7 @@ public class AlterPhoneDialogFragment extends BaseDialogFragment implements Logi
     @Override
     protected void initLogic() {
         mTimeCount = new TimeCount(60000, 1000);// 构造CountDownTimer对象
+
         addTextchange();
         lastPhone = PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_USER_ACCOUNT, "");
         et_ap_account.setText("");
@@ -155,6 +159,7 @@ public class AlterPhoneDialogFragment extends BaseDialogFragment implements Logi
      * 输入框添加监听
      */
     public void addTextchange() {
+        btn_ap_dialog_affirm.setEnabled(false);
 
         et_ap_account.addTextChangedListener(new TextWatcher() {
 
@@ -178,6 +183,29 @@ public class AlterPhoneDialogFragment extends BaseDialogFragment implements Logi
             public void afterTextChanged(Editable s) {
             }
         });
+
+        et_ap_veri.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if (!StringUtils.isBlank(phoneNumber)){
+                    if (s.length() > 0)     //有内容
+                        btn_ap_dialog_affirm.setEnabled(true);
+                     else     //无内容
+                        btn_ap_dialog_affirm.setEnabled(false);
+                }else   btn_ap_dialog_affirm.setEnabled(false);
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
 
@@ -189,14 +217,15 @@ public class AlterPhoneDialogFragment extends BaseDialogFragment implements Logi
     @Override
     protected void initLocation() {
         mLayoutUtil.drawViewRBLinearLayout(btn_ap_close, 40, 40, -1,-1,-1,-1);
+        tv_ap_veri.setMinimumWidth(mLayoutUtil.getWidgetWidth(166));
     }
 
-    public boolean canLogin() {
-        if (et_ap_veri.getText().length() > 0 && StringUtils.isMobileNO(et_ap_account.getText().toString())) {
-            return true;
-        }
-        return false;
-    }
+//    public boolean canLogin() {
+//        if (et_ap_veri.getText().length() > 0 && StringUtils.isMobileNO(et_ap_account.getText().toString())) {
+//            return true;
+//        }
+//        return false;
+//    }
 
     @Override
     protected void pauseClose() {
@@ -228,6 +257,7 @@ public class AlterPhoneDialogFragment extends BaseDialogFragment implements Logi
             return;
         }
         PreferencesUtils.putString(mContext, PreferenceEntity.KEY_USER_ACCOUNT, phoneNumber);
+        EventBus.getDefault().post(phoneNumber);
     }
 
     @Override

@@ -27,6 +27,16 @@ public class UrlConstantRx {
      */
     public static final String API_LOGIN = "sys/login.do";
 
+    /**
+     * 登录
+     * @param current：页数   不传值默认为1
+     * @param rowSize：每页条数   不传值默认为10
+     * @param keywords: 搜索关键词，调用全部列表则不传值
+     */
+    public static final String API_HOMEDATAS = "article/list.do";
+    //banner
+    public static final String API_BANNERDATAS = "article/bannerList.do";
+
 
     /** 修改绑定的手机号 */
     public static final String API_CHANGE_PHONE = "user/chgphone.do";

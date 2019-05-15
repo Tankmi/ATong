@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/ll_item_home_main"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin_tb_normal"
+        android:paddingLeft="@dimen/margin_lr_normal"
+        android:paddingRight="@dimen/margin_lr_normal"
+        >
+
+        <LinearLayout
+            android:id="@+id/ll_item_home_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingRight="@dimen/margin_lr_normal">
+
+            <TextView
+                android:id="@+id/tv_ihc_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="text"
+                android:textAlignment="textStart"
+                android:textColor="@color/text_color_normal"
+                android:textSize="@dimen/text_size_15" />
+
+            <TextView
+                android:id="@+id/tv_ihc_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="text content"
+                android:textAlignment="textStart"
+                android:textColor="@color/text_color_hint"
+                android:textSize="@dimen/text_size_normal" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_item_home"
+            android:layout_width="210px"
+            android:layout_height="154px"
+            android:layout_gravity="center_vertical"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_loading" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_height="2px"
+        android:layout_marginTop="@dimen/margin_tb_normal"
+        android:paddingLeft="@dimen/margin_lr_normal"
+        android:background="#dfdfdf"
+        style="@style/horizontal_line_style"
+        />
+</LinearLayout>

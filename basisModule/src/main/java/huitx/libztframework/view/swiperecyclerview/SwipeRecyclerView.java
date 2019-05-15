@@ -121,7 +121,7 @@ public class SwipeRecyclerView extends FrameLayout {
                             }
                             isLoading = false;
                         }
-                    }, 2000);
+                    }, 200);
                 }
             }
         });
@@ -269,7 +269,7 @@ public class SwipeRecyclerView extends FrameLayout {
 
     private void hideTranslationY()
     {
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(linearView, "translationY", curTransY, 0).setDuration(1000);
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(linearView, "translationY", curTransY, 0).setDuration(500);
         objectAnimator.setInterpolator(new DecelerateInterpolator());
         objectAnimator.start();
 

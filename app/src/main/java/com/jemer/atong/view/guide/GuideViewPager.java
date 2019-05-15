@@ -123,6 +123,15 @@ public class GuideViewPager extends ViewPager {
         mGIndicators.add(indicator);
     }
 
+    public boolean goNext(){
+
+        if(getCurrentItem() == getChildCount() - 1){
+            return false;
+        }
+        else setCurrentItem(getCurrentItem()+1);
+        return true;
+    }
+
     @Override
     public void setCurrentItem(int item) {
         super.setCurrentItem(item);

@@ -11,6 +11,10 @@
     <color name="title_color_orange_name">#f37811</color>
     <!-- 标题 -->
 
+    <color name="bg_color_sel">#0091FF</color>
+    <color name="bg_color_unsel">#dcdcdc</color>
+
+    <color name="bg_color_main">#0091FF</color>
 
     <!--字体颜色-->
     <color name="text_color_login">#0091FF</color>
@@ -18,7 +22,7 @@
     <color name="text_color_pc_gray">#999999</color>
     <color name="text_color_pc_bir">#7B809D</color>
 
-    <color name="bg_color_">#0091FF</color>
+
 
 
     <color name="app_text_color_warn">#ffffce6b</color>

@@ -22,6 +22,8 @@ import com.jemer.atong.R;
 import com.jemer.atong.base.BaseFragmentActivity;
 import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
+import com.jemer.atong.fragment.eyesight.EyeDetectionFragment;
+import com.jemer.atong.fragment.home.HomeFragment;
 import com.jemer.atong.fragment.personal_center.PersonalCenterFragment;
 import com.jemer.atong.util.VersionTools;
 
@@ -41,9 +43,9 @@ import huitx.libztframework.view.dialog.DialogUIUtils;
  */
 public class HomeBaseActivity extends BaseFragmentActivity implements OnClickListener, DialogInterface.OnDismissListener {
 
-//    protected HomeFragment homeFragment;
+    protected HomeFragment homeFragment;
 //    protected RankingListFragment rankingFragment;
-//    protected DynamicWebViewFragment dynamicFoodFragment;
+    protected EyeDetectionFragment dynamicFoodFragment;
     protected PersonalCenterFragment settingsFragment;
     protected FragmentSwitchTool mFragmentSwitch;
 
@@ -55,15 +57,15 @@ public class HomeBaseActivity extends BaseFragmentActivity implements OnClickLis
 
     private RelativeLayout rel_home_main;
     private LinearLayout lin_tab_home;
-    private LinearLayout lin_tab_home_choiceness;
+    private LinearLayout lin_tab01;
     private ImageView iv_tab_home_choiceness;
     private TextView tv_tab_home_choiceness;
 
-    protected LinearLayout lin_tab_home_dynamic;
+    protected LinearLayout lin_tab02;
     private ImageView iv_tab_home_dynamic;
     private TextView tv_tab_home_dynamic;
 
-    private LinearLayout lin_tab_home_settings;
+    private LinearLayout lin_tab03;
     private ImageView iv_tab_home_settings;
     private TextView tv_tab_home_settings;
 
@@ -77,13 +79,13 @@ public class HomeBaseActivity extends BaseFragmentActivity implements OnClickLis
 
         rel_home_main = findViewByIds(R.id.rel_home_main);
         lin_tab_home = findViewByIds(R.id.lin_tab_home);
-        lin_tab_home_choiceness = findViewByIds(R.id.lin_tab_home_choiceness);
+        lin_tab01 = findViewByIds(R.id.lin_tab_home_choiceness);
         iv_tab_home_choiceness = findViewByIds(R.id.iv_tab_home_choiceness);
         tv_tab_home_choiceness = findViewByIds(R.id.tv_tab_home_choiceness);
-        lin_tab_home_dynamic = findViewByIds(R.id.lin_tab_home_dynamic);
+        lin_tab02 = findViewByIds(R.id.lin_tab_home_dynamic);
         iv_tab_home_dynamic = findViewByIds(R.id.iv_tab_home_dynamic);
         tv_tab_home_dynamic = findViewByIds(R.id.tv_tab_home_dynamic);
-        lin_tab_home_settings = findViewByIds(R.id.lin_tab_home_settings);
+        lin_tab03 = findViewByIds(R.id.lin_tab_home_settings);
         iv_tab_home_settings = findViewByIds(R.id.iv_tab_home_settings);
         tv_tab_home_settings = findViewByIds(R.id.tv_tab_home_settings);
 
@@ -91,22 +93,22 @@ public class HomeBaseActivity extends BaseFragmentActivity implements OnClickLis
     }
 
     private void initFragment() {
-//        homeFragment = new HomeFragment();
-//        dynamicFoodFragment = new DynamicWebViewFragment();
+        homeFragment = new HomeFragment();
+        dynamicFoodFragment = new EyeDetectionFragment();
 //        rankingFragment = new RankingListFragment();
         settingsFragment = new PersonalCenterFragment();
 
         mFragmentSwitch = new FragmentSwitchTool(getSupportFragmentManager(), R.id.fl_home);
-        mFragmentSwitch.setClickableViews(lin_tab_home_choiceness, lin_tab_home_dynamic, lin_tab_home_settings);
+        mFragmentSwitch.setClickableViews(lin_tab01, lin_tab02, lin_tab03);
         mFragmentSwitch.addSelectedViews(new View[]{iv_tab_home_choiceness})
                 .addSelectedViews(new View[]{iv_tab_home_dynamic})
                 .addSelectedViews(new View[]{iv_tab_home_settings});
 
-        mFragmentSwitch.setFragments(settingsFragment.getClass(), settingsFragment.getClass(),
-                settingsFragment.getClass(), settingsFragment.getClass());
+        mFragmentSwitch.setFragments(homeFragment.getClass(), dynamicFoodFragment.getClass(),
+                settingsFragment.getClass());
 
-//        mFragmentSwitch.changeTag(lin_tab_home_choiceness);
-        mFragmentSwitch.changeTag(lin_tab_home_settings);
+//        mFragmentSwitch.changeTag(lin_tab01);
+        mFragmentSwitch.changeTag(lin_tab02);
     }
 
     @Override

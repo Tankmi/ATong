@@ -79,6 +79,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/btn_verification_draw"
             android:gravity="center"
+            android:layout_gravity="center_vertical"
             android:letterSpacing="0.2"
             android:paddingRight="@dimen/margin_lr_small"
             android:text="获取验证码"

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+
+    <com.jemer.atong.view.guide.GuideViewPager
+        android:id="@+id/guide_eyesight_hint"
+        android:layout_weight="1"
+        android:background="#096"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.jemer.atong.view.guide.indicator.DotIndicator
+        android:id="@+id/dot_eyesight_hint"
+        android:layout_marginTop="@dimen/margin_tb_large"
+        android:layout_marginBottom="@dimen/margin_tb_large"
+        android:background="#333"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
+
+    <Button
+        android:id="@+id/btn_eyesight_hint"
+        android:text="下一步"
+        android:textSize="@dimen/margin_tb_large"
+        android:textColor="@color/bg_color_main"
+        android:background="@drawable/bg_main_color_90_pad"
+        android:layout_marginBottom="@dimen/margin_tb_large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

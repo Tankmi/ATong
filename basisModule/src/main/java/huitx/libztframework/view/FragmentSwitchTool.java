@@ -113,8 +113,10 @@ public class FragmentSwitchTool implements OnClickListener {
 				} else if (fragment == currentFragment) {
 				} else {
 					fragmentTransaction.hide(currentFragment);
-					for (View view : currentSelectedView) {
-						view.setSelected(false);
+					if(currentSelectedView != null){
+						for (View view : currentSelectedView) {
+							view.setSelected(false);
+						}
 					}
 					fragmentTransaction.show(fragment);
 				}

@@ -3,13 +3,10 @@ package com.jemer.atong.base;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import com.jemer.atong.R;
 import com.jemer.atong.context.ApplicationData;

@@ -6,7 +6,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.view.View;
 import com.jemer.atong.R;
+import com.jemer.atong.entity.user.PictureEntity;
 import com.jemer.atong.util.ProviderUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 
@@ -96,7 +99,7 @@ public class SelectPhotoActivity extends SelectPhotoBaseActivity {
         }
         if (requestCode == PHOTO_CUT_OUT_DATA) {//裁剪
             if(data!=null && data.getExtras() != null){
-                Bitmap bitmap =  (Bitmap) data.getExtras().get("data");
+                Bitmap bitmap =  (Bitmap) data.getExtras().get("list");
                 selectedImagePath = BitmapUtils.getImg(bitmap);
                 if(bitmap != null) bitmap.recycle();
                 modifyOperation(selectedImagePath);
@@ -106,11 +109,11 @@ public class SelectPhotoActivity extends SelectPhotoBaseActivity {
     }
 
 //    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//    public void onActivityResult(int requestCode, int resultCode, Intent list) {
 //        switch (requestCode) {
 //            case Intent_Photo_100: // 设置 头像
 //                if (resultCode == 200) {
-//                    String uri = data.getExtras().getString("intent_photo_uri");
+//                    String uri = list.getExtras().getString("intent_photo_uri");
 //                    if (!uri.equals("")) {
 //                        uri = BitmapUtils.compressImg(uri);
 //                        File file = new File(uri);
@@ -127,8 +130,8 @@ public class SelectPhotoActivity extends SelectPhotoBaseActivity {
 //                }
 //                break;
 //            case 6:
-//                if (data != null) {  //获取到昵称！
-//                    String user_nick = data.getStringExtra("user_nick");//获取到的昵称！
+//                if (list != null) {  //获取到昵称！
+//                    String user_nick = list.getStringExtra("user_nick");//获取到的昵称！
 //                    if (user_nick != null && !user_nick.equals("")) {
 //                        userNick = user_nick;
 //                        updateUserInfo("name", user_nick);
@@ -164,7 +167,7 @@ public class SelectPhotoActivity extends SelectPhotoBaseActivity {
         intent.putExtra("aspectY", 1);
         intent.putExtra("outputX", 150);// 输出图片大小
         intent.putExtra("outputY", 150);
-        intent.putExtra("return-data", true);
+        intent.putExtra("return-list", true);
 
 
 
@@ -178,6 +181,8 @@ public class SelectPhotoActivity extends SelectPhotoBaseActivity {
         Intent intent = new Intent(SelectPhotoActivity.this,getIntent().getClass());
         intent.putExtra("intent_photo_uri", uri);
         setResult(200, intent);
+
+        EventBus.getDefault().post(new PictureEntity(uri));
         finish();
     }
 

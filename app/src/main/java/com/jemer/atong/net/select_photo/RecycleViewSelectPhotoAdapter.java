@@ -190,7 +190,7 @@ public class RecycleViewSelectPhotoAdapter extends RecyclerView.Adapter<RecycleV
 //        if(getItemViewType(position) == TYPE_HEAD)
 //            return;
 //        int pos = getRealPosition(holder);
-//        holder.tv.setText(data.get(pos).getName());
+//        holder.tv.setText(list.get(pos).getName());
 //        if (mOnItemClickListener != null) {
 //            holder.tv.setOnClickListener(new View.OnClickListener() {
 //                @Override

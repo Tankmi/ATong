@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.jemer.atong.fragment.home.NestedScrollParentView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_maincolor_gradient"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_home_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_maincolor_gradient"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_home_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/margin_lr_11"
+                android:layout_marginTop="@dimen/margin_tb_normal"
+                android:layout_marginBottom="@dimen/margin_tb_normal"
+                android:layout_weight="1"
+                android:background="@drawable/bg_white_90_pad"
+                android:drawableLeft="@drawable/icon_search"
+                android:drawablePadding="@dimen/margin_lr_normal"
+                android:hint="输入资讯名称"
+                android:imeOptions="actionSearch"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:minHeight="@dimen/et_minheight_30"
+                android:paddingLeft="@dimen/margin_lr_normal"
+                android:paddingTop="@dimen/margin_tb_small"
+                android:paddingRight="@dimen/margin_lr_normal"
+                android:paddingBottom="@dimen/margin_tb_small"
+                android:textColor="@color/text_color_normal"
+                android:textColorHint="@color/text_color_hint"
+                android:textSize="@dimen/text_size_big" />
+
+            <TextView
+                android:id="@+id/tv_home_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_lr_18"
+                android:paddingTop="@dimen/margin_tb_2normal"
+                android:paddingRight="@dimen/margin_lr_18"
+                android:paddingBottom="@dimen/margin_tb_2normal"
+                android:text="搜索"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_big" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_banner_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        >
+
+        <ImageView
+            android:id="@+id/iv_banner_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_home_banner"
+            android:scaleType="fitXY" />
+
+
+        <com.jemer.atong.view.banner.BannerViewPager
+            android:id="@+id/banner_home"
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+
+            />
+
+    </RelativeLayout>
+
+    <huitx.libztframework.view.swiperecyclerview.SwipeRecyclerView
+        android:id="@+id/srv_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white" />
+</com.jemer.atong.fragment.home.NestedScrollParentView>

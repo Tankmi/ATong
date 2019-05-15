@@ -6,12 +6,16 @@ import com.jemer.atong.context.UrlConstantRx;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -21,13 +25,13 @@ import retrofit2.http.Query;
  */
 public interface HomeService {
 
-    //获取首页内容
-    @GET("main/mainPage.do")
-    Observable<ResponseBody> getHomeChoiceness();
+    //首页
+    @POST(UrlConstantRx.API_HOMEDATAS)
+    @FormUrlEncoded
+    Observable<ResponseBody> getHomeDatas(@FieldMap Map<String, String> map);
 
-
-//    @GET(UrlConstantRx.API_VERIFICATION)
-//    Observable<ResponseBody> getVerifyCode(@Query("phone") String phone,@Query("imei") String imei);
+    @POST(UrlConstantRx.API_BANNERDATAS)
+    Observable<ResponseBody> getBannerDatas();
 
     @POST(UrlConstantRx.API_VERIFICATION)
     @FormUrlEncoded
@@ -52,6 +56,11 @@ public interface HomeService {
     @POST(UrlConstantRx.API_UPDATEPERSONAL)
     @FormUrlEncoded
     Observable<ResponseBody> updateUserInfo(@FieldMap Map<String, String> map);
+
+    //修改用户头像
+    @Multipart
+    @POST(UrlConstantRx.API_USER_CHANGEHEADER)
+    Observable<ResponseBody> uploadingPicture(@Part MultipartBody.Part  file);
 
 
 }

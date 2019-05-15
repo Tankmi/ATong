@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color_main"
+    android:gravity="center"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_eye_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:gravity="center_vertical"
+        >
+
+        <Button
+            android:id="@+id/bt_eyet_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:background="@drawable/btn_back_white"
+            android:gravity="left"
+            android:textSize="@dimen/title_right_text_size" />
+
+        <TextView
+            android:id="@+id/tv_eyet_title"
+            android:layout_weight="1"
+            android:backgroundTint="@color/red"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:drawablePadding="3dp"
+            android:text="视力测试"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_text_size" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_tb_large"
+        android:layout_marginBottom="@dimen/margin_tb_normal"
+        android:layout_marginLeft="@dimen/margin_lr_xlarge"
+        android:layout_marginRight="@dimen/margin_lr_xlarge"
+        android:layout_weight="1"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bg_eyesight_main" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_lr_xlarge"
+        android:layout_marginRight="@dimen/margin_lr_xlarge"
+        android:layout_marginBottom="@dimen/margin_tb_large"
+        android:background="@drawable/bg_white_45_pad"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_eye_shortsight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="center"
+                android:paddingTop="@dimen/margin_tb_normal"
+                android:paddingBottom="30dp"
+                android:text="近视测试"
+                android:textColor="@color/bg_color_main"
+                android:textSize="@dimen/text_size_large" />
+
+            <ImageView
+                style="@style/vertical_line_style"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/tv_eye_longsight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="center"
+                android:paddingTop="@dimen/margin_tb_normal"
+                android:paddingBottom="30dp"
+                android:text="远视测试"
+                android:textColor="@color/bg_color_main"
+                android:textSize="@dimen/text_size_large" />
+        </LinearLayout>
+
+        <ImageView style="@style/horizontal_line_style" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_eye_astigmastim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="center"
+                android:paddingTop="30dp"
+                android:paddingBottom="@dimen/margin_tb_normal"
+                android:text="散光测试"
+                android:textColor="@color/bg_color_main"
+                android:textSize="@dimen/text_size_large" />
+
+            <ImageView
+                style="@style/vertical_line_style"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/tv_eye_redblue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="center"
+                android:paddingTop="30dp"
+                android:paddingBottom="@dimen/margin_tb_normal"
+                android:text="红绿测试"
+                android:textColor="@color/bg_color_main"
+                android:textSize="@dimen/text_size_large" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

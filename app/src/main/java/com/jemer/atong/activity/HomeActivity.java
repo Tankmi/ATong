@@ -32,7 +32,7 @@ public class HomeActivity extends HomeBaseActivity {
 
    @Override
    protected void initHead() {
-       setStatusBarColor(true, true, mContext.getResources().getColor(R.color.transparency));
+       setStatusBarColor(true, true, mContext.getResources().getColor(R.color.bg_color_main));
        iv_title_status_bar_fill.setBackgroundResource(0x00000000);
        if (mHandler == null) mHandler = new MyHandler(this);
    }
@@ -48,7 +48,7 @@ public class HomeActivity extends HomeBaseActivity {
         if(!PreferenceEntity.isSyncUserDatas) inputData();
         if(PreferenceEntity.isGoDynamicView){
             PreferenceEntity.isGoDynamicView = false;
-            mFragmentSwitch.changeTag(lin_tab_home_dynamic);
+            mFragmentSwitch.changeTag(lin_tab02);
         }
     }
 

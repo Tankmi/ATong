@@ -29,11 +29,15 @@ import com.jemer.atong.entity.user.UserEntity;
 import com.jemer.atong.fragment.personal_center.dialog.AlterPhoneDialogFragment;
 import com.jemer.atong.fragment.personal_center.dialog.BirthdayDialogFragment;
 import com.jemer.atong.fragment.personal_center.dialog.SexDialogFragment;
+import com.jemer.atong.fragment.personal_center.net.PersonalCenterPresenter;
+import com.jemer.atong.fragment.personal_center.net.PersonalCenterView;
 import com.jemer.atong.net.DefaultObserver;
 import com.jemer.atong.net.RetrofitHelper;
 import com.jemer.atong.net.service.HomeService;
 import com.jemer.atong.share.WechatShareDialogFragment;
 import com.jemer.atong.util.VersionTools;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.lang.ref.WeakReference;
 import java.text.ParseException;
@@ -57,13 +61,15 @@ import okhttp3.ResponseBody;
 
 @SuppressLint("ValidFragment")
 public class PersonalCenterBaseFragment extends BaseFragment implements
-        OnClickListener {
+        OnClickListener, PersonalCenterView {
 
+    protected PersonalCenterPresenter mPersonPresenter;
 
     private String birthday;
     private String user_header;
     //1男2女
     private String user_sex="";
+    protected String userHeader;
 
     public PersonalCenterBaseFragment(int layoutId) {
         super(layoutId);
@@ -86,17 +92,13 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
 
     @Override
     protected void initHead() {
+
     }
 
     @Override
     protected void onVisibile() {
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getUserInfo();
-    }
 
     public void setData(UserEntity.Data userInfo) {
         if (userInfo == null) userInfo = UserEntity.getUserInfo();
@@ -303,6 +305,37 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
 
     protected MyHandler mHandler;
 
+
+
+    @Override
+    public void changeHeaderSuccess(String url) {
+        LOG("用户头像上传成功");
+    }
+
+    @Override
+    public void changeHeaderFailed(String msg) {
+    }
+
+    @Override
+    public void loadingShow() {
+        setLoading(true, "");
+    }
+
+    @Override
+    public void loadingDissmis() {
+        setLoading(false, "");
+    }
+
+    @Override
+    public void loginOut() {
+        reLoading();
+    }
+
+    @Override
+    public void setPresenter(Object presenter) {
+
+    }
+
     protected class MyHandler extends Handler {
 
         // SoftReference<Activity> 也可以使用软应用 只有在内存不足的时候才会被回收
@@ -398,6 +431,7 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
 
     @Override
     protected void destroyClose() {
+
     }
 
 }

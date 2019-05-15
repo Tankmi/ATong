@@ -77,7 +77,7 @@ public class SelectPhotoBaseActivity extends BaseFragmentActivity implements OnC
 ////			if(type == GETUSERINFO){	//获取用户信息
 ////				Message message = Message.obtain();
 ////				message.what = type;
-////				message.obj = mUserEntity.data;
+////				message.obj = mUserEntity.list;
 ////				mHandler.sendMessage(message);
 ////			}
 //		} else if (mUserEntity.code == ContextConstant.RESPONSECODE_310) {    //登录信息过时跳转到登录页

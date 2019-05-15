@@ -52,6 +52,9 @@ public class WebViewActivity extends WebViewBaseActivity implements View.OnClick
 		LOG("判空后的用户ID：" + userId);
 		if(titleName !=null && !titleName.equals("")){
 			mTitleView.setVisibility(View.VISIBLE);
+			if(titleName.length() > 10 ){
+				titleName = titleName.substring(0,10) + "...";
+			}
 			setTittle("" + titleName);
 		}
 		mWebUtil = MyWebViewUtil.getInstance();

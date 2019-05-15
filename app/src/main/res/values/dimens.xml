@@ -16,4 +16,6 @@
     <dimen name="settings_text_size">12sp</dimen>
     <dimen name="selectsex_register">28sp</dimen>
 
+    <dimen name="eyesight_unit">1mm</dimen>
+
 </resources>

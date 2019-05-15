@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import huitx.libztframework.utils.LOGUtils;
 
 import java.util.Random;
 
@@ -83,8 +84,12 @@ public class EachPermissionFragment extends Fragment {
 
         boolean allGranted = false;
         int length = grantResults.length;
+
+        LOGUtils.LOG("权限申请列表大小：" + length);
+
         for (int i = 0; i < length; i++) {
             int grantResult = grantResults[i];
+            LOGUtils.LOG("grantResults[i]：" + i + "   " + grantResult);
             if (grantResult != PackageManager.PERMISSION_GRANTED) {
                 allGranted = false;
                 break;

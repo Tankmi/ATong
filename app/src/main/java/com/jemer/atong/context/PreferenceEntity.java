@@ -145,9 +145,9 @@ public class PreferenceEntity extends LibPreferenceEntity {
 	public  static Request getLoginParamsForOkHttp(Request request){
 		HashMap map = PreferenceEntity.getLoginData();
 
-		LOGUtils.LOG("请求参数：id" + (String) map.get("id"));
-		LOGUtils.LOG("请求参数：user" + (String) map.get("user"));
-		LOGUtils.LOG("请求参数：imei" + (String) map.get("imei"));
+		LOGUtils.LOG("PreferenceEntity 请求参数：id  " + (String) map.get("id"));
+		LOGUtils.LOG("PreferenceEntity 请求参数：user  " + (String) map.get("user"));
+		LOGUtils.LOG("PreferenceEntity 请求参数：imei  " + (String) map.get("imei"));
 		return request.newBuilder()
 				.addHeader("id", (String) map.get("id"))
 				.addHeader("user", (String) map.get("user"))
@@ -207,6 +207,9 @@ public class PreferenceEntity extends LibPreferenceEntity {
 	public static boolean isRefreshHomeData = true;	//是否刷新首页数据
 	/** 清空SP缓存 */
 	public static String KEY_IS_CLEAR_SP = "key_is_clear_sp";
+
+	public static String KEY_CACHE_BANNER = "key_cache_banner";
+	public static String KEY_CACHE_HOME = "key_cache_home";
 
 	// ***********************************用户信息
 }

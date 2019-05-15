@@ -111,9 +111,9 @@ public class PerfectInfoFragment extends BaseFragment implements OnClickListener
 //            if (type == 1 || type == 3) {    //登录 || 绑定手机号
 //                PreferenceEntity.isLogin = true;
 //                PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_USER_ACCOUNT, phone);
-//                PreferenceEntity.setUserEntity(mUserEntity.data);
+//                PreferenceEntity.setUserEntity(mUserEntity.list);
 //                Intent intent_home;
-//                if (mUserEntity.data.isall.equals("0")) {
+//                if (mUserEntity.list.isall.equals("0")) {
 //                    intent_home = new Intent(mContext, PerfectInfoActivity.class);
 //                } else {
 //                    intent_home = new Intent(mContext, HomeActivity.class);

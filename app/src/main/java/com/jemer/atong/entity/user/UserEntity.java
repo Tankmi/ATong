@@ -25,6 +25,8 @@ public class UserEntity {
    public Data data;
 
    public static class Data {
+       /** 个人中心，修改头像地址 */
+       public String header;
        public String id;
        public String msg;
        public String age;

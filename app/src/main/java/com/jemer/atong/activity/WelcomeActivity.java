@@ -96,13 +96,13 @@ public class WelcomeActivity extends WelcomeBaseActivity {
 //
 //        XGPushManager.registerPush(this, new XGIOperateCallback() {
 //            @Override
-//            public void onSuccess(Object data, int flag) {
+//            public void onSuccess(Object list, int flag) {
 //                //token在设备卸载重装的时候有可能会变
-//                LOG("信鸽推送，注册成功，设备token为：" + data);
+//                LOG("信鸽推送，注册成功，设备token为：" + list);
 //            }
 //
 //            @Override
-//            public void onFail(Object data, int errCode, String msg) {
+//            public void onFail(Object list, int errCode, String msg) {
 //                LOG("信鸽推送，注册失败，错误码：" + errCode + ",错误信息：" + msg);
 //            }
 //        });

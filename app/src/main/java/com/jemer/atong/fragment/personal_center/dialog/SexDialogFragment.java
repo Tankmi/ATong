@@ -48,17 +48,17 @@ public class SexDialogFragment extends BaseDialogFragment{
         params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setAttributes(params);
+        //点击外部可以取消
+        getDialog().setCanceledOnTouchOutside(true);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         //设置fragment高度 、宽度
-//        int dialogHeight = (int) (mContext.getResources().getDisplayMetrics().heightPixels * 0.6);
-//        getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, mLayoutUtil.getWidgetHeight(350));
-        getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, mLayoutUtil.getWidgetHeight(450));
-//        getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        getDialog().setCanceledOnTouchOutside(true);
+//        getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, mLayoutUtil.getWidgetHeight(677));
+        getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
     }
 
 
@@ -82,8 +82,8 @@ public class SexDialogFragment extends BaseDialogFragment{
     protected void initLocation() {
 //        mLayoutUtil.drawViewRBLayout(tv_share_title, -1, -1, -1, -1, 42, -1);
 //        mLayoutUtil.drawViewRBLayout(rel_share_content, -1, 166, -1, -1, -1, -1);
-//        mLayoutUtil.drawViewRBLinearLayout(iv_share_wechat, 100, 100, -1, -1, -1, -1);
-//        mLayoutUtil.drawViewRBLinearLayout(iv_share_moments, 100, 100, 138, -1, -1, -1);
+        mLayoutUtil.drawViewRBLinearLayout(ivSex.get(0), 206, 206, -1, -1, -1, -1);
+        mLayoutUtil.drawViewRBLinearLayout(ivSex.get(1), 206, 206, -1, -1, -1, -1);
 //        tv_share_dismiss.setMinimumHeight(mLayoutUtil.getWidgetHeight(80));
     }
 

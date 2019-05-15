@@ -11,17 +11,21 @@
         android:id="@+id/tv_share_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
         android:text="性别"
         android:gravity="center"
         android:textColor="@color/text_color_normal"
-        android:textSize="@dimen/text_size_big"
+        android:textSize="@dimen/text_size_large"
         />
 
     <LinearLayout
         android:id="@+id/ll_sex_dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_tb_xlarge"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="80dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginRight="28dp"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
         android:gravity="center_vertical"
