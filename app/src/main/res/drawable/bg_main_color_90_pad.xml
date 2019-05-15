@@ -3,12 +3,12 @@
     <item>
         <shape xmlns:android="http://schemas.android.com/apk/res/android" >
             <corners android:radius="90dp" />
-            <stroke android:color="@color/bg_color_main"/>
+            <stroke android:width="2px" android:color="@color/bg_color_main"/>
             <padding
-                android:left="@dimen/margin_lr_normal"
-                android:right="@dimen/margin_lr_normal"
-                android:top="@dimen/margin_tb_normal"
-                android:bottom="@dimen/margin_tb_normal"
+                android:left="@dimen/margin_lr_xlarge"
+                android:right="@dimen/margin_lr_xlarge"
+                android:top="@dimen/margin_tb_small"
+                android:bottom="@dimen/margin_tb_small"
                 /><!-- 各方向的间隔 -->
         </shape>
     </item>

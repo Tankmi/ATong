@@ -9,30 +9,29 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.jemer.atong.R;
 import com.jemer.atong.base.BaseDialogFragment;
+import com.jemer.atong.entity.eyesight.EyesightHintBean;
 import com.jemer.atong.view.guide.GuideViewPager;
 import com.jemer.atong.view.guide.indicator.DotIndicator;
 import com.jemer.atong.view.guide.interf.GuideViewHolder;
 import com.jemer.atong.view.guide.interf.GuideViewPagerPageListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * 个人中心
- *
- * @author ZhuTao
- * @date 2018/11/28
- * @params
+ * 1，近视，2，远视
  */
-
 public class EyeHintDialogFragment extends BaseDialogFragment implements GuideViewPagerPageListener {
 
     static EyeHintDialogFragment eyeHintFragment;
@@ -62,7 +61,8 @@ public class EyeHintDialogFragment extends BaseDialogFragment implements GuideVi
     public static EyeHintDialogFragment getInstance(int state){
         Bundle bundle = new Bundle();
         bundle.putInt("state", state);
-        if(eyeHintFragment == null) eyeHintFragment = new EyeHintDialogFragment();
+//        if(eyeHintFragment == null)
+            eyeHintFragment = new EyeHintDialogFragment();
         eyeHintFragment.setArguments(bundle);
         return eyeHintFragment;
     }
@@ -104,10 +104,29 @@ public class EyeHintDialogFragment extends BaseDialogFragment implements GuideVi
         mViewpager.setViewHolder(new BannerViewHolder());
         mViewpager.addIndicator(mDotView);
         mViewpager.setOnPageChangeListener(this);
-        mViewpager.setData(Arrays.asList(images));
 
+        initData();
+
+
+    }
+
+    private void initData(){
         state = getArguments().getInt("state");
         LOG("state  " + state);
+        List<EyesightHintBean> lists = new ArrayList<>();
+        if(state == 1){
+            lists.add(new EyesightHintBean(R.drawable.bg_eyesight_guide_01,"第一步：测试者手持手机距被测试者眼睛2.5米远"));
+            lists.add(new EyesightHintBean(R.drawable.bg_eyesight_guide_02,"第二步：手机与被测试者眼睛置同一水平位"));
+            lists.add(new EyesightHintBean(R.drawable.bg_eyesight_guide_03,"第三步：被测试者指出缺口方向，测试者正确滑动"));
+        }else{
+            lists.add(new EyesightHintBean(R.drawable.bg_eyesight_guide_01,"远视第一步：手机距被测试者眼睛25cm远"));
+            lists.add(new EyesightHintBean(R.drawable.bg_eyesight_guide_02,"第二步：手机与被测试者眼睛置同一水平位"));
+            lists.add(new EyesightHintBean(R.drawable.bg_eyesight_guide_03,"第三步：按缺口方向正确滑动"));
+        }
+        mViewpager.setData(lists);
+//        mViewpager.setData(Arrays.asList(lists));
+
+
     }
 
     @Override
@@ -124,7 +143,7 @@ public class EyeHintDialogFragment extends BaseDialogFragment implements GuideVi
         super.onResume();
     }
 
-    public class BannerViewHolder implements GuideViewHolder<String> {
+    public class BannerViewHolder implements GuideViewHolder<EyesightHintBean> {
         private boolean isRoundedCorner = true;
 
         public BannerViewHolder() {
@@ -136,14 +155,17 @@ public class EyeHintDialogFragment extends BaseDialogFragment implements GuideVi
         }
 
         @Override
-        public View getView(Context context, final int position, String data) {
-            final View inflate = LayoutInflater.from(context).inflate(R.layout.item_banner_home, null);
-            ImageView imageView = inflate.findViewById(R.id.image);
-            if (isRoundedCorner) {
-                Glide.with(imageView).load(data).transforms(new CenterCrop(), new RoundedCorners(dp2px(5))).disallowHardwareConfig().into(imageView);
-            } else {
-                Glide.with(imageView).load(data).transforms(new CenterCrop()).disallowHardwareConfig().into(imageView);
-            }
+        public View getView(Context context, final int position, EyesightHintBean data) {
+            final View inflate = LayoutInflater.from(context).inflate(R.layout.item_guide_eyesight_hint, null);
+            ImageView imageView = inflate.findViewById(R.id.iv_item_eyesight);
+            TextView textView = inflate.findViewById(R.id.tv_item_eyesight);
+//            if (isRoundedCorner) {
+//                Glide.with(imageView).load(data).transforms(new CenterCrop(), new RoundedCorners(dp2px(5))).disallowHardwareConfig().into(imageView);
+//            } else {
+                Glide.with(imageView).load(data.getImgId()).disallowHardwareConfig().into(imageView);
+//            }
+
+            textView.setText(data.getContent());
 
             imageView.setOnClickListener(view -> {
 //                Intent intent_home = new Intent(mContext, WebViewActivity.class);
@@ -162,6 +184,7 @@ public class EyeHintDialogFragment extends BaseDialogFragment implements GuideVi
 
     @Override
     protected void destroyClose() {
+        LOG("destroyClose");
     }
 
     public int dp2px(float f) {

@@ -10,7 +10,6 @@
     <com.jemer.atong.view.guide.GuideViewPager
         android:id="@+id/guide_eyesight_hint"
         android:layout_weight="1"
-        android:background="#096"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -18,7 +17,6 @@
         android:id="@+id/dot_eyesight_hint"
         android:layout_marginTop="@dimen/margin_tb_large"
         android:layout_marginBottom="@dimen/margin_tb_large"
-        android:background="#333"
         android:layout_width="match_parent"
         android:layout_height="30dp"/>
 

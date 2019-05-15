@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <ImageView
+        android:id="@+id/iv_item_eyesight"
+        android:layout_weight="1"
+        android:layout_marginTop="85dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bg_eyesight_guide_01"
+        android:scaleType="centerInside"
+        />
+
+    <TextView
+        android:id="@+id/tv_item_eyesight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
+        android:text="第一步"
+        android:gravity="center_horizontal"
+        android:textColor="@color/text_color_normal"
+        android:textSize="@dimen/text_size_big"
+
+        />
+
+</LinearLayout>
