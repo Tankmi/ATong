@@ -32,7 +32,7 @@ public class HomeActivity extends HomeBaseActivity {
 
    @Override
    protected void initHead() {
-       setStatusBarColor(true, true, mContext.getResources().getColor(R.color.bg_color_main));
+       setStatusBarColor(true, true, mContext.getResources().getColor(R.color.transparency));
        iv_title_status_bar_fill.setBackgroundResource(0x00000000);
        if (mHandler == null) mHandler = new MyHandler(this);
    }

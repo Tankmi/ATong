@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_eyeresult_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/bg_color_main"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/bt_eyert_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_back_white"
+            android:gravity="left"
+            android:textSize="@dimen/title_right_text_size"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_eyert_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawablePadding="3dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="测试结果"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_text_size" />
+    </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="@dimen/margin_tb_large"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_eyesight_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@drawable/bg_eyesight_result" />
+
+            <LinearLayout
+                android:id="@+id/ll_esr_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_tb_16"
+                android:layout_marginBottom="@dimen/margin_tb_16"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_esr_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="@dimen/margin_tb_small"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/text_color_eye_hint"
+                    android:textSize="@dimen/text_size_15" />
+
+                <ImageView
+                    style="@style/vertical_line_style"
+                    android:layout_width="2px"
+                    android:layout_height="54dp" />
+
+                <TextView
+                    android:id="@+id/tv_esr_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="@dimen/margin_tb_small"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/text_color_eye_hint"
+                    android:textSize="@dimen/text_size_15" />
+            </LinearLayout>
+
+            <ImageView
+                style="@style/horizontal_line_style"
+                android:layout_height="8dp"
+                android:background="@color/all_bg" />
+
+            <ImageView
+                android:id="@+id/iv_eyesight_result_hint"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_lr_2normal"
+                android:layout_marginRight="@dimen/margin_lr_2normal"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:src="@drawable/bg_eyesight_result" />
+
+            <LinearLayout
+                android:id="@+id/ll_esr_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_lr_2normal"
+                android:layout_marginRight="@dimen/margin_lr_2normal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bt_esr_again"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_lr_normal"
+                    android:layout_gravity="start"
+                    android:background="@drawable/back_transparent_login_90"
+                    android:drawablePadding="@dimen/margin_lr_small"
+                    android:gravity="center"
+                    android:letterSpacing="0.5"
+                    android:text="重新测试"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_large" />
+
+                <Button
+                    android:id="@+id/bt_esr_finish"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_lr_normal"
+                    android:layout_gravity="end"
+                    android:background="@drawable/back_transparent_login_90"
+                    android:drawablePadding="@dimen/margin_lr_small"
+                    android:gravity="center"
+                    android:letterSpacing="0.5"
+                    android:text="确定"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_large" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+</LinearLayout>

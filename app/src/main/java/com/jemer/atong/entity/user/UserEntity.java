@@ -7,6 +7,8 @@ package com.jemer.atong.entity.user;
 import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
 
+import java.util.List;
+
 import huitx.libztframework.utils.PreferencesUtils;
 
 /**
@@ -57,6 +59,14 @@ public class UserEntity {
 
        //用户个人信息
        public String sign;
+
+       public List<FamilyData> list;
+       public static class FamilyData{
+            public int id;
+            public String name;
+            public String birthday;
+            public String sex;
+       }
    }
 
    public static UserEntity.Data getUserInfo(){

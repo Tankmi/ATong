@@ -11,7 +11,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
 import com.jemer.atong.R;
+import com.jemer.atong.context.ApplicationData;
+import com.jemer.atong.context.PreferenceEntity;
+import com.jemer.atong.entity.home.BannerEntity;
 import com.jemer.atong.entity.user.PictureEntity;
 import com.jemer.atong.fragment.home.net.HomePresenter;
 import com.jemer.atong.fragment.personal_center.net.PersonalCenterPresenter;
@@ -24,9 +28,11 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.File;
 
 import butterknife.OnClick;
+import huitx.libztframework.context.ContextConstant;
 import huitx.libztframework.utils.BitmapUtils;
 import huitx.libztframework.utils.LOGUtils;
 import huitx.libztframework.utils.NewWidgetSetting;
+import huitx.libztframework.utils.PreferencesUtils;
 import huitx.libztframework.utils.StringUtils;
 import huitx.libztframework.utils.ToastUtils;
 import huitx.libztframework.utils.permission.IPermissionListenerWrap;
@@ -63,15 +69,11 @@ public class HomeFragment extends HomeBaseFragment {
             mPresenter = new HomePresenter();
         }
         mPresenter.attachView(this);
-
     }
 
     @Override
     protected void initLogic() {
         super.initLogic();
-
-        onRefresh();
-        mPresenter.getBannerData();
 
         et_home_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -86,6 +88,9 @@ public class HomeFragment extends HomeBaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        onRefresh();
+        mPresenter.getBannerData();
     }
 
 
@@ -103,9 +108,6 @@ public class HomeFragment extends HomeBaseFragment {
                 LOG("搜索");
                 search();
                 break;
-//            case R.id.banner_home:    //搜索
-//                LOG("banner" + banner_home.getCurrentItem());
-//                break;
         }
     }
 

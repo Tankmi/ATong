@@ -47,6 +47,9 @@ public class UrlConstantRx {
      */
     public static final String API_SYSISALL = "user/isall.do";
 
+    public static final String API_ADDFAMILY = "personal/addFamilyMember.do"; //添加用户
+    public static final String API_DELFAMILY = "personal/deleteFamilyMember.do"; //删除用户
+
 
     /** 微信登录 */
     public static final String API_WX_LOGIN = "sys/wechatLogin.do";

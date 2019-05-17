@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/title_view"
+        android:visibility="gone" />
+
+    <com.jemer.atong.fragment.eyesight.view.Eyesightview
+        android:id="@+id/rl_eyesight_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparency"
+        >
+
+        <ImageView
+            android:id="@+id/iv_eyesight_view"
+            android:layout_width="@dimen/eyesight_unit"
+            android:layout_height="@dimen/eyesight_unit"
+            android:scaleType="centerInside"
+            android:layout_centerInParent="true"
+            android:src="@drawable/icon_e_small" />
+        <ImageView
+            android:id="@+id/iv_eyesight_direction_state"
+            android:visibility="gone"
+            android:scaleType="centerInside"
+            android:background="@color/red"
+            android:layout_centerInParent="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            />
+    </com.jemer.atong.fragment.eyesight.view.Eyesightview>
+
+</LinearLayout>

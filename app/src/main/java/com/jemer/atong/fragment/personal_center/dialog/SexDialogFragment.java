@@ -26,7 +26,7 @@ import butterknife.OnClick;
 //    /**
 //     * 显示分享框
 //     */
-//    private void ShowMovementDialog(String url)
+//    private void ShowSexDialog(String url)
 //    {
 //        if (playQueueFragment == null) playQueueFragment = new SexDialogFragment();
 //        if (fragmentManager == null) fragmentManager = getSupportFragmentManager();

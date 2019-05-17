@@ -1,14 +1,11 @@
 package com.jemer.atong.fragment.personal_center;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -19,9 +16,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.jemer.atong.R;
-import com.jemer.atong.activity.HomeActivity;
-import com.jemer.atong.activity.HomeBaseActivity;
-import com.jemer.atong.activity.user.perfect_info.PerfectInfoActivity;
 import com.jemer.atong.base.BaseFragment;
 import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
@@ -29,41 +23,39 @@ import com.jemer.atong.entity.user.UserEntity;
 import com.jemer.atong.fragment.personal_center.dialog.AlterPhoneDialogFragment;
 import com.jemer.atong.fragment.personal_center.dialog.BirthdayDialogFragment;
 import com.jemer.atong.fragment.personal_center.dialog.SexDialogFragment;
+import com.jemer.atong.fragment.personal_center.family.FamilyDialogFragment;
 import com.jemer.atong.fragment.personal_center.net.PersonalCenterPresenter;
 import com.jemer.atong.fragment.personal_center.net.PersonalCenterView;
 import com.jemer.atong.net.DefaultObserver;
 import com.jemer.atong.net.RetrofitHelper;
 import com.jemer.atong.net.service.HomeService;
-import com.jemer.atong.share.WechatShareDialogFragment;
-import com.jemer.atong.util.VersionTools;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import butterknife.BindView;
-import butterknife.OnClick;
 import huitx.libztframework.context.ContextConstant;
-import huitx.libztframework.utils.BitmapUtils;
 import huitx.libztframework.utils.LOGUtils;
 import huitx.libztframework.utils.NewWidgetSetting;
 import huitx.libztframework.utils.PreferencesUtils;
 import huitx.libztframework.utils.StringUtils;
 import huitx.libztframework.utils.ToastUtils;
-import huitx.libztframework.view.dialog.DialogUIUtils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 
 @SuppressLint("ValidFragment")
 public class PersonalCenterBaseFragment extends BaseFragment implements
-        OnClickListener, PersonalCenterView {
+        OnClickListener, PersonalCenterView<UserEntity.Data> {
+    protected MyHandler mHandler;
 
     protected PersonalCenterPresenter mPersonPresenter;
+    protected boolean isgetUsetInfo = true;
 
     private String birthday;
     private String user_header;
@@ -148,22 +140,24 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
     SexDialogFragment playQueueFragment;
     BirthdayDialogFragment birthDialogFragment;
     AlterPhoneDialogFragment alterPhoneDialogFragment;
+    FamilyDialogFragment familyDialogFragment;
     private FragmentManager fragmentManager;
     private String DIALOG_SEX_TAG = "sexdialog";
     private String DIALOG_BIR_TAG = "birdialog";
     private String DIALOG_AP_TAG = "apdialog";
+    private String DIALOG_familyadd_TAG = "addfamily";
 
     /**
      * 显示选择性别框
      */
-    protected void ShowMovementDialog(String url)
+    protected void ShowSexDialog()
     {
         if (playQueueFragment == null) playQueueFragment = new SexDialogFragment();
         if (fragmentManager == null) fragmentManager = getChildFragmentManager();
         playQueueFragment.setSexListener(state -> {
             LOG("回调性别：" + state);
             if(!user_sex.equals("" + state)){
-                updateUserInfo("sex",state + "");
+                mPersonPresenter.modificationUserInfo("sex",state + "");
             }
         });
         playQueueFragment.show(fragmentManager,DIALOG_SEX_TAG);
@@ -180,13 +174,12 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
             LOG("回调生日：" + bir);
             birthday = bir;
             if(!PreferenceEntity.perfectInfoBirthday.equals("")){
-                updateUserInfo("birthday",PreferenceEntity.perfectInfoBirthday);
+                mPersonPresenter.modificationUserInfo("birthday",PreferenceEntity.perfectInfoBirthday);
             }
 
         });
         birthDialogFragment.show(fragmentManager,DIALOG_BIR_TAG);
     }
-
     /**
      * 显示修改手机号框
      */
@@ -197,115 +190,25 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
         alterPhoneDialogFragment.show(fragmentManager,DIALOG_AP_TAG);
     }
 
-
-
-    protected final int GETUSERINFO = 10003;
-
-
-    public UserEntity mUserEntity;
-
-    public void getUserInfo(){
-        setLoading(true, "");
-
-        HomeService service;
-        service = RetrofitHelper.getService().getApi();
-        service.getUserInfo()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DefaultObserver<ResponseBody>() {
-                    @Override
-                    public void onSuccess(ResponseBody data) {
-
-                        Gson gson = new Gson();
-                        try {
-                            String str = StringUtils.replaceJson(data.string());
-                            mUserEntity = gson.fromJson(str, UserEntity.class);
-                        } catch (Exception e) {
-                            return;
-                        }
-                        if (mUserEntity.code == ContextConstant.RESPONSECODE_200) {
-                            PreferenceEntity.setUserInfoEntity(mUserEntity.data);
-                            setData(mUserEntity.data);
-                        } else if (mUserEntity.code == ContextConstant.RESPONSECODE_310) {    //登录信息过时跳转到登录页
-                            reLoading();
-                        } else {
-                            ToastUtils.showToast(NewWidgetSetting.getInstance().filtrationStringbuffer(mUserEntity.msg, "接口信息异常！"));
-                        }
-                    }
-
-                    @Override
-                    public void onError(String error) {
-                        LOGUtils.LOG("getModel  onError" + error);
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        setLoading(false, "");
-                        LOGUtils.LOG("getModel  onFinish");
-                    }
-                });
+    /**
+     * 添加用户
+     */
+    protected void showAddFamily()
+    {
+        if (familyDialogFragment == null) familyDialogFragment = new FamilyDialogFragment();
+        if (fragmentManager == null) fragmentManager = getChildFragmentManager();
+        familyDialogFragment.show(fragmentManager,DIALOG_BIR_TAG);
     }
 
-    public void updateUserInfo(String name,String value){
-        setLoading(true, "");
-
-        Map<String,String> mMap = new HashMap<>();
-        mMap.put(name, value);
-
-        HomeService service;
-        service = RetrofitHelper.getService().getApi();
-        service.updateUserInfo(mMap)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DefaultObserver<ResponseBody>() {
-                    @Override
-                    public void onSuccess(ResponseBody data) {
-
-                        Gson gson = new Gson();
-                        try {
-                            String str = StringUtils.replaceJson(data.string());
-                            mUserEntity = gson.fromJson(str, UserEntity.class);
-                        } catch (Exception e) {
-                            return;
-                        }
-                        if (mUserEntity.code == ContextConstant.RESPONSECODE_200) {
-                            ToastUtils.showToast(mUserEntity.msg);
-                            if(name.equals("sex")){
-                                PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_USER_SEX, value);
-                                setSexInfo(value, user_header);
-                            }else if(name.equals("birthday")){
-                                try {
-                                    PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_USER_BIR, tranTimes.dateToStamp(value,"yyyy-MM-dd"));
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-
-                                setBirthday(birthday);
-                            }
-
-                        } else if (mUserEntity.code == ContextConstant.RESPONSECODE_310) {    //登录信息过时跳转到登录页
-                            reLoading();
-                        } else {
-                            ToastUtils.showToast(NewWidgetSetting.getInstance().filtrationStringbuffer(mUserEntity.msg, "接口信息异常！"));
-                        }
-                    }
-
-                    @Override
-                    public void onError(String error) {
-                        LOGUtils.LOG("getModel  onError" + error);
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        setLoading(false, "");
-                        LOGUtils.LOG("getModel  onFinish");
-                    }
-                });
+    /**
+     * 显示家庭成员
+     */
+    protected void ShowFamilyFragment()
+    {
+        if (alterPhoneDialogFragment == null) alterPhoneDialogFragment = new AlterPhoneDialogFragment();
+        if (fragmentManager == null) fragmentManager = getChildFragmentManager();
+        alterPhoneDialogFragment.show(fragmentManager,DIALOG_AP_TAG);
     }
-
-    protected MyHandler mHandler;
-
-
 
     @Override
     public void changeHeaderSuccess(String url) {
@@ -314,6 +217,27 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
 
     @Override
     public void changeHeaderFailed(String msg) {
+    }
+
+    @Override
+    public void getUserInfoSuccess(UserEntity.Data data) {
+        isgetUsetInfo = false;
+        setData(data);
+    }
+
+    @Override
+    public void modificationUserInfoSuccess(String name, String value) {
+        if(name.equals("sex")){
+            PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_USER_SEX, value);
+            setSexInfo(value, user_header);
+        }else if(name.equals("birthday")){
+            try {
+                PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_USER_BIR, tranTimes.dateToStamp(value,"yyyy-MM-dd"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            setBirthday(birthday);
+        }
     }
 
     @Override
@@ -394,19 +318,18 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
     protected TextView tv_sett_sex;
     @BindView(R.id.tv_sett_sex_value)
     protected TextView tv_sett_sex_value;
+    @BindView(R.id.ll_sett_family)
+    protected LinearLayout ll_sett_family;
+    @BindView(R.id.tv_sett_family)
+    protected TextView tv_sett_family;
+    @BindView(R.id.tv_sett_family_value)
+    protected TextView tv_sett_family_value;
 
 
     @Override
     protected void initLocation() {
         mLayoutUtil.drawViewRBLinearLayout(rl_settings_title, 0, 433, 0, 0, 0, 0);
         mLayoutUtil.drawViewRBLayout(rel_sett_info, 0, 114, -1, -1, 120, -1);
-//        rel_sett_info.setMinimumHeight(mLayoutUtil.getWidgetHeight(123));
-//        mLayoutUtil.drawViewDefaultLayout(rel_settings_title, -1,
-//                mLayoutUtil.getWidgetHeight(362) - (int) PreferenceEntity.ScreenTop + mLayoutUtil.getWidgetHeight(215) / 2,
-//                -1, -1, (int) PreferenceEntity.ScreenTop, -1);
-//        mLayoutUtil.drawViewRBLayout(btn_sett_setting, 117, 56, 0, -1, -1, 0);
-
-
         mLayoutUtil.drawViewRBLayout(rl_sett_header, 114, 114, 0, 0, -1, -1);
         mLayoutUtil.drawViewRBLayout(iv_sett_header, 114, 114, 0, 0, -1, -1);
         mLayoutUtil.drawViewRBLayout(iv_sett_header_sex, 40, 40, 0, 0, -1, -1);

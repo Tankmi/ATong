@@ -19,7 +19,7 @@ import com.jemer.atong.base.BaseDialogFragment;
 //    /**
 //     * 显示分享框
 //     */
-//    private void ShowMovementDialog(String url)
+//    private void ShowSexDialog(String url)
 //    {
 //        if (playQueueFragment == null) playQueueFragment = new SexDialogFragment();
 //        if (fragmentManager == null) fragmentManager = getSupportFragmentManager();

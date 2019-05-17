@@ -153,7 +153,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
 //		mBtnRight = (Button) Mview.findViewById(R.id.btn_title_view_right);
 //		mTitleLine = Mview.findViewById(R.id.iv_title_line);
         if (mBtnLeft != null) {
-            mLayoutUtil.drawViewDefaultLayout(mBtnLeft, 120, 56, -1, 0, 0, 0);
+            mLayoutUtil.drawViewDefaultLayout(mBtnLeft, 170, 86, -1, 0, 0, 0);
             mBtnLeft.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {//实现返回键！
@@ -338,32 +338,6 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
 
     public void LOG(String tag, String data) {
         LOGUtils.LOG(tag + " " + data);
-    }
-
-    /**
-     * 设置状态栏背景色
-     *
-     * @param color
-     */
-    public void setStatusBarColor(int color) {
-        View view_title = findViewByIds(R.id.title);
-        view_title.setBackgroundColor(color);
-        //设置状态栏透明，这个方法只有在安卓4.4以上才能起作用！
-        if (android.os.Build.VERSION.SDK_INT > 18) {
-//        	LOG("首页设置状态栏透明");
-            Window window = getWindow();
-            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            // 创建TextView
-            TextView textView = new TextView(this);
-            LinearLayout.LayoutParams lParams = new LinearLayout.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, (int) PreferenceEntity.ScreenTop);
-            textView.setBackgroundColor(color);
-//            textView.setBackgroundColor(Color.parseColor("#f03069"));
-            textView.setLayoutParams(lParams);
-            // 获得根视图并把TextView加进去。
-            ViewGroup view = (ViewGroup) getWindow().getDecorView();
-            view.addView(textView);
-        }
     }
 
     /**

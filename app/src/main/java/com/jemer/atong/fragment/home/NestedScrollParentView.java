@@ -5,6 +5,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.jemer.atong.context.PreferenceEntity;
+
 import androidx.annotation.Nullable;
 
 /**

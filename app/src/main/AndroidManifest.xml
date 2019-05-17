@@ -73,6 +73,7 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".activity.user.SelLoginActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
@@ -81,6 +82,10 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".net.select_photo.SelectPhotoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".fragment.eyesight.window.EyesightActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 

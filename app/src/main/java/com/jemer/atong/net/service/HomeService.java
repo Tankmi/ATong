@@ -62,5 +62,13 @@ public interface HomeService {
     @POST(UrlConstantRx.API_USER_CHANGEHEADER)
     Observable<ResponseBody> uploadingPicture(@Part MultipartBody.Part  file);
 
+    @POST(UrlConstantRx.API_ADDFAMILY)
+    @FormUrlEncoded
+    Observable<ResponseBody> addFamily(@FieldMap Map<String, String> map);
+
+    @POST(UrlConstantRx.API_DELFAMILY)
+    @FormUrlEncoded
+    Observable<ResponseBody> delFamily(@Field("id") int comment_id);
+
 
 }

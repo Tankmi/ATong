@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+
+    <ImageView
+        android:id="@+id/iv_eyesight_hint"
+        android:layout_weight="1"
+        android:layout_marginTop="85dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bg_eyesight_guide_01"
+        android:scaleType="centerInside"
+        />
+
+    <TextView
+        android:id="@+id/tv_eyesight_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
+        android:text="用左手遮住或闭上左眼"
+        android:gravity="center_horizontal"
+        android:textColor="@color/text_color_normal"
+        android:textSize="@dimen/text_size_big"
+        />
+
+    <Button
+        android:id="@+id/bt_eyesight_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="61dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginRight="48dp"
+        android:background="@drawable/back_transparent_login_90"
+        android:drawablePadding="@dimen/margin_lr_small"
+        android:gravity="center"
+        android:letterSpacing="0.5"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_large" />
+
+</LinearLayout>

@@ -13,12 +13,13 @@ import okhttp3.ResponseBody;
  * 创建时间：2019/3/26 : 15:05
  * 描述：动态 mvp
  */
-public interface PersonalCenterView extends BaseView {
+public interface PersonalCenterView<T> extends BaseView {
 
 
     void changeHeaderSuccess(String url);
-
-   void changeHeaderFailed(String msg);
+    void changeHeaderFailed(String msg);
+    void getUserInfoSuccess(T data);
+    void modificationUserInfoSuccess(String name,String value);
 
 
 }

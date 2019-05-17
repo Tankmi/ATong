@@ -14,6 +14,8 @@ import com.jemer.atong.context.PreferenceEntity;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import huitx.libztframework.context.ContextConstant;
@@ -158,7 +160,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
     public void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
-        unbinder.unbind();
+        if(unbinder!=null)unbinder.unbind();
         destroyClose();
     }
 
@@ -236,6 +238,16 @@ public abstract class BaseDialogFragment extends DialogFragment {
         if (msg.equals(ContextConstant.HTTPOVERTIME)) {
             LOG("请求超时");
         }
+    }
+
+    @Override
+    public void show(FragmentManager manager, String tag) {
+//        mDismissed = false;
+//        mShownByMe = true;
+        FragmentTransaction ft = manager.beginTransaction();
+        ft.add(this, tag);
+        // 这里吧原来的commit()方法换成了commitAllowingStateLoss()
+        ft.commitAllowingStateLoss();
     }
 
 }

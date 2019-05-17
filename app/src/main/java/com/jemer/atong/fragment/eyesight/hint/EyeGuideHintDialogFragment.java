@@ -12,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.jemer.atong.R;
 import com.jemer.atong.base.BaseDialogFragment;
 import com.jemer.atong.entity.eyesight.EyesightHintBean;
@@ -22,19 +20,22 @@ import com.jemer.atong.view.guide.indicator.DotIndicator;
 import com.jemer.atong.view.guide.interf.GuideViewHolder;
 import com.jemer.atong.view.guide.interf.GuideViewPagerPageListener;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
+ *
+ * 视力测试方式提醒
  * 1，近视，2，远视
  */
-public class EyeHintDialogFragment extends BaseDialogFragment implements GuideViewPagerPageListener {
+public class EyeGuideHintDialogFragment extends BaseDialogFragment implements GuideViewPagerPageListener {
 
-    static EyeHintDialogFragment eyeHintFragment;
+    static EyeGuideHintDialogFragment eyeHintFragment;
 
     private int state;
     private boolean isEnd;
@@ -53,16 +54,16 @@ public class EyeHintDialogFragment extends BaseDialogFragment implements GuideVi
             "https://images.unsplash.com/photo-1543095414-e0660f5a1a5c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
     };
 
-    public EyeHintDialogFragment() {
+    public EyeGuideHintDialogFragment() {
         super(R.layout.fragment_eye_sight_hint);
         TAG = getClass().getSimpleName() + "     ";
     }
 
-    public static EyeHintDialogFragment getInstance(int state){
+    public static EyeGuideHintDialogFragment getInstance(int state){
         Bundle bundle = new Bundle();
         bundle.putInt("state", state);
 //        if(eyeHintFragment == null)
-            eyeHintFragment = new EyeHintDialogFragment();
+            eyeHintFragment = new EyeGuideHintDialogFragment();
         eyeHintFragment.setArguments(bundle);
         return eyeHintFragment;
     }
@@ -87,13 +88,17 @@ public class EyeHintDialogFragment extends BaseDialogFragment implements GuideVi
     }
 
     @OnClick(R.id.btn_eyesight_hint)void next(){
-        mViewpager.setCurrentItem(mViewpager.getCurrentItem()+1);
-        LOG("isEnd:  " + isEnd);
+        if(isEnd) {
+            dismiss();
+            EventBus.getDefault().post(state);
+        }
+        else mViewpager.setCurrentItem(mViewpager.getCurrentItem()+1);
+
     }
 
     @Override
     public void currentItem(int sum, int position, boolean isEnd) {
-        LOG(sum + " " + position + " " + isEnd);
+//        LOG(sum + " " + position + " " + isEnd);
         this.isEnd = isEnd;
         if(isEnd) mBtn.setText("开始测试");
         else mBtn.setText("下一步");
@@ -104,22 +109,19 @@ public class EyeHintDialogFragment extends BaseDialogFragment implements GuideVi
         mViewpager.setViewHolder(new BannerViewHolder());
         mViewpager.addIndicator(mDotView);
         mViewpager.setOnPageChangeListener(this);
-
         initData();
-
-
     }
 
     private void initData(){
         state = getArguments().getInt("state");
-        LOG("state  " + state);
+//        LOG("state  " + state);
         List<EyesightHintBean> lists = new ArrayList<>();
         if(state == 1){
             lists.add(new EyesightHintBean(R.drawable.bg_eyesight_guide_01,"第一步：测试者手持手机距被测试者眼睛2.5米远"));
             lists.add(new EyesightHintBean(R.drawable.bg_eyesight_guide_02,"第二步：手机与被测试者眼睛置同一水平位"));
             lists.add(new EyesightHintBean(R.drawable.bg_eyesight_guide_03,"第三步：被测试者指出缺口方向，测试者正确滑动"));
         }else{
-            lists.add(new EyesightHintBean(R.drawable.bg_eyesight_guide_01,"远视第一步：手机距被测试者眼睛25cm远"));
+            lists.add(new EyesightHintBean(R.drawable.bg_eyesight_guide_01,"第一步：手机距被测试者眼睛25cm远"));
             lists.add(new EyesightHintBean(R.drawable.bg_eyesight_guide_02,"第二步：手机与被测试者眼睛置同一水平位"));
             lists.add(new EyesightHintBean(R.drawable.bg_eyesight_guide_03,"第三步：按缺口方向正确滑动"));
         }

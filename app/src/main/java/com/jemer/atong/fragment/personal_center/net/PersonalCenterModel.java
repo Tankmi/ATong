@@ -66,6 +66,61 @@ public class PersonalCenterModel {
                 });
     }
 
+    public void getUserInfo(BaseHttpEntity<ResponseBody> entity) {
+        service.getUserInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DefaultObserver<ResponseBody>() {
+                    @Override
+                    public void onSuccess(ResponseBody data) {
+                        LOGUtils.LOG("getModel  onSuccess");
+                        entity.onSuccess(data);
+                        entity.onFinish();
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        LOGUtils.LOG("getModel  onError" + error);
+                        entity.onFinish();
+                        entity.onError(error);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        LOGUtils.LOG("getModel  onFinish");
+                        entity.onFinish();
+                    }
+                });
+
+    }
+
+    public void modificationData(BaseHttpEntity<ResponseBody> entity, Map<String, String> map) {
+        service.updateUserInfo(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DefaultObserver<ResponseBody>() {
+                    @Override
+                    public void onSuccess(ResponseBody data) {
+                        LOGUtils.LOG("getModel  onSuccess");
+                        entity.onSuccess(data);
+                        entity.onFinish();
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        LOGUtils.LOG("getModel  onError" + error);
+                        entity.onFinish();
+                        entity.onError(error);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        LOGUtils.LOG("getModel  onFinish");
+                        entity.onFinish();
+                    }
+                });
+
+    }
 
 }
 

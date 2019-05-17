@@ -9,8 +9,6 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.jemer.atong.R;
-import com.jemer.atong.activity.HomeBaseActivity;
-import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.entity.user.PictureEntity;
 import com.jemer.atong.fragment.personal_center.net.PersonalCenterPresenter;
 import com.jemer.atong.net.select_photo.SelectPhotoActivity;
@@ -21,17 +19,13 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import butterknife.OnClick;
 import huitx.libztframework.utils.BitmapUtils;
 import huitx.libztframework.utils.LOGUtils;
 import huitx.libztframework.utils.NewWidgetSetting;
-import huitx.libztframework.utils.PreferencesUtils;
 import huitx.libztframework.utils.StringUtils;
 import huitx.libztframework.utils.ToastUtils;
 import huitx.libztframework.utils.permission.IPermissionListenerWrap;
-import huitx.libztframework.utils.permission.Permission;
 import huitx.libztframework.utils.permission.PermissionsHelper;
 
 /**
@@ -45,7 +39,7 @@ import huitx.libztframework.utils.permission.PermissionsHelper;
 public class PersonalCenterFragment extends PersonalCenterBaseFragment {
 
     protected boolean isUpdateHeader = false;
-    protected boolean isgetUsetInfo = true;
+
 
     public PersonalCenterFragment() {
         super(R.layout.fragment_personal_center);
@@ -80,8 +74,7 @@ public class PersonalCenterFragment extends PersonalCenterBaseFragment {
     public void onResume() {
         super.onResume();
        if(isgetUsetInfo){
-           isgetUsetInfo = false;
-           getUserInfo();
+           mPersonPresenter.getUserInfo();
        }
        if(isUpdateHeader){
            isUpdateHeader = false;
@@ -126,7 +119,7 @@ public class PersonalCenterFragment extends PersonalCenterBaseFragment {
     }
 
 
-    @OnClick({R.id.iv_sett_header, R.id.ll_sett_phone, R.id.ll_sett_bir, R.id.ll_sett_sex})
+    @OnClick({R.id.iv_sett_header, R.id.ll_sett_phone, R.id.ll_sett_bir, R.id.ll_sett_sex, R.id.ll_sett_family})
     void onViewClick(View view) {
         switch (view.getId()) {
             case R.id.iv_sett_header:    //头像
@@ -139,7 +132,10 @@ public class PersonalCenterFragment extends PersonalCenterBaseFragment {
                 ShowBirthdayDialog();
                 break;
             case R.id.ll_sett_sex:    //性别
-                ShowMovementDialog("123");
+                ShowSexDialog();
+                break;
+            case R.id.ll_sett_family:    //添加家庭成员
+                showAddFamily();
                 break;
         }
     }

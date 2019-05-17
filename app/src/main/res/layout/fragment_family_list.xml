@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/title_view_fram" />
+
+    <huitx.libztframework.view.swiperecyclerview.SwipeRecyclerView
+        android:id="@+id/srv_familt_add"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white" />
+
+
+    <Button
+        android:id="@+id/btn_family_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="64dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginBottom="85dp"
+        android:background="@drawable/back_transparent_login_90"
+        android:drawablePadding="@dimen/margin_lr_small"
+        android:gravity="center"
+        android:letterSpacing="0.5"
+        android:text="添加新成员"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_large" />
+
+</LinearLayout>

@@ -208,8 +208,16 @@ public class PreferenceEntity extends LibPreferenceEntity {
 	/** 清空SP缓存 */
 	public static String KEY_IS_CLEAR_SP = "key_is_clear_sp";
 
+	// ***********************************用户信息
+
+	//首页数据缓存
 	public static String KEY_CACHE_BANNER = "key_cache_banner";
 	public static String KEY_CACHE_HOME = "key_cache_home";
+	//个人中心数据缓存
+	public static String KEY_CACHE_FAMILY = "key_cache_family";
 
-	// ***********************************用户信息
+	//视力测试缓存
+	public static String KEY_EYE_HINT_GUIDE_SHORT = "key_eye_hint_guide_short";	//近视力  boolean
+	public static String KEY_EYE_HINT_GUIDE_LONG = "key_eye_hint_guide_long";	//远视力  boolean
+
 }

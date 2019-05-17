@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -44,14 +45,12 @@ public class WelcomeBaseActivity extends Activity {
         // SoftReference<Activity> 也可以使用软应用 只有在内存不足的时候才会被回收
         private final WeakReference<Activity> mActivity;
 
-        protected MyHandler(Activity activity)
-        {
+        protected MyHandler(Activity activity) {
             mActivity = new WeakReference<>(activity);
         }
 
         @Override
-        public void handleMessage(Message msg)
-        {
+        public void handleMessage(Message msg) {
             Intent intent_home = null;
             switch (msg.what) {
                 case 0:    //没有登录成功
@@ -80,14 +79,13 @@ public class WelcomeBaseActivity extends Activity {
         }
     }
 
-    private synchronized void finalTest(){  //判断所有任务是否执行完成
+    private synchronized void finalTest() {  //判断所有任务是否执行完成
 
     }
 
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus)
-    {
+    public void onWindowFocusChanged(boolean hasFocus) {
         // TODO Auto-generated method stub
 //		super.onWindowFocusChanged(hasFocus);
 
@@ -99,12 +97,13 @@ public class WelcomeBaseActivity extends Activity {
                 LOGUtils.LOG("初始化屏幕信息");
                 //获取屏幕尺寸，不包括虚拟功能高度<br><br>
                 int widowHeight = getWindowManager().getDefaultDisplay().getHeight();
-//        Rect rect = new Rect();
-//        getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+//                Rect rect = new Rect();
+//                getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+//                int top = rect.top; // 状态栏的高度
+//                LOGUtils.LOG("状态栏的高度" + top);
 
                 Resources resources = WelcomeBaseActivity.this.getResources();
                 int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
-//        int top = rect.top; // 状态栏的高度
                 View view = getWindow().findViewById(Window.ID_ANDROID_CONTENT);
                 int top2 = view.getTop(); // 状态栏与标题栏的高度
                 int width = view.getWidth(); // 视图的宽度
@@ -156,8 +155,7 @@ public class WelcomeBaseActivity extends Activity {
     }
 
     @Override
-    protected void onPause()
-    {
+    protected void onPause() {
         super.onPause();
     }
 
@@ -167,15 +165,13 @@ public class WelcomeBaseActivity extends Activity {
      * @param isFit: 是否是全屏显示	5.0以上的系统需要此属性判断状态栏的属性设置
      * @param isSet: 是否设置特殊颜色，否的话，第三个参数可以设置为0
      */
-    public void setStatusBarColor(boolean isFit, boolean isSet, int color)
-    {
+    public void setStatusBarColor(boolean isFit, boolean isSet, int color) {
         if (isSet) StatusBarCompat.compat(this, color, isFit);
         else
             StatusBarCompat.compat(this, mContext.getResources().getColor(R.color.status_bar_default_bg), isFit);
     }
 
-    protected void toFinish()
-    {
+    protected void toFinish() {
         mUserEntity = null;
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);

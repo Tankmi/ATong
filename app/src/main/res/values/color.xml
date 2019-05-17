@@ -7,6 +7,7 @@
     <!-- 标题 -->
     <color name="title_color_bg">#ffffff</color>
     <color name="title_color_title">#000000</color>
+    <color name="title_text_color_gray">#797979</color>
     <color name="title_color_name">#1294f6</color>
     <color name="title_color_orange_name">#f37811</color>
     <!-- 标题 -->
@@ -21,6 +22,9 @@
     <color name="text_color_pc">#5E5E5E</color>
     <color name="text_color_pc_gray">#999999</color>
     <color name="text_color_pc_bir">#7B809D</color>
+
+    <color name="text_color_eye_hint">#ff7f7f7f</color>
+    <color name="text_color_eye_resulr_e">#ffFE4C5E</color>
 
 
 

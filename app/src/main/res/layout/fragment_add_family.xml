@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/title_view_fram" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="106dp"
+
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_addfam_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_lr_xlarge"
+                android:layout_marginTop="100dp"
+                android:layout_marginRight="@dimen/margin_lr_xlarge"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/et_addfam_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_lr_normal"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="真实姓名"
+                    android:letterSpacing="0.1"
+                    android:maxLength="20"
+                    android:textColor="@color/text_color_login"
+                    android:textColorHint="@color/text_color_hint"
+                    android:textSize="@dimen/text_size_xlarge" />
+
+
+                <ImageView
+                    style="@style/horizontal_line_style"
+                    android:layout_below="@id/et_login_account"
+                    android:layout_marginTop="@dimen/margin_tb_large" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_addfam_bir"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_lr_xlarge"
+                android:layout_marginTop="@dimen/margin_tb_large"
+                android:layout_marginRight="@dimen/margin_lr_xlarge"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_addfam_bir"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_lr_normal"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="生日"
+                    android:inputType="numberDecimal"
+                    android:letterSpacing="0.05"
+                    android:maxLength="20"
+                    android:textColor="@color/text_color_login"
+                    android:textColorHint="@color/text_color_hint"
+                    android:textSize="@dimen/text_size_xlarge" />
+
+
+                <ImageView
+                    style="@style/horizontal_line_style"
+                    android:layout_below="@id/et_login_account"
+                    android:layout_marginTop="@dimen/margin_tb_large" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_addfam_sex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_lr_xlarge"
+                android:layout_marginTop="@dimen/margin_tb_large"
+                android:layout_marginRight="@dimen/margin_lr_xlarge"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_addfam_sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_lr_normal"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="性别"
+                    android:letterSpacing="0.1"
+                    android:maxLength="3"
+                    android:textColor="@color/text_color_login"
+                    android:textColorHint="@color/text_color_hint"
+                    android:textSize="@dimen/text_size_xlarge" />
+
+
+                <ImageView
+                    style="@style/horizontal_line_style"
+                    android:layout_below="@id/et_login_account"
+                    android:layout_marginTop="@dimen/margin_tb_large" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_addfam_affirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="64dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginBottom="85dp"
+        android:background="@drawable/back_transparent_login_90"
+        android:drawablePadding="@dimen/margin_lr_small"
+        android:gravity="center"
+        android:letterSpacing="0.5"
+        android:text="添加"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_large" />
+
+</LinearLayout>

@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/bg_color_main"
     android:gravity="center"
-    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -26,7 +25,6 @@
         <TextView
             android:id="@+id/tv_eyet_title"
             android:layout_weight="1"
-            android:backgroundTint="@color/red"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"

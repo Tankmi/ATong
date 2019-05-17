@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <com.jemer.atong.fragment.home.NestedScrollParentView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_maincolor_gradient"
-    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/ll_home_search"
@@ -34,12 +34,12 @@
                 android:hint="输入资讯名称"
                 android:imeOptions="actionSearch"
                 android:maxLines="1"
-                android:singleLine="true"
                 android:minHeight="@dimen/et_minheight_30"
                 android:paddingLeft="@dimen/margin_lr_normal"
                 android:paddingTop="@dimen/margin_tb_small"
                 android:paddingRight="@dimen/margin_lr_normal"
                 android:paddingBottom="@dimen/margin_tb_small"
+                android:singleLine="true"
                 android:textColor="@color/text_color_normal"
                 android:textColorHint="@color/text_color_hint"
                 android:textSize="@dimen/text_size_big" />
@@ -66,8 +66,7 @@
         android:id="@+id/rl_banner_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        >
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/iv_banner_bg"
@@ -92,5 +91,6 @@
         android:id="@+id/srv_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="100px"
         android:background="@color/white" />
 </com.jemer.atong.fragment.home.NestedScrollParentView>

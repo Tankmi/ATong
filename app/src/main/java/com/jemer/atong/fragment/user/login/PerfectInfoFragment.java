@@ -116,7 +116,7 @@ public class PerfectInfoFragment extends BaseFragment implements OnClickListener
 //                if (mUserEntity.list.isall.equals("0")) {
 //                    intent_home = new Intent(mContext, PerfectInfoActivity.class);
 //                } else {
-//                    intent_home = new Intent(mContext, HomeActivity.class);
+//                    intent_home = new Intent(mContext, EyesightActivity.class);
 //                }
 //                startActivity(intent_home);
 //                getActivity().finish();

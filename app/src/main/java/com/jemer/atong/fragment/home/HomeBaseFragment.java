@@ -17,8 +17,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.google.gson.Gson;
 import com.jemer.atong.R;
 import com.jemer.atong.base.BaseFragment;
+import com.jemer.atong.context.ApplicationData;
+import com.jemer.atong.context.PreferenceEntity;
 import com.jemer.atong.entity.home.BannerEntity;
 import com.jemer.atong.entity.home.HomeEntity;
 import com.jemer.atong.fragment.home.net.HomePresenter;
@@ -36,6 +39,8 @@ import java.util.List;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
+import huitx.libztframework.context.ContextConstant;
+import huitx.libztframework.utils.PreferencesUtils;
 import huitx.libztframework.utils.StringUtils;
 import huitx.libztframework.view.swiperecyclerview.SwipeRecyclerView;
 
@@ -77,12 +82,43 @@ public class HomeBaseFragment extends BaseFragment implements
         mSwipeRecyclerView.isCancelRefresh(false);
         mSwipeRecyclerView.isCancelLoadNext(true);
 
-        mAdapter = new HomeDataAdapter(mContext);
+        mAdapter = new HomeDataAdapter(getActivity());
 
         RecyclerView mRecyclerView = mSwipeRecyclerView.getRecyclerView();
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
+
+
+        String homeLists = PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_CACHE_HOME);
+        if(!StringUtils.isBlank(homeLists)){
+            Gson gson = new Gson();
+            HomeEntity mEntity = null;
+            try {
+                mEntity = gson.fromJson(homeLists, HomeEntity.class);
+                if (mEntity.code == ContextConstant.RESPONSECODE_200) {
+                    mAdapter.setListData(mEntity.data.list);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return;
+            }
+        }
+
+        String bannerLists = PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_CACHE_BANNER);
+        if(!StringUtils.isBlank(bannerLists)){
+            Gson gson = new Gson();
+            BannerEntity mEntity = null;
+            try {
+                mEntity = gson.fromJson(bannerLists, BannerEntity.class);
+                if (mEntity.code == ContextConstant.RESPONSECODE_200) {
+                    banner_home.setData(mEntity.data.list);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return;
+            }
+        }
     }
 
     @Override
@@ -213,6 +249,7 @@ public class HomeBaseFragment extends BaseFragment implements
 
     @Override
     protected void initLocation() {
+        mLayoutUtil.drawViewRBLinearLayout(ll_home_search, -1, -1, 0, 0, PreferenceEntity.ScreenTop, -1);
         mLayoutUtil.drawViewRBLayout(iv_banner_bg, -1, 234, 0, 0, 0, 0);
         mLayoutUtil.drawViewRBLayout(banner_home, 0, 308, 33, 33, -1, -1);
     }

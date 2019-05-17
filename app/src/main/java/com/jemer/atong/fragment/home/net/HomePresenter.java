@@ -78,12 +78,16 @@ public class HomePresenter implements BasePresenter<HomeView> {
                 HomeEntity mEntity;
                 try {
                     String str = StringUtils.replaceJson(data.string());
+                    if(state == 1){
+                        PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_CACHE_HOME,str);
+                    }
                     mEntity = gson.fromJson(str, HomeEntity.class);
                 } catch (Exception e) {
                     e.printStackTrace();
                     return;
                 }
                 if (mEntity.code == ContextConstant.RESPONSECODE_200) {
+
                     mView.getListDataSuccess(state,mEntity.data.list);
                 } else if (mEntity.code == ContextConstant.RESPONSECODE_310) {    //登录信息过时跳转到登录页
                     mView.loginOut();
@@ -97,8 +101,27 @@ public class HomePresenter implements BasePresenter<HomeView> {
 
             @Override
             public void onError(String error) {
-                mView.loadingDissmis();
-                mView.getListDataFailed(state, searchData);
+
+                String str = PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_CACHE_BANNER);
+                if(!StringUtils.isBlank(str)){
+                    Gson gson = new Gson();
+                    BannerEntity mEntity;
+                    try {
+                        mEntity = gson.fromJson(str, BannerEntity.class);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return;
+                    }
+                    if (mEntity.code == ContextConstant.RESPONSECODE_200) {
+                        mView.getListDataSuccess(state,mEntity.data.list);
+                    }
+                }else {
+                    mView.loadingDissmis();
+                    mView.getListDataFailed(state, searchData);
+                }
+
+
+
             }
 
             @Override
@@ -153,11 +176,6 @@ public class HomePresenter implements BasePresenter<HomeView> {
                     }
                     if (mEntity.code == ContextConstant.RESPONSECODE_200) {
                         mView.getBannerData(true,mEntity.data.list);
-                    } else if (mEntity.code == ContextConstant.RESPONSECODE_310) {    //登录信息过时跳转到登录页
-                        mView.loginOut();
-                    } else {
-                        mView.getBannerData(false,null);
-//                    ToastUtils.showToast(NewWidgetSetting.getInstance().filtrationStringbuffer(mEntity.msg, "接口信息异常！"));
                     }
                 }else mView.getBannerData(false,null);
             }

@@ -28,7 +28,7 @@ import huitx.libztframework.utils.PreferencesUtils;
 //    /**
 //     * 显示分享框
 //     */
-//    private void ShowMovementDialog(String url)
+//    private void ShowSexDialog(String url)
 //    {
 //        if (playQueueFragment == null) playQueueFragment = new SexDialogFragment();
 //        if (fragmentManager == null) fragmentManager = getSupportFragmentManager();
@@ -137,8 +137,5 @@ public class BirthdayDialogFragment extends BaseDialogFragment implements Birthd
     public void setSexListener(onBirthdayListener listener) {
         mBirListener = listener;
     }
-
-
-
 
 }

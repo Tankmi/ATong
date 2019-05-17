@@ -10,6 +10,7 @@
 
     <dimen name="margin_lr_small">2dp</dimen>
     <dimen name="margin_lr_normal">12dp</dimen>
+    <dimen name="margin_lr_2normal">24dp</dimen>
     <dimen name="margin_lr_xnormal">12dp</dimen>
     <dimen name="margin_lr_large">19dp</dimen>
     <dimen name="margin_lr_xlarge">32dp</dimen>
@@ -28,6 +29,7 @@
     <dimen name="margin_tb_large">25dp</dimen>
     <dimen name="margin_tb_xlarge">50dp</dimen>
     <dimen name="margin_tb_12">12dp</dimen>
+    <dimen name="margin_tb_16">12dp</dimen>
     <dimen name="margin_tb_40">40dp</dimen>
 
 

@@ -9,6 +9,7 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.jemer.atong.R;
+import com.jemer.atong.context.PreferenceEntity;
 import com.jemer.atong.entity.user.PictureEntity;
 import com.jemer.atong.fragment.personal_center.net.PersonalCenterPresenter;
 import com.jemer.atong.net.select_photo.SelectPhotoActivity;
@@ -23,6 +24,7 @@ import butterknife.OnClick;
 import huitx.libztframework.utils.BitmapUtils;
 import huitx.libztframework.utils.LOGUtils;
 import huitx.libztframework.utils.NewWidgetSetting;
+import huitx.libztframework.utils.PreferencesUtils;
 import huitx.libztframework.utils.StringUtils;
 import huitx.libztframework.utils.ToastUtils;
 import huitx.libztframework.utils.permission.IPermissionListenerWrap;
@@ -43,6 +45,7 @@ public class EyeDetectionFragment extends EyeDetectionBaseFragment {
 
     public EyeDetectionFragment() {
         super(R.layout.fragment_eye_detection);
+//        super(R.layout.fragment_eye_sight);
         TAG = getClass().getSimpleName() + "     ";
     }
 
@@ -61,26 +64,28 @@ public class EyeDetectionFragment extends EyeDetectionBaseFragment {
             mPersonPresenter = new PersonalCenterPresenter();
         }
         mPersonPresenter.attachView(this);
-
     }
 
     @Override
     protected void initLogic() {
         super.initLogic();
+        LOG("initLogic");
     }
 
     @Override
     public void onResume() {
+
         super.onResume();
+
+        LOG("onResume");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventBusUpdatePhone(String state) {
-
+    public void onEventBusHintSuccess(Integer state) {
+        LOG("引导页完成 " + state);
+        PreferencesUtils.putBoolean(mContext, state==1?PreferenceEntity.KEY_EYE_HINT_GUIDE_SHORT:PreferenceEntity.KEY_EYE_HINT_GUIDE_LONG, true);
+        getEyeSight(state);
     }
-
-
-
 
 //    @OnClick({R.id.iv_sett_header, R.id.ll_sett_phone, R.id.ll_sett_bir, R.id.ll_sett_sex})
 //    void onViewClick(View view) {
@@ -94,11 +99,13 @@ public class EyeDetectionFragment extends EyeDetectionBaseFragment {
 
     @Override
     protected void pauseClose() {
+        LOG("pauseClose");
         super.pauseClose();
     }
 
     @Override
     protected void destroyClose() {
+        LOG("destroyClose");
         super.destroyClose();
         if (mHandler != null) mHandler.removeCallbacksAndMessages(null);
         if (EventBus.getDefault().isRegistered(this)) {
