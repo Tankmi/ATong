@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.jemer.atong.R;
 import com.jemer.atong.base.BaseDialogFragment;
 import com.jemer.atong.context.ApplicationData;
+import com.jemer.atong.entity.eyesight.EyesightEntity;
 import com.jemer.atong.entity.eyesight.EyesightHintStepBean;
 
 import org.greenrobot.eventbus.EventBus;
@@ -28,9 +29,11 @@ import huitx.libztframework.utils.ToastUtils;
  */
 public class EyesightResultDialogFragment extends BaseDialogFragment {
 
-    protected float leftEyesight, rightEyesight;
+//    protected float leftEyesight, rightEyesight;
 
     static EyesightResultDialogFragment eyeHintFragment;
+
+    private EyesightEntity.Data mEyeEntity;
 
     @BindView(R.id.tv_esr_left)
     TextView tv_esr_left;
@@ -42,10 +45,12 @@ public class EyesightResultDialogFragment extends BaseDialogFragment {
         TAG = getClass().getSimpleName() + "     ";
     }
 
-    public static EyesightResultDialogFragment getInstance(float leftEyesight, float rightEyesight) {
+    public static EyesightResultDialogFragment getInstance(EyesightEntity.Data data) {
+//    public static EyesightResultDialogFragment getInstance(float leftEyesight, float rightEyesight) {
         Bundle bundle = new Bundle();
-        bundle.putFloat("leftEyesight", leftEyesight);
-        bundle.putFloat("rightEyesight", rightEyesight);
+//        bundle.putFloat("leftEyesight", leftEyesight);
+//        bundle.putFloat("rightEyesight", rightEyesight);
+        bundle.putSerializable("data", data);
         eyeHintFragment = new EyesightResultDialogFragment();
         eyeHintFragment.setArguments(bundle);
         return eyeHintFragment;
@@ -95,17 +100,18 @@ public class EyesightResultDialogFragment extends BaseDialogFragment {
     }
 
     private void initData() {
-        leftEyesight = getArguments().getFloat("leftEyesight");
-        rightEyesight = getArguments().getFloat("rightEyesight");
+//        leftEyesight = getArguments().getFloat("leftEyesight");
+//        rightEyesight = getArguments().getFloat("rightEyesight");
+        mEyeEntity = (EyesightEntity.Data) getArguments().getSerializable("data");
 
         tv_esr_left.setText("");
-        NewWidgetSetting.setIdenticalLineTvColor(tv_esr_left, mContext.getResources().getColor(R.color.bg_color_main), 2f, leftEyesight + "", false);
+        NewWidgetSetting.setIdenticalLineTvColor(tv_esr_left, mContext.getResources().getColor(R.color.bg_color_main), 2f, mEyeEntity.lefteye + "", false);
         NewWidgetSetting.setIdenticalLineTvColor(tv_esr_left, -999, 1, "左眼", true);
-        NewWidgetSetting.setIdenticalLineTvColor(tv_esr_left, mContext.getResources().getColor(R.color.text_color_eye_resulr_e), 1.25f, "视力低下", true);
+        NewWidgetSetting.setIdenticalLineTvColor(tv_esr_left, mContext.getResources().getColor(R.color.text_color_eye_resulr_e), 1.25f, mEyeEntity.leftresult, true);
         tv_esr_right.setText("");
-        NewWidgetSetting.setIdenticalLineTvColor(tv_esr_right, mContext.getResources().getColor(R.color.bg_color_main), 2f, rightEyesight + "", false);
+        NewWidgetSetting.setIdenticalLineTvColor(tv_esr_right, mContext.getResources().getColor(R.color.bg_color_main), 2f, mEyeEntity.righteye + "", false);
         NewWidgetSetting.setIdenticalLineTvColor(tv_esr_right, -999, 1, "右眼", true);
-        NewWidgetSetting.setIdenticalLineTvColor(tv_esr_right, mContext.getResources().getColor(R.color.text_color_eye_resulr_e), 1.25f, "视力低下", true);
+        NewWidgetSetting.setIdenticalLineTvColor(tv_esr_right, mContext.getResources().getColor(R.color.text_color_eye_resulr_e), 1.25f, mEyeEntity.rightresult, true);
     }
 
 

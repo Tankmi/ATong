@@ -218,7 +218,7 @@ public class ChangeDateBir extends Dialog implements
 		@Override
 		public View getItem(int index, View cachedView, ViewGroup parent) {
 			View view = super.getItem(index, cachedView, parent);
-			LinearLayout linear = (LinearLayout) view .findViewById(R.id.linear_bir_item);
+			LinearLayout linear = view .findViewById(R.id.linear_bir_item);
 			mLayoutUtil.drawViewRBLinearLayout(linear, -1, 70, -1,  -1, -1, -1);
 			return view;
 		}

@@ -60,10 +60,6 @@ public class EyeDetectionFragment extends EyeDetectionBaseFragment {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        if(mPersonPresenter == null){
-            mPersonPresenter = new PersonalCenterPresenter();
-        }
-        mPersonPresenter.attachView(this);
     }
 
     @Override
@@ -112,7 +108,6 @@ public class EyeDetectionFragment extends EyeDetectionBaseFragment {
             LOGUtils.LOG("解除EventBus 注册");
             EventBus.getDefault().unregister(this);
         }
-        if(mPersonPresenter!=null)mPersonPresenter.detachView();
     }
 
     private void requestPermission(final String[] permissions) {

@@ -186,7 +186,7 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
     @Override
     protected void initLocation() {
         mLayoutUtil.setIsFullScreen(true);
-        mLayoutUtil.drawViewDefaultLayout(btn_login_close, 120, 56, -1, 0, -1, 0);
+        mLayoutUtil.drawViewDefaultLayout(btn_login_close, 170, 86, -1, 0, -1, 0);
         mLayoutUtil.drawViewRBLinearLayout(tv_login_hint, 0, 0, -1, 0, 180, 0);
 //        mLayoutUtil.drawViewRBLinearLayout(rel_login_account, 0, 0, -1, -1, -1, 0);
 //        mLayoutUtil.drawViewDefaultLayout(tv_login_veri, -1, -1, 0, -1, 0, 0);
@@ -204,7 +204,7 @@ public class LoginBindBaseFragment extends BaseFragment implements OnClickListen
         rel_login_verification = findViewByIds(R.id.rel_login_verification);
         tv_login_veri = findViewByIds(R.id.tv_login_veri);
 
-        btn_login_close.setOnClickListener(this);
+//        btn_login_close.setOnClickListener(this);
         tv_login_veri.setOnClickListener(this);
         addTextchange();
     }

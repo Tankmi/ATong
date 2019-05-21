@@ -15,6 +15,10 @@ import com.jemer.atong.base.BaseFragmentActivity;
 import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
 import com.jemer.atong.entity.user.UserEntity;
+import com.jemer.atong.fragment.personal_center.dialog.AlterPhoneDialogFragment;
+import com.jemer.atong.fragment.personal_center.dialog.BirthdayDialogFragment;
+import com.jemer.atong.fragment.personal_center.dialog.SexDialogFragment;
+import com.jemer.atong.fragment.personal_center.family.FamilyDialogFragment;
 import com.jemer.atong.net.DefaultObserver;
 import com.jemer.atong.net.RetrofitHelper;
 import com.jemer.atong.net.service.HomeService;
@@ -24,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.fragment.app.FragmentManager;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.OnClick;
@@ -50,12 +55,15 @@ import okhttp3.ResponseBody;
 
 public class PerfectInfoActivity extends BaseFragmentActivity {
 
-    @BindViews({R.id.tv_perinfo_bir, R.id.tv_perinfo_sex})  protected List<TextView> tvLists;
-    @BindView(R.id.et_perinfo_name)  protected EditText et_perinfo_name;
-    @BindView(R.id.btn_phone_login)  protected Button btnSubmit;
+    @BindViews({R.id.tv_perinfo_bir, R.id.tv_perinfo_sex})
+    protected List<TextView> tvLists;
+    @BindView(R.id.et_perinfo_name)
+    protected EditText et_perinfo_name;
+    @BindView(R.id.btn_phone_login)
+    protected Button btnSubmit;
 
     private String mSex;    //1男,2女
-    private String myear,mmonth,mday;
+    private String myear, mmonth, mday;
 
     public PerfectInfoActivity() {
         super(R.layout.activity_perfect_info);
@@ -72,17 +80,17 @@ public class PerfectInfoActivity extends BaseFragmentActivity {
 
     @Override
     protected void initContent() {
-        mSex  = PreferencesUtils.getString(mContext, PreferenceEntity.KEY_USER_SEX, "1");
+        mSex = PreferencesUtils.getString(mContext, PreferenceEntity.KEY_USER_SEX, "1");
         myear = PreferencesUtils.getString(mContext, PreferenceEntity.perfectInfoBirthday_year, 1989 + "");
         mmonth = PreferencesUtils.getString(mContext, PreferenceEntity.perfectInfoBirthday_month, 11 + "");
         mday = PreferencesUtils.getString(mContext, PreferenceEntity.perfectInfoBirthday_day, 16 + "");
 
-        int m  = Integer.parseInt(mmonth);
-        int d  = Integer.parseInt(mday);
-        PreferenceEntity.perfectInfoBirthday = myear + "-" + (m<10?"0"+m:m) + "-" + (d<10?"0"+d:d);
-        tvLists.get(0).setText(myear + "." + (m<10?"0"+m:m) + "." + (d<10?"0"+d:d));
+        int m = Integer.parseInt(mmonth);
+        int d = Integer.parseInt(mday);
+        PreferenceEntity.perfectInfoBirthday = myear + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d);
+        tvLists.get(0).setText(myear + "." + (m < 10 ? "0" + m : m) + "." + (d < 10 ? "0" + d : d));
 
-        tvLists.get(1).setText("" + (mSex.equals("1")?"男":"女"));
+        tvLists.get(1).setText("" + (mSex.equals("1") ? "男" : "女"));
 
     }
 
@@ -96,25 +104,74 @@ public class PerfectInfoActivity extends BaseFragmentActivity {
     }
 
 
-    @OnClick({R.id.tv_perinfo_bir, R.id.tv_perinfo_sex})
+    @OnClick({R.id.ll_perinfo_bir, R.id.tv_perinfo_bir, R.id.ll_perinfo_sex})
     void inputInfo(View view) {
         switch (view.getId()) {
             case R.id.tv_perinfo_bir:   //选择生日
-                selecttime("", "", "");
+            case R.id.ll_perinfo_bir:   //选择生日
+//                selecttime("", "", "");
+                ShowBirthdayDialog();
                 break;
-            case R.id.tv_perinfo_sex:   //选择性别
-                String sexStr = tvLists.get(1).getText().toString();
-                tvLists.get(1).getText();
-                String[] words2 = new String[]{"男", "女"};
-                DialogUIUtils.showSingleChoose(this, "性别", (sexStr!=null && !sexStr.equals(""))?sexStr.equals("男")?0:1:0, words2, new DialogUIItemListener() {
-                    @Override
-                    public void onItemClick(CharSequence text, int position) {
-                        LOG(text + "--" + position);
-                        tvLists.get(1).setText("" + text);
-                    }
-                }).show();
+            case R.id.ll_perinfo_sex:   //选择性别
+//                String sexStr = tvLists.get(1).getText().toString();
+//                tvLists.get(1).getText();
+//                String[] words2 = new String[]{"男", "女"};
+//                DialogUIUtils.showSingleChoose(this, "性别", (sexStr != null && !sexStr.equals("")) ? sexStr.equals("男") ? 0 : 1 : 0, words2, new DialogUIItemListener() {
+//                    @Override
+//                    public void onItemClick(CharSequence text, int position) {
+//                        LOG(text + "--" + position);
+//                        tvLists.get(1).setText("" + text);
+//                    }
+//                }).show();
+                ShowSexDialog();
                 break;
         }
+    }
+
+
+    SexDialogFragment playQueueFragment;
+    BirthdayDialogFragment birthDialogFragment;
+    AlterPhoneDialogFragment alterPhoneDialogFragment;
+    FamilyDialogFragment familyDialogFragment;
+    private FragmentManager fragmentManager;
+    private String DIALOG_SEX_TAG = "sexdialog";
+    private String DIALOG_BIR_TAG = "birdialog";
+    private String DIALOG_AP_TAG = "apdialog";
+    private String DIALOG_familyadd_TAG = "addfamily";
+
+    /**
+     * 显示选择生日框
+     */
+    protected void ShowBirthdayDialog() {
+        if (birthDialogFragment == null) birthDialogFragment = new BirthdayDialogFragment();
+        if (fragmentManager == null) fragmentManager = getSupportFragmentManager();
+        birthDialogFragment.setSexListener(bir -> {
+            LOG("回调生日：" + bir);
+            tvLists.get(0).setText(bir);
+//            if(!PreferenceEntity.perfectInfoBirthday.equals("")){
+//                mPersonPresenter.modificationUserInfo("birthday",PreferenceEntity.perfectInfoBirthday);
+//            }
+
+        });
+        birthDialogFragment.show(fragmentManager, DIALOG_BIR_TAG);
+    }
+
+    /**
+     * 显示选择性别框
+     */
+    protected void ShowSexDialog()
+    {
+        if (playQueueFragment == null) playQueueFragment = new SexDialogFragment();
+        if (fragmentManager == null) fragmentManager = getSupportFragmentManager();
+        playQueueFragment.setSexListener(state -> {
+            LOG("回调性别：" + state);
+            mSex = state + "";
+            tvLists.get(1).setText(state == 1?"男":"女");
+//            if(!user_sex.equals("" + state)){
+//                mPersonPresenter.modificationUserInfo("sex",state + "");
+//            }
+        });
+        playQueueFragment.show(fragmentManager,DIALOG_SEX_TAG);
     }
 
 
@@ -125,30 +182,30 @@ public class PerfectInfoActivity extends BaseFragmentActivity {
      * @param month
      * @param day
      */
-    public void selecttime(String year,String month,String day){
-        if(mChangeTimeDialog == null) mChangeTimeDialog = new ChangeDateBir(this);
-        if(mContext== null){
+    public void selecttime(String year, String month, String day) {
+        if (mChangeTimeDialog == null) mChangeTimeDialog = new ChangeDateBir(this);
+        if (mContext == null) {
             return;
         }
-        if(isFinishing()){
+        if (isFinishing()) {
             return;
         }
         mChangeTimeDialog.show();
         mChangeTimeDialog.setBirthdayListener(new ChangeDateBir.OnBirthListener() {
             @Override
             public void onClick(String year, String month, String day) {
-                if(year.equals("-1")){
+                if (year.equals("-1")) {
                     LOG("取消");
-                }else{
+                } else {
                     myear = year;
                     mmonth = month;
                     mday = day;
-                    int m  = Integer.parseInt(month);
-                    int d  = Integer.parseInt(day);
+                    int m = Integer.parseInt(month);
+                    int d = Integer.parseInt(day);
 
-                    tvLists.get(0).setText(year + "." + (m<10?"0"+m:m) + "." + (d<10?"0"+d:d));
+                    tvLists.get(0).setText(year + "." + (m < 10 ? "0" + m : m) + "." + (d < 10 ? "0" + d : d));
 
-                    PreferenceEntity.perfectInfoBirthday = year + "-" + (m<10?"0"+m:m) + "-" + (d<10?"0"+d:d);
+                    PreferenceEntity.perfectInfoBirthday = year + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d);
 //                    set_age.setText(year + "年" + month + "月" + day + "日");
 //                    updateUserInfo("birthday",year + "-" + month + "-" + day);
                 }
@@ -162,17 +219,17 @@ public class PerfectInfoActivity extends BaseFragmentActivity {
     void submit() {
         String name = et_perinfo_name.getText().toString();
 
-        if(StringUtils.isEmpty(name)){
+        if (StringUtils.isEmpty(name)) {
             ToastUtils.showToast("请输入姓名。");
             return;
         }
 
         setLoading(true, "");
 
-        Map<String,String> mMap = new HashMap<>();
+        Map<String, String> mMap = new HashMap<>();
         mMap.put("birthday", PreferenceEntity.perfectInfoBirthday + " 00:00:00");
         mMap.put("sex", mSex);
-        mMap.put("name", et_perinfo_name.getText().toString() );
+        mMap.put("name", et_perinfo_name.getText().toString());
 
         HomeService service;
         service = RetrofitHelper.getService().getApi();
@@ -191,10 +248,10 @@ public class PerfectInfoActivity extends BaseFragmentActivity {
                             return;
                         }
                         if (mUserEntity.code == ContextConstant.RESPONSECODE_200) {
-                                PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_USER_ISALL, "1");
-                                Intent intent_home = new Intent(PerfectInfoActivity.this, HomeActivity.class);
-                                startActivity(intent_home);
-                                finish();
+                            PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_USER_ISALL, "1");
+                            Intent intent_home = new Intent(PerfectInfoActivity.this, HomeActivity.class);
+                            startActivity(intent_home);
+                            finish();
                         } else if (mUserEntity.code == ContextConstant.RESPONSECODE_310) {    //登录信息过时跳转到登录页
                             reLoading();
                         } else {
@@ -215,7 +272,6 @@ public class PerfectInfoActivity extends BaseFragmentActivity {
                 });
 
     }
-
 
 
     /**
@@ -253,10 +309,10 @@ public class PerfectInfoActivity extends BaseFragmentActivity {
 
     @Override
     protected void pauseClose() {
-            PreferencesUtils.putString(mContext, PreferenceEntity.KEY_USER_SEX, mSex + "");
-            PreferencesUtils.putString(mContext, PreferenceEntity.perfectInfoBirthday_year, myear + "");
-            PreferencesUtils.putString(mContext, PreferenceEntity.perfectInfoBirthday_month, mmonth + "");
-            PreferencesUtils.putString(mContext, PreferenceEntity.perfectInfoBirthday_day, mday + "");
+        PreferencesUtils.putString(mContext, PreferenceEntity.KEY_USER_SEX, mSex + "");
+        PreferencesUtils.putString(mContext, PreferenceEntity.perfectInfoBirthday_year, myear + "");
+        PreferencesUtils.putString(mContext, PreferenceEntity.perfectInfoBirthday_month, mmonth + "");
+        PreferencesUtils.putString(mContext, PreferenceEntity.perfectInfoBirthday_day, mday + "");
     }
 
     @Override

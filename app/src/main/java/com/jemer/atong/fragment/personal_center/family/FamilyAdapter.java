@@ -15,6 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.jemer.atong.R;
+import com.jemer.atong.context.PreferenceEntity;
 import com.jemer.atong.entity.home.HomeEntity;
 import com.jemer.atong.entity.user.UserEntity;
 import com.jemer.atong.net.select_photo.SimpleItemTouchHelperCallback;
@@ -25,6 +26,7 @@ import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 import huitx.libztframework.utils.LOGUtils;
+import huitx.libztframework.utils.PreferencesUtils;
 
 public class FamilyAdapter extends RecyclerView.Adapter<FamilyAdapter.MyViewHolder> implements SimpleItemTouchHelperCallback.ItemTouchHelperAdapter {
 
@@ -32,10 +34,12 @@ public class FamilyAdapter extends RecyclerView.Adapter<FamilyAdapter.MyViewHold
     private LayoutInflater inflater;
     private List<UserEntity.Data.FamilyData> mList;
     private View headerView;
+    private String userId;
 
     public FamilyAdapter(Context context) {
         this.mContext = context;
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        userId = PreferencesUtils.getString(mContext, PreferenceEntity.KEY_USER_ID,"");
     }
 
     public FamilyAdapter(Context context, List<UserEntity.Data.FamilyData> data) {
@@ -67,6 +71,11 @@ public class FamilyAdapter extends RecyclerView.Adapter<FamilyAdapter.MyViewHold
     public void onBindViewHolder(FamilyAdapter.MyViewHolder holder, final int position) {
         final UserEntity.Data.FamilyData mData = mList.get(position);
         holder.mTVtitle.setText("" + mData.name);
+       LOGUtils.LOG("userId: " + userId + "  mData.id: " + mData.id + userId.equals(mData.id));
+        if(userId.equals(mData.id)){
+            holder.mIvBtn.setVisibility(View.GONE);
+            return;
+        }
         holder.mIvBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -9,7 +9,7 @@ import huitx.libztframework.utils.LOGUtils;
 
 public class Eyesightview extends RelativeLayout {
     private Context context;
-    String TAG = "EyesightView   ";
+    String TAG = "HistoryView   ";
 
     float downX,downY;
     float upX,upY;

@@ -19,11 +19,12 @@ public class ToastUtils{
 	}
 
 	public static void showToast(String id) {
+		if(StringUtils.isBlank(id)) return;
 		if (toast == null) { 
             toast = Toast.makeText(LibApplicationData.context, id, Toast.LENGTH_SHORT);
         } else { 
             toast.setText(id); 
-        } 
-        toast.show(); 
+        }
+        toast.show();
     }
 }

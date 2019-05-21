@@ -8,6 +8,8 @@ import com.jemer.atong.R;
 import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
 import com.jemer.atong.entity.eyesight.EyesightHintStepBean;
+import com.jemer.atong.fragment.eyesight.net.EyesightPresenter;
+import com.jemer.atong.fragment.personal_center.net.PersonalCenterPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -41,15 +43,19 @@ public class EyesightActivity extends EyesightBaseActivity {
        }
 
 
-
+       if(mPresenter == null){
+           mPresenter = new EyesightPresenter();
+       }
+       mPresenter.attachView(this);
    }
 
     @Override
    protected void initLogic() {
+        LOG("initLogic");
         eyeSightFragment();
         eyeProcedure = -1;
         updateView();
-        LOG("initLogic");
+
    }
 
     @Override
@@ -101,6 +107,9 @@ public class EyesightActivity extends EyesightBaseActivity {
        if (EventBus.getDefault().isRegistered(this)) {
            LOGUtils.LOG("解除EventBus 注册");
            EventBus.getDefault().unregister(this);
+       }
+       if(mPresenter != null){
+           mPresenter.detachView();
        }
    }
 

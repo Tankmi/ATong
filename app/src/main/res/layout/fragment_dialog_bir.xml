@@ -21,6 +21,7 @@
         android:layout_marginTop="@dimen/margin_tb_large"
         android:layout_marginLeft="@dimen/margin_lr_normal"
         android:layout_marginRight="@dimen/margin_lr_normal"
+        android:layout_marginBottom="@dimen/margin_tb_large"
         android:layout_weight="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

@@ -45,7 +45,7 @@ public class BannerViewPager extends ViewPager {
     public <T> void setData(List<T> data) {
         mAdapter.setData(data);
         setCurrentItem(1);
-//        startTask();
+        startTask();
     }
 
     @Override

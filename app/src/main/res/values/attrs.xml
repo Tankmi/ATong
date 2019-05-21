@@ -7,6 +7,8 @@
         <attr name="ycoordcut" format="integer" />	<!-- 换行字数（满多少行换行，不需要设置的话，把值设置大一些） -->
         <attr name="ycoordraw_height" format="float" />	<!-- 绘制区域的高度 -->
         <attr name="ycoormargin_bottom" format="float" />	<!-- 距离画布底部（原点）的距离 -->
+        <attr name="line_color" format="color" />	<!-- 线条颜色 -->
+        <attr name="trend_line_color" format="color" />	<!-- 渲染颜色 -->
     </declare-styleable>
 
     <!-- 线形图 -->

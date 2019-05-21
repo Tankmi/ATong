@@ -13,6 +13,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,15 +23,21 @@ import com.jemer.atong.base.BaseFragmentActivity;
 import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
 import com.jemer.atong.entity.eyesight.EyesightBean;
+import com.jemer.atong.entity.eyesight.EyesightEntity;
 import com.jemer.atong.entity.eyesight.EyesightHintStepBean;
+import com.jemer.atong.entity.history.PointLineTableBean;
 import com.jemer.atong.fragment.eyesight.EyeDetectionFragment;
 import com.jemer.atong.fragment.eyesight.hint.EyeGuideHintDialogFragment;
 import com.jemer.atong.fragment.eyesight.hint.EyesightHintDialogFragment;
 import com.jemer.atong.fragment.eyesight.hint.EyesightResultDialogFragment;
+import com.jemer.atong.fragment.eyesight.net.EyesightPresenter;
+import com.jemer.atong.fragment.eyesight.net.EyesightView;
 import com.jemer.atong.fragment.eyesight.view.Eyesightview;
 import com.jemer.atong.fragment.home.HomeFragment;
 import com.jemer.atong.fragment.personal_center.PersonalCenterFragment;
 import com.jemer.atong.util.VersionTools;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -46,7 +53,7 @@ import huitx.libztframework.utils.ToastUtils;
 import huitx.libztframework.view.FragmentSwitchTool;
 import huitx.libztframework.view.dialog.DialogUIUtils;
 
-public class EyesightBaseActivity extends BaseFragmentActivity implements Eyesightview.EyesightViewListener {
+public class EyesightBaseActivity extends BaseFragmentActivity implements Eyesightview.EyesightViewListener, EyesightView<EyesightEntity.Data> {
 
     protected MyHandler mHandler;
 
@@ -67,6 +74,8 @@ public class EyesightBaseActivity extends BaseFragmentActivity implements Eyesig
     protected static int eyeProcedure = 0;
     protected float leftEyesight, rightEyesight;
     protected List<EyesightBean> mEyesights;
+
+    EyesightPresenter mPresenter;
 
     FragmentManager fragmentManager;
 
@@ -167,8 +176,17 @@ public class EyesightBaseActivity extends BaseFragmentActivity implements Eyesig
             leftEyesight = eyesightBean.getEyesight();
             LOG("生成结论 rightEyesight : " + rightEyesight
                     + "leftEyesight : " + leftEyesight);
-            eyesightResultFragment();
+
+            mPresenter.putEyesightData(eyeSightState, leftEyesight + "", rightEyesight + "");
+
         }
+    }
+
+    @Override
+    public void putEyesightSuccess(EyesightEntity.Data data) {
+        LOG("数据上传成功！" + eyeSightState);
+        eyesightResultFragment(data);
+        EventBus.getDefault().post(new PointLineTableBean("1","1"));
     }
 
     @Override
@@ -182,7 +200,7 @@ public class EyesightBaseActivity extends BaseFragmentActivity implements Eyesig
     protected void setHint(boolean state){
         if(state){
             LOG("方向一致");
-            mDirectionState.setBackgroundColor(mContext.getResources().getColor(R.color.green));
+            mDirectionState.setImageResource(R.drawable.iv_eyesight_correct);
             mDirectionState.setVisibility(View.VISIBLE);
             eyeSightStatus = 2;
             mDirectionState.postDelayed(()->{
@@ -192,7 +210,7 @@ public class EyesightBaseActivity extends BaseFragmentActivity implements Eyesig
             }, 500);//500ms 后设置不可见
         }else{
             LOG("方向错误");
-            mDirectionState.setBackgroundColor(mContext.getResources().getColor(R.color.red));
+            mDirectionState.setImageResource(R.drawable.iv_eyesight_mistake);
             mDirectionState.setVisibility(View.VISIBLE);
             eyeSightStatus = 2;
             mDirectionState.postDelayed(()->{
@@ -213,10 +231,30 @@ public class EyesightBaseActivity extends BaseFragmentActivity implements Eyesig
         eyeStepHintFragment.show(fragmentManager, "123");
     }
     
-    protected void eyesightResultFragment() {
-        eyesightResultDialogFragment = EyesightResultDialogFragment.getInstance(leftEyesight, rightEyesight);
+    protected void eyesightResultFragment(EyesightEntity.Data data) {
+        eyesightResultDialogFragment = EyesightResultDialogFragment.getInstance(data);
         if (fragmentManager == null) fragmentManager = getSupportFragmentManager();
         eyesightResultDialogFragment.show(fragmentManager, "122");
+    }
+
+    @Override
+    public void loadingShow() {
+        setLoading(true, "");
+    }
+
+    @Override
+    public void loadingDissmis() {
+        setLoading(false, "");
+    }
+
+    @Override
+    public void loginOut() {
+        reLoading();
+    }
+
+    @Override
+    public void setPresenter(Object presenter) {
+
     }
 
 

@@ -57,6 +57,7 @@ public class LoginFragment extends LoginBindBaseFragment {
                 getActivity().finish();
                 break;
             case R.id.tv_login_veri:    //获取验证码
+                LOG("获取验证码");
                 if(isPermission())
                     getVerification();
                 break;

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/eyesight_short"
+        android:icon="@mipmap/ic_launcher"
+        android:title="近视测试"/>
+
+    <item
+        android:id="@+id/eyesight_long"
+        android:icon="@mipmap/ic_launcher"
+        android:title="远视测试"/>
+
+    <item
+        android:id="@+id/eyesight_cancel"
+        android:icon="@mipmap/ic_launcher"
+        android:title="取消"/>
+
+</menu>

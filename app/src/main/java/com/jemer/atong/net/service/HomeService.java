@@ -70,5 +70,21 @@ public interface HomeService {
     @FormUrlEncoded
     Observable<ResponseBody> delFamily(@Field("id") int comment_id);
 
+    @POST(UrlConstantRx.API_PUT_EYESIGHT_SHORT)
+    @FormUrlEncoded
+    Observable<ResponseBody> putEyesightShort(@FieldMap Map<String, String> map);
+
+    @POST(UrlConstantRx.API_PUT_EYESIGHT_LONG)
+    @FormUrlEncoded
+    Observable<ResponseBody> putEyesightLong(@FieldMap Map<String, String> map);
+
+    @POST(UrlConstantRx.API_PUT_EYESIGHT_HISTORY_SHORT)
+    @FormUrlEncoded
+    Observable<ResponseBody> getEyesightHisShort(@FieldMap Map<String, String> map);
+
+    @POST(UrlConstantRx.API_PUT_EYESIGHT_HISTORY_LONG)
+    @FormUrlEncoded
+    Observable<ResponseBody> getEyesightHisLong(@FieldMap Map<String, String> map);
+
 
 }

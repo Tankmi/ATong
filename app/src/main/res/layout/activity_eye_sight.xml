@@ -29,11 +29,12 @@
         <ImageView
             android:id="@+id/iv_eyesight_direction_state"
             android:visibility="gone"
-            android:scaleType="centerInside"
-            android:background="@color/red"
+            android:scaleType="fitCenter"
+            android:background="@drawable/bg_eyesighthint_white_5"
+            android:src="@drawable/iv_eyesight_mistake"
             android:layout_centerInParent="true"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             />
     </com.jemer.atong.fragment.eyesight.view.Eyesightview>
 

@@ -302,10 +302,10 @@ public class BirthdayRelativelayoutWheelView extends RelativeLayout implements V
 	}
 	
 
-	/** 最小年龄是 14岁 */
+	/** 最小年龄是 2岁 */
 	public int getYear() {
 		Calendar c = Calendar.getInstance();
-		return c.get(Calendar.YEAR) - 14;
+		return c.get(Calendar.YEAR) - 2;
 	}
 
 

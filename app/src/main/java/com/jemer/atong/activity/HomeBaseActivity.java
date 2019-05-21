@@ -23,6 +23,7 @@ import com.jemer.atong.base.BaseFragmentActivity;
 import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
 import com.jemer.atong.fragment.eyesight.EyeDetectionFragment;
+import com.jemer.atong.fragment.history.HistoryFragment;
 import com.jemer.atong.fragment.home.HomeFragment;
 import com.jemer.atong.fragment.personal_center.PersonalCenterFragment;
 import com.jemer.atong.util.VersionTools;
@@ -44,11 +45,11 @@ import huitx.libztframework.view.dialog.DialogUIUtils;
 public class HomeBaseActivity extends BaseFragmentActivity implements OnClickListener, DialogInterface.OnDismissListener {
 
     protected HomeFragment homeFragment;
-//    protected RankingListFragment rankingFragment;
+    protected HistoryFragment historyFragment;
     protected EyeDetectionFragment dynamicFoodFragment;
     protected PersonalCenterFragment settingsFragment;
-    protected FragmentSwitchTool mFragmentSwitch;
 
+    protected FragmentSwitchTool mFragmentSwitch;
     private final int VERSION_UPDATE = 100;
     /**
      * 记录页面退出时间
@@ -60,12 +61,13 @@ public class HomeBaseActivity extends BaseFragmentActivity implements OnClickLis
     private LinearLayout lin_tab01;
     private ImageView iv_tab_home_choiceness;
     private TextView tv_tab_home_choiceness;
-
     protected LinearLayout lin_tab02;
     private ImageView iv_tab_home_dynamic;
     private TextView tv_tab_home_dynamic;
-
     private LinearLayout lin_tab03;
+    private ImageView iv_tab_home_history;
+    private TextView tv_tab_home_history;
+    private LinearLayout lin_tab04;
     private ImageView iv_tab_home_settings;
     private TextView tv_tab_home_settings;
 
@@ -85,7 +87,10 @@ public class HomeBaseActivity extends BaseFragmentActivity implements OnClickLis
         lin_tab02 = findViewByIds(R.id.lin_tab_home_dynamic);
         iv_tab_home_dynamic = findViewByIds(R.id.iv_tab_home_dynamic);
         tv_tab_home_dynamic = findViewByIds(R.id.tv_tab_home_dynamic);
-        lin_tab03 = findViewByIds(R.id.lin_tab_home_settings);
+        lin_tab03 = findViewByIds(R.id.lin_tab_home_history);
+        iv_tab_home_history = findViewByIds(R.id.iv_tab_home_history);
+        tv_tab_home_history = findViewByIds(R.id.tv_tab_home_history);
+        lin_tab04 = findViewByIds(R.id.lin_tab_home_settings);
         iv_tab_home_settings = findViewByIds(R.id.iv_tab_home_settings);
         tv_tab_home_settings = findViewByIds(R.id.tv_tab_home_settings);
 
@@ -95,20 +100,22 @@ public class HomeBaseActivity extends BaseFragmentActivity implements OnClickLis
     private void initFragment() {
         homeFragment = new HomeFragment();
         dynamicFoodFragment = new EyeDetectionFragment();
-//        rankingFragment = new RankingListFragment();
+        historyFragment = new HistoryFragment();
         settingsFragment = new PersonalCenterFragment();
 
         mFragmentSwitch = new FragmentSwitchTool(getSupportFragmentManager(), R.id.fl_home);
-        mFragmentSwitch.setClickableViews(lin_tab01, lin_tab02, lin_tab03);
+        mFragmentSwitch.setClickableViews(lin_tab01, lin_tab02, lin_tab03, lin_tab04);
         mFragmentSwitch.addSelectedViews(new View[]{iv_tab_home_choiceness})
                 .addSelectedViews(new View[]{iv_tab_home_dynamic})
+                .addSelectedViews(new View[]{iv_tab_home_history})
                 .addSelectedViews(new View[]{iv_tab_home_settings});
 
         mFragmentSwitch.setFragments(homeFragment.getClass(), dynamicFoodFragment.getClass(),
+                historyFragment.getClass(),
                 settingsFragment.getClass());
 
-//        mFragmentSwitch.changeTag(lin_tab01);
-        mFragmentSwitch.changeTag(lin_tab02);
+        mFragmentSwitch.changeTag(lin_tab01);
+//        mFragmentSwitch.changeTag(lin_tab03);
     }
 
     @Override

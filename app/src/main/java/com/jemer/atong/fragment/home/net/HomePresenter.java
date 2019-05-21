@@ -29,7 +29,7 @@ public class HomePresenter implements BasePresenter<HomeView> {
     private HomeModel mModel;
     private HomeView mView;
 
-    private int current = 1,rowSize = 10;
+    private int current = 1,rowSize = 8;
 
     public HomePresenter() {
         mModel = new HomeModel();
@@ -67,7 +67,7 @@ public class HomePresenter implements BasePresenter<HomeView> {
         Map<String,String> mMap = new HashMap<>();
         mMap.put("current", current + "");
         mMap.put("rowSize", rowSize + "");
-        mMap.put("keywords", searchData);
+      if(!StringUtils.isBlank(searchData))   mMap.put("keywords", searchData);
 
         mView.loadingShow();
         mModel.getListData(new BaseHttpEntity<ResponseBody>() {
@@ -76,18 +76,18 @@ public class HomePresenter implements BasePresenter<HomeView> {
                 mView.loadingDissmis();
                 Gson gson = new Gson();
                 HomeEntity mEntity;
+                String str;
                 try {
-                    String str = StringUtils.replaceJson(data.string());
-                    if(state == 1){
-                        PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_CACHE_HOME,str);
-                    }
+                    str = StringUtils.replaceJson(data.string());
                     mEntity = gson.fromJson(str, HomeEntity.class);
                 } catch (Exception e) {
                     e.printStackTrace();
                     return;
                 }
                 if (mEntity.code == ContextConstant.RESPONSECODE_200) {
-
+                    if(state == 1){
+                        PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_CACHE_HOME,str);
+                    }
                     mView.getListDataSuccess(state,mEntity.data.list);
                 } else if (mEntity.code == ContextConstant.RESPONSECODE_310) {    //登录信息过时跳转到登录页
                     mView.loginOut();
@@ -142,15 +142,16 @@ public class HomePresenter implements BasePresenter<HomeView> {
                 mView.loadingDissmis();
                 Gson gson = new Gson();
                 BannerEntity mEntity;
+                String str;
                 try {
-                    String str = StringUtils.replaceJson(data.string());
+                    str = StringUtils.replaceJson(data.string());
                     mEntity = gson.fromJson(str, BannerEntity.class);
-                    PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_CACHE_BANNER, str);
                 } catch (Exception e) {
                     e.printStackTrace();
                     return;
                 }
                 if (mEntity.code == ContextConstant.RESPONSECODE_200) {
+                    PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_CACHE_BANNER, str);
                     mView.getBannerData(true,mEntity.data.list);
                 } else if (mEntity.code == ContextConstant.RESPONSECODE_310) {    //登录信息过时跳转到登录页
                     mView.loginOut();

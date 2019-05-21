@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:detmain="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_history_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height">
+
+
+        <TextView
+            android:id="@+id/tv_history_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableRight="@drawable/iv_arrows_descend"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="近视测试"
+            android:textColor="@color/text_color_normal"
+            android:textSize="@dimen/title_text_size" />
+
+        <Button
+            android:id="@+id/bt_history_family"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_history_family" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_below="@+id/rl_history_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_lr_normal"
+                android:layout_marginTop="@dimen/margin_tb_normal"
+                android:text="左眼视力"
+                android:textColor="@color/text_color_hint"
+                android:textSize="@dimen/text_size_big" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_lr_normal"
+                android:layout_marginTop="@dimen/margin_tb_normal"
+                android:layout_marginRight="@dimen/margin_lr_normal"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <com.jemer.atong.fragment.history.view.YCoordPointLine
+                    android:id="@+id/yc_eyesight_hisotry_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_lr_small"
+                    detmain:ycoordcut="20"
+                    detmain:ycoordinate="0.1,1.0,1.5"
+                    detmain:ycoordraw_height="208"
+                    detmain:ycoormargin_bottom="70" />
+
+                <HorizontalScrollView
+                    android:id="@+id/hs_eyesight_hisotry_left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_lr_normal"
+                    android:cacheColorHint="#00000000"
+                    android:divider="@null"
+                    android:fadingEdge="none"
+                    android:overScrollMode="never"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.jemer.atong.fragment.history.view.PointLineView
+                            android:id="@+id/plv_eyesight_hisotry_left"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            detmain:line_color="#0091ff"
+                            detmain:trend_line_color="#200091ff"
+                            detmain:ycoordinate="0.1, 1.0, 1.5"
+                            detmain:ycoordraw_height="208"
+                            detmain:ycoormargin_bottom="70" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <ImageView
+                style="@style/horizontal_line_style"
+                android:layout_height="8dp"
+                android:background="@color/all_bg" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_lr_normal"
+                android:layout_marginTop="@dimen/margin_tb_normal"
+                android:text="右眼视力"
+                android:textColor="@color/text_color_hint"
+                android:textSize="@dimen/text_size_big" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_lr_normal"
+                android:layout_marginTop="@dimen/margin_tb_normal"
+                android:layout_marginRight="@dimen/margin_lr_normal"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <com.jemer.atong.fragment.history.view.YCoordPointLine
+                    android:id="@+id/yc_eyesight_hisotry_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_lr_small"
+                    detmain:ycoordcut="20"
+                    detmain:ycoordinate="0.1,1.0,1.5"
+                    detmain:ycoordraw_height="208"
+                    detmain:ycoormargin_bottom="70" />
+
+                <HorizontalScrollView
+                    android:id="@+id/hs_eyesight_hisotry_right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_lr_normal"
+                    android:cacheColorHint="#00000000"
+                    android:divider="@null"
+                    android:fadingEdge="none"
+                    android:overScrollMode="never"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.jemer.atong.fragment.history.view.PointLineView
+                            android:id="@+id/plv_eyesight_hisotry_right"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            detmain:line_color="#fe4c5e"
+                            detmain:trend_line_color="#20fe4c5e"
+                            detmain:ycoordinate="0.1, 1.0, 1.5"
+                            detmain:ycoordraw_height="208"
+                            detmain:ycoormargin_bottom="70" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/iv_his_translucence"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/translucence" />
+</RelativeLayout>

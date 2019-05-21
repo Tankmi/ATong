@@ -52,6 +52,8 @@ public class HomeBaseFragment extends BaseFragment implements
     protected HomePresenter mPresenter;
     protected String mSearchText = "";
 
+    private int current = 1,rowSize = 8;
+
     protected HomeDataAdapter mAdapter;
 
 //    private String[] images = {
@@ -154,7 +156,7 @@ public class HomeBaseFragment extends BaseFragment implements
             return;
         }
         LOG("获取数据： state  " + state + "list.size(): " + datas.size());
-        if (datas != null && datas.size() >= 10) mSwipeRecyclerView.isCancelLoadNext(false);
+        if (datas != null && datas.size() >= rowSize) mSwipeRecyclerView.isCancelLoadNext(false);
         else mSwipeRecyclerView.isCancelLoadNext(true);
 
         if (state == 1) {  mAdapter.setListData(datas);

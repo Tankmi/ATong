@@ -96,12 +96,13 @@
             <ImageView
                 android:id="@+id/iv_eyesight_result_hint"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_tb_normal"
                 android:layout_marginLeft="@dimen/margin_lr_2normal"
                 android:layout_marginRight="@dimen/margin_lr_2normal"
                 android:layout_weight="1"
                 android:scaleType="fitCenter"
-                android:src="@drawable/bg_eyesight_result" />
+                android:src="@drawable/bg_eyesight_result_hint" />
 
             <LinearLayout
                 android:id="@+id/ll_esr_btn"

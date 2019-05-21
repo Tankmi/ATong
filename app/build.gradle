@@ -2,6 +2,15 @@ apply plugin: 'com.android.application'
 
 
 android {
+    signingConfigs {
+        release {
+            keyAlias 'jemer'
+            keyPassword 'jemerapp'
+            storeFile file('D:/android/android.keystore')
+            storePassword 'jemerapp'
+        }
+    }
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.jemer.atong"
@@ -15,9 +24,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
-
     // Butterknife requires Java 8.
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -36,7 +45,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
     implementation 'com.google.android.material:material:1.0.0-beta01'
-
     //Design Support库
     //    implementation 'androidx.recyclerview:recyclerview:1.0.0-beta01'
     //Glide
@@ -45,7 +53,6 @@ dependencies {
     //ButterKnife
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
-
     //Rxjava + okhttp + retrofit  ---------------start
     //retrofit log打印
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
@@ -61,14 +68,11 @@ dependencies {
     // 支持Gson解析
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     //Rxjava + okhttp + retrofit  ---------------end
-
     //EventBus
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation project(':basisModule')
-
     //微信分享
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
-
     //banner  github: https://github.com/threeloe/FBanner
-//    implementation 'com.pngfi:fbanner:0.9.1'
+    //    implementation 'com.pngfi:fbanner:0.9.1'
 }

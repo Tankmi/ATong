@@ -1,25 +1,13 @@
 package com.jemer.atong.fragment.personal_center.family;
 
-import android.content.DialogInterface;
-import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jemer.atong.R;
 import com.jemer.atong.base.BaseDialogFragment;
-import com.jemer.atong.context.PreferenceEntity;
 import com.jemer.atong.entity.user.UserEntity;
-import com.jemer.atong.fragment.home.HomeDataAdapter;
-import com.jemer.atong.fragment.personal_center.dialog.AlterPhoneDialogFragment;
-import com.jemer.atong.fragment.personal_center.dialog.BirthdayDialogFragment;
-import com.jemer.atong.fragment.personal_center.dialog.SexDialogFragment;
 import com.jemer.atong.fragment.personal_center.family.net.FamilyPresenter;
 import com.jemer.atong.fragment.personal_center.family.net.FamilyView;
 
@@ -29,13 +17,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.OnClick;
-import huitx.libztframework.utils.PreferencesUtils;
-import huitx.libztframework.utils.StringUtils;
 import huitx.libztframework.utils.ToastUtils;
-import huitx.libztframework.view.dialog.DialogUIUtils;
-import huitx.libztframework.view.dialog.listener.DialogUIItemListener;
 import huitx.libztframework.view.swiperecyclerview.SwipeRecyclerView;
 
 //调用方式
@@ -143,6 +126,7 @@ public class FamilyDialogFragment extends BaseDialogFragment implements FamilyVi
 
     @Override
     protected void initLocation() {
+        mLayoutUtil.drawViewDefaultLayout(bt_eyert_left, 170, 86, -1, -1, -1, -1);
     }
 
     @Override

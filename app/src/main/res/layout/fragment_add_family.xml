@@ -18,8 +18,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="106dp"
-
             android:orientation="vertical">
 
             <LinearLayout
@@ -116,10 +114,26 @@
                     android:layout_marginTop="@dimen/margin_tb_large" />
             </LinearLayout>
 
+            <Button
+                android:id="@+id/btn_addfam_affirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="64dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginRight="64dp"
+                android:background="@drawable/back_transparent_login_90"
+                android:drawablePadding="@dimen/margin_lr_small"
+                android:gravity="center"
+                android:letterSpacing="0.5"
+                android:text="确认"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_large" />
+
+
         </LinearLayout>
     </ScrollView>
 
-    <Button
+<!--    <Button
         android:id="@+id/btn_addfam_affirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -133,6 +147,6 @@
         android:letterSpacing="0.5"
         android:text="添加"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_large" />
+        android:textSize="@dimen/text_size_large" />-->
 
 </LinearLayout>

@@ -81,36 +81,28 @@ public class HomeDataAdapter extends RecyclerView.Adapter<HomeDataAdapter.MyView
 
     @Override
     public void onBindViewHolder(HomeDataAdapter.MyViewHolder holder, final int position) {
-        //        holder.setIsRecyclable(false);  //禁止复用
-        final HomeEntity.Data.HomeData mData = mList.get(position);
-//        if(getItemViewType(position) == TYPE_NODATA){
-//            holder.mTVhint.setText("暂无数据");
-//        }else
-//        if(getItemViewType(position) == TYPE_HEAD){
-//            holder.mTVtitle.setText("" +(position+1) + "." + mData.planName);
-//            Glide.with(mContext).load(mData.image).into(holder.mIVimage);
-//            holder.mTVhint.setText(mData.restTime);
-//        }
-//        else{
-        holder.mTVtitle.setText("" + mData.title);
-//            holder.mTVhint.setText(mData.restTime);
-        holder.mTVcontent.setText(mData.content);
-        RequestOptions options;
-        options = new RequestOptions()
-                .placeholder(R.drawable.icon_loading)
-                .circleCrop();
-        Glide.with(holder.imageView).load(mData.image).apply(options).transforms(new CenterCrop(), new RoundedCorners(dp2px(5))).disallowHardwareConfig().into(holder.imageView);
-        holder.mainView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_home = new Intent(mContext, WebViewActivity.class);
-                intent_home.putExtra("url", mData.url);
-                intent_home.putExtra("title_name", mData.title);
-                intent_home.putExtra("is_refresh", false);
-                mContext.startActivity(intent_home);
-            }
-        });
-//        }
+        try {
+            final HomeEntity.Data.HomeData mData = mList.get(position);
+            holder.mTVtitle.setText("" + mData.title);
+            holder.mTVcontent.setText(mData.content);
+            RequestOptions options;
+            options = new RequestOptions()
+                    .placeholder(R.drawable.icon_loading)
+                    .circleCrop();
+            Glide.with(holder.imageView).load(mData.image).apply(options).transforms(new CenterCrop(), new RoundedCorners(dp2px(5))).disallowHardwareConfig().into(holder.imageView);
+            holder.mainView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent_home = new Intent(mContext, WebViewActivity.class);
+                    intent_home.putExtra("url", mData.url);
+                    intent_home.putExtra("title_name", mData.title);
+                    intent_home.putExtra("is_refresh", false);
+                    mContext.startActivity(intent_home);
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public int getRealPosition(RecyclerView.ViewHolder holder) {

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_eyesight_other_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/bt_eyeso_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_back"
+            android:layout_centerVertical="true"
+            android:gravity="left"
+            android:textSize="@dimen/title_right_text_size" />
+
+        <TextView
+            android:id="@+id/tv_eyeso_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawablePadding="3dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="散光测试"
+            android:textColor="@color/text_color_normal"
+            android:textSize="@dimen/title_text_size" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="@dimen/margin_tb_large"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_eyesight_other"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/iv_eyesight_astigmatism"
+           />
+
+        <LinearLayout
+            android:id="@+id/ll_eyesight_other_rb"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_eyesight_red"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_redblue_red_5" />
+
+            <ImageView
+                android:id="@+id/iv_eyesight_green"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_redblue_blue_5" />
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/iv_eyesight_other_hint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_lr_2normal"
+            android:layout_marginTop="@dimen/margin_tb_normal"
+            android:layout_marginRight="@dimen/margin_lr_2normal"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/bg_eyesight_astigmatism_hint" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

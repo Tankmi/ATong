@@ -215,6 +215,7 @@ public class PreferenceEntity extends LibPreferenceEntity {
 	public static String KEY_CACHE_HOME = "key_cache_home";
 	//个人中心数据缓存
 	public static String KEY_CACHE_FAMILY = "key_cache_family";
+	public static String KEY_CACHE_FAMILY_USERID = "key_cache_family_user_id";
 
 	//视力测试缓存
 	public static String KEY_EYE_HINT_GUIDE_SHORT = "key_eye_hint_guide_short";	//近视力  boolean

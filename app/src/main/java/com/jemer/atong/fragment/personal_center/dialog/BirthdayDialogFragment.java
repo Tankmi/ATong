@@ -61,7 +61,8 @@ public class BirthdayDialogFragment extends BaseDialogFragment implements Birthd
     public void onStart() {
         super.onStart();
         //设置fragment高度 、宽度
-        getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, mLayoutUtil.getWidgetHeight(550));
+//        getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, mLayoutUtil.getWidgetHeight(550));
+        getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         getDialog().setCanceledOnTouchOutside(true);
     }
 

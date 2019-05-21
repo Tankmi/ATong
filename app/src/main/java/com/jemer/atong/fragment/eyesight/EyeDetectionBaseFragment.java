@@ -9,10 +9,16 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jemer.atong.R;
 import com.jemer.atong.base.BaseFragment;
 import com.jemer.atong.context.PreferenceEntity;
+import com.jemer.atong.entity.eyesight.EyesightEntity;
+import com.jemer.atong.entity.user.UserEntity;
 import com.jemer.atong.fragment.eyesight.hint.EyeGuideHintDialogFragment;
+import com.jemer.atong.fragment.eyesight.hint.EyeSightSelUserDialogFragment;
+import com.jemer.atong.fragment.eyesight.hint.EyesightOtherFragment;
+import com.jemer.atong.fragment.eyesight.net.EyesightView;
 import com.jemer.atong.fragment.eyesight.window.EyesightActivity;
 import com.jemer.atong.fragment.personal_center.net.PersonalCenterPresenter;
 import com.jemer.atong.fragment.personal_center.net.PersonalCenterView;
@@ -24,14 +30,19 @@ import androidx.fragment.app.FragmentManager;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.OnClick;
+import huitx.libztframework.context.ContextConstant;
 import huitx.libztframework.utils.PreferencesUtils;
+import huitx.libztframework.utils.StringUtils;
 
 @SuppressLint("ValidFragment")
-public class EyeDetectionBaseFragment extends BaseFragment implements PersonalCenterView {
+public class EyeDetectionBaseFragment extends BaseFragment implements EyeSightSelUserDialogFragment.OnSelUserListener {
 
     protected MyHandler mHandler;
-    protected PersonalCenterPresenter mPersonPresenter;
+//    protected PersonalCenterPresenter mPersonPresenter;
     FragmentManager fragmentManager;
+
+    /** 1,近视，2，远视 */
+    private int eyeState;
 
     @BindView(R.id.rl_eye_title)  RelativeLayout rl_eye_title;
     @BindView(R.id.tv_eyet_title)  TextView tv_eyet_title;
@@ -52,18 +63,18 @@ public class EyeDetectionBaseFragment extends BaseFragment implements PersonalCe
                 getEyeSight(2);
                 break;
             case R.id.tv_eye_astigmastim:
-
+                eyeSightOtherFragment(1);
                 break;
             case R.id.tv_eye_redblue:
-
+                eyeSightOtherFragment(2);
                 break;
         }
     }
 
 
     /**
-     * 1234
-     * 近视，远视，散光，红绿
+     * 12
+     * 近视，远视
      */
     private void eyeSightFragment(int state){
         EyeGuideHintDialogFragment eyeHintFragment = EyeGuideHintDialogFragment.getInstance(state);
@@ -71,20 +82,78 @@ public class EyeDetectionBaseFragment extends BaseFragment implements PersonalCe
         eyeHintFragment.show(fragmentManager , "123");
     }
 
+    /**
+     * 12
+     * 散光，红绿
+     */
+    private void eyeSightOtherFragment(int state){
+        EyesightOtherFragment eyeHintFragment = EyesightOtherFragment.getInstance(state);
+        if(fragmentManager == null) fragmentManager = getChildFragmentManager();
+        eyeHintFragment.show(fragmentManager , "1234");
+    }
+
+
+    EyeSightSelUserDialogFragment selUserFragment;
+    /**
+     * 选择用户
+     */
+    private void selUserFragment(){
+        if(selUserFragment == null){
+            selUserFragment = new EyeSightSelUserDialogFragment();
+            selUserFragment.setSelUserListener(this);
+        }
+        if(fragmentManager == null) fragmentManager = getChildFragmentManager();
+        selUserFragment.show(fragmentManager , "123");
+    }
+
+
+    @Override
+    public void onSelUser(String userid) {
+        LOG("选中的用户ID：" + userid + "  测试类型：" + eyeState);
+        PreferencesUtils.putString(mContext, PreferenceEntity.KEY_CACHE_FAMILY_USERID,userid);
+
+        Intent intent = new Intent(getActivity(), EyesightActivity.class);
+        intent.putExtra("state", eyeState);
+        getActivity().startActivity(intent);
+    }
 
     /**
      * 1,近视，2，远视
      * @param state
      */
     protected void getEyeSight(int state){
+        this.eyeState = state;
         boolean isHint = PreferencesUtils.getBoolean(mContext, state==1? PreferenceEntity.KEY_EYE_HINT_GUIDE_SHORT:PreferenceEntity.KEY_EYE_HINT_GUIDE_LONG, false);
         if(isHint){
-            Intent intent = new Intent(getActivity(), EyesightActivity.class);
-            intent.putExtra("state", state);
-            getActivity().startActivity(intent);
+            if(hasFamily()){
+                selUserFragment();
+            }else{
+                Intent intent = new Intent(getActivity(), EyesightActivity.class);
+                intent.putExtra("state", eyeState);
+                getActivity().startActivity(intent);
+            }
         }else{
             eyeSightFragment(state);
         }
+    }
+
+    private boolean hasFamily(){
+        String FamilyData = PreferencesUtils.getString(mContext, PreferenceEntity.KEY_CACHE_FAMILY);
+        if(!StringUtils.isBlank(FamilyData)){
+            Gson gson = new Gson();
+            UserEntity mUserEntity;
+            try {
+                mUserEntity = gson.fromJson(FamilyData, UserEntity.class);
+            } catch (Exception e) {
+                return false;
+            }
+            if (mUserEntity.code == ContextConstant.RESPONSECODE_200) {
+                if(mUserEntity.data.list!=null && mUserEntity.data.list.size()>1){  //有家庭用户
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
@@ -100,46 +169,6 @@ public class EyeDetectionBaseFragment extends BaseFragment implements PersonalCe
     @Override
     protected void onVisibile() {
         LOG("onVisibile");
-    }
-
-
-    @Override
-    public void changeHeaderSuccess(String url) {
-        LOG("用户头像上传成功");
-    }
-
-    @Override
-    public void changeHeaderFailed(String msg) {
-    }
-
-    @Override
-    public void getUserInfoSuccess(Object data) {
-
-    }
-
-    @Override
-    public void modificationUserInfoSuccess(String name, String value) {
-
-    }
-
-    @Override
-    public void loadingShow() {
-        setLoading(true, "");
-    }
-
-    @Override
-    public void loadingDissmis() {
-        setLoading(false, "");
-    }
-
-    @Override
-    public void loginOut() {
-        reLoading();
-    }
-
-    @Override
-    public void setPresenter(Object presenter) {
-
     }
 
     protected class MyHandler extends Handler {

@@ -76,6 +76,16 @@ public class UrlConstantRx {
     /** 上传头像 * @param header：头像二进制字节流 */
     public static final String API_USER_CHANGEHEADER = "user/chgheader.do";
 
+    /** 上传近视信息 */
+    public static final String API_PUT_EYESIGHT_SHORT = "vision/myopia.do";
+    /** 上传远视信息 */
+    public static final String API_PUT_EYESIGHT_LONG = "vision/hyperopia.do";
+
+    /** 获取近视历史记录 */
+    public static final String API_PUT_EYESIGHT_HISTORY_SHORT = "vision/myhistory.do";
+    /** 获取远视历史记录 */
+    public static final String API_PUT_EYESIGHT_HISTORY_LONG = "vision/hyhistory.do";
+
     public static final String API_JOINGROUP = "customer/addGroupMember.do";
     public static final String API_FEEDBACK = "personal/addFeedback.do";
 

@@ -74,6 +74,31 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/lin_tab_home_history"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_tab_home_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:src="@drawable/back_home_tab4" />
+
+            <TextView
+                android:id="@+id/tv_tab_home_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_tb_small"
+                android:text="历史记录"
+                android:textSize="@dimen/settings_text_size"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/lin_tab_home_settings"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
