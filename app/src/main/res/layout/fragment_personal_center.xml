@@ -33,31 +33,30 @@
                     android:id="@+id/rel_sett_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:layout_marginLeft="@dimen/margin_lr_normal"
                     android:layout_marginRight="@dimen/margin_lr_normal"
-                    >
+                    android:gravity="center_vertical">
 
                     <RelativeLayout
                         android:id="@+id/rl_sett_header"
-                        android:layout_marginLeft="@dimen/margin_lr_large"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_lr_large">
 
                         <ImageView
                             android:id="@+id/iv_sett_header"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:src="@drawable/iv_man_bef"
-                            />
+                            android:src="@drawable/iv_man_bef" />
+
                         <ImageView
                             android:id="@+id/iv_sett_header_sex"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentRight="true"
-                            android:src="@drawable/icon_sex_man"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true"
+                            android:src="@drawable/icon_sex_man" />
                     </RelativeLayout>
 
 
@@ -77,8 +76,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="@dimen/margin_tb_xsmall"
                         android:layout_marginLeft="@dimen/margin_lr_large"
+                        android:layout_marginBottom="@dimen/margin_tb_xsmall"
                         android:layout_toRightOf="@id/rl_sett_header"
                         android:background="@drawable/bg_white_90_pad"
                         android:ellipsize="end"
@@ -251,11 +250,39 @@
                 style="@style/horizontal_line_style"
                 android:layout_marginLeft="@dimen/margin_lr_21" />
 
+            <LinearLayout
+                android:id="@+id/ll_sett_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_sett_logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_lr_normal"
+                    android:layout_marginTop="@dimen/margin_tb_normal"
+                    android:layout_marginBottom="@dimen/margin_tb_normal"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/icon_pc_logout"
+                    android:drawablePadding="@dimen/arrow_margin"
+                    android:gravity="center_vertical"
+                    android:text="退出登录"
+                    android:textColor="@color/text_color_pc"
+                    android:textSize="@dimen/text_size_big" />
+            </LinearLayout>
+
+            <ImageView
+                style="@style/horizontal_line_style"
+                android:layout_marginLeft="@dimen/margin_lr_21" />
+
         </LinearLayout>
     </ScrollView>
 
     <FrameLayout
         android:id="@+id/fl_personal_center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </RelativeLayout>

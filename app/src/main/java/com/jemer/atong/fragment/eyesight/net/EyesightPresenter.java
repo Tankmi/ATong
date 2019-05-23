@@ -41,6 +41,7 @@ public class EyesightPresenter implements BasePresenter<EyesightView> {
 
     @Override
     public void detachView() {
+
         if(mView != null) mView = null;
         if(mModel != null) mModel = null;
     }
@@ -54,9 +55,9 @@ public class EyesightPresenter implements BasePresenter<EyesightView> {
         mView.loadingShow();
 
         String userId = PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_CACHE_FAMILY_USERID,"");
-        if(StringUtils.isBlank(userId)){
-            userId = PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_USER_ID,"");
-        }
+//        if(StringUtils.isBlank(userId)){
+//            userId = PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_USER_ID,"");
+//        }
 
         Map<String,String> mMap = new HashMap<>();
         mMap.put("lefteye", lefteye);

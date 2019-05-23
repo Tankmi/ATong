@@ -99,6 +99,7 @@ public class LoginPresenter implements LoginController.LoginPresenter {
                 UserEntity mEntity;
                 try {
                     String str = StringUtils.replaceJson(data.string());
+                    PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_CACHE_FAMILY,str);
                     mEntity = gson.fromJson(str, UserEntity.class);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -134,7 +135,7 @@ public class LoginPresenter implements LoginController.LoginPresenter {
     /** 修改手机号 */
     public boolean UpdatePhone(Map<String, String> map){
         mView.loadingShow();
-        mModel.Login(new BaseHttpEntity<ResponseBody>() {
+        mModel.updatePhone(new BaseHttpEntity<ResponseBody>() {
             @Override
             public void onSuccess(ResponseBody data) {
 

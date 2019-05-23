@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/xml_bg_allbg_90_pad"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_affirm_dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/margin_lr_normal"
+        android:layout_marginRight="@dimen/margin_lr_normal"
+        android:layout_marginTop="@dimen/margin_tb_normal"
+        android:text="标题"
+        android:textColor="@color/text_color_normal"
+        android:textSize="@dimen/text_size_large" />
+
+    <TextView
+        android:id="@+id/tv_affirm_dialog_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/margin_lr_normal"
+        android:layout_marginRight="@dimen/margin_lr_normal"
+        android:layout_marginTop="@dimen/margin_tb_xlarge"
+        android:gravity="center"
+        android:text="内容"
+        android:textColor="@color/text_color_normal"
+        android:textSize="@dimen/text_size_xlarge" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_lr_normal"
+        android:layout_marginRight="@dimen/margin_lr_normal"
+        android:layout_marginTop="@dimen/margin_tb_xlarge"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_affirm_dialog_affirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bg_affirm_90"
+            android:letterSpacing="0.5"
+            android:text="确认"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_large" />
+
+        <Button
+            android:id="@+id/bt_affirm_dialog_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/bg_cancel_90"
+            android:letterSpacing="0.5"
+            android:text="取消"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_large" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

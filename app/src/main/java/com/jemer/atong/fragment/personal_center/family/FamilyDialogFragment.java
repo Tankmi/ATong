@@ -7,11 +7,12 @@ import android.widget.TextView;
 
 import com.jemer.atong.R;
 import com.jemer.atong.base.BaseDialogFragment;
+import com.jemer.atong.view.dialog.affirm.AffirmBean;
 import com.jemer.atong.entity.user.UserEntity;
 import com.jemer.atong.fragment.personal_center.family.net.FamilyPresenter;
 import com.jemer.atong.fragment.personal_center.family.net.FamilyView;
-
-import java.util.List;
+import com.jemer.atong.net.ClearDisposable;
+import com.jemer.atong.view.dialog.affirm.AffirmDialogFragment;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,17 +36,21 @@ import huitx.libztframework.view.swiperecyclerview.SwipeRecyclerView;
 //        playQueueFragment.setShareInfo(url);
 //        playQueueFragment.show(fragmentManager,MOVEMENT_TIME_TAG);
 //    }
-public class FamilyDialogFragment extends BaseDialogFragment implements FamilyView<UserEntity.Data>,SwipeRecyclerView.OnSwipeRecyclerViewListener, FamilyAdapter.OnFamilyRemoveListener {
+public class FamilyDialogFragment extends BaseDialogFragment implements FamilyView<UserEntity.Data>, SwipeRecyclerView.OnSwipeRecyclerViewListener, FamilyAdapter.OnFamilyRemoveListener {
 
-    @BindView(R.id.bt_eyert_left)  Button bt_eyert_left;
-    @BindView(R.id.tv_eyert_title)  TextView tv_eyert_title;
+    @BindView(R.id.bt_eyert_left)
+    Button bt_eyert_left;
+    @BindView(R.id.tv_eyert_title)
+    TextView tv_eyert_title;
 
-    @BindView(R.id.srv_familt_add) SwipeRecyclerView mSwipeRecyclerView;
-    @BindView(R.id.btn_family_add) Button mbtnAdd;
+    @BindView(R.id.srv_familt_add)
+    SwipeRecyclerView mSwipeRecyclerView;
+    @BindView(R.id.btn_family_add)
+    Button mbtnAdd;
 
 
     private String mSex;    //1男,2女
-    private String myear,mmonth,mday;
+    private String myear, mmonth, mday;
 
     protected FamilyPresenter mPresenter;
     private boolean isGetNetData = false;
@@ -56,11 +61,11 @@ public class FamilyDialogFragment extends BaseDialogFragment implements FamilyVi
     }
 
 
-    @OnClick({R.id.bt_eyert_left, R.id.btn_family_add })
+    @OnClick({R.id.bt_eyert_left, R.id.btn_family_add})
     void inputInfo(View view) {
         switch (view.getId()) {
             case R.id.bt_eyert_left:
-                 dismiss();
+                dismiss();
                 break;
             case R.id.btn_family_add:   //提交
                 LOG("添加用户");
@@ -72,7 +77,7 @@ public class FamilyDialogFragment extends BaseDialogFragment implements FamilyVi
     @Override
     protected void initHead() {
         tv_eyert_title.setText("用户列表");
-        if(mPresenter == null){
+        if (mPresenter == null) {
             mPresenter = new FamilyPresenter();
         }
         mPresenter.attachView(this);
@@ -88,7 +93,7 @@ public class FamilyDialogFragment extends BaseDialogFragment implements FamilyVi
 
 
         //去除阴影
-        WindowManager.LayoutParams layoutParams =  getDialog().getWindow().getAttributes();
+        WindowManager.LayoutParams layoutParams = getDialog().getWindow().getAttributes();
         layoutParams.dimAmount = 0.0f;
         getDialog().getWindow().setAttributes(layoutParams);
 
@@ -136,39 +141,59 @@ public class FamilyDialogFragment extends BaseDialogFragment implements FamilyVi
 
     @Override
     protected void destroyClose() {
-        mPresenter.detachView();
+        if (mPresenter != null) {
+            mPresenter.detachView();
+            ClearDisposable.getInstance().getCompositeDisposable().clear();
+        }
     }
 
     FamilyAddDialogFragment addDialogFragment;
     private FragmentManager fragmentManager;
     private String DIALOG_SEX_TAG = "sexdialog";
+    private String DIALOG_AFFIRM_TAG = "affirmDialog";
 
-    protected void ShowAddDialog()
-    {
+    protected void ShowAddDialog() {
         if (addDialogFragment == null) {
             addDialogFragment = new FamilyAddDialogFragment();
             addDialogFragment.setOnAddFamilyListener(state -> {
                 LOG("添加用户：" + state);
-                if(state)  mPresenter.getUserInfo();
+                if (state) mPresenter.getUserInfo();
             });
         }
         if (fragmentManager == null) fragmentManager = getChildFragmentManager();
 
-            addDialogFragment.show(fragmentManager,DIALOG_SEX_TAG);
+        addDialogFragment.show(fragmentManager, DIALOG_SEX_TAG);
+
+    }
+
+    protected void ShowAffirmDialog(int id, int position) {
+        AffirmBean bean = new AffirmBean();
+        bean.setTitle("");
+        bean.setContent("确定删除吗？");
+        AffirmDialogFragment affirmDialogFragment = AffirmDialogFragment.getInstance(bean);
+        affirmDialogFragment.setOnAffirmListener(state -> {
+            LOG("确认弹框：" + state);
+            if (state) mPresenter.delFamily(id, position);
+        });
+        if (fragmentManager == null) fragmentManager = getChildFragmentManager();
+
+        affirmDialogFragment.show(fragmentManager, DIALOG_AFFIRM_TAG);
 
     }
 
 
     @Override
     public void onRemoveListener(int id, int position) {
-        mPresenter.delFamily(id,position);
+
+        ShowAffirmDialog(id, position);
+
     }
 
     @Override
     public void getUserInfoSuccess(UserEntity.Data data) {
-        if(data.list != null && data.list.size()>0){
+        if (data.list != null && data.list.size() > 0) {
             mAdapter.setListData(data.list);
-        }else{
+        } else {
             ToastUtils.showToast("暂无其他用户");
         }
 
@@ -181,7 +206,7 @@ public class FamilyDialogFragment extends BaseDialogFragment implements FamilyVi
 
     @Override
     public void delUserInfoState(boolean state, int position) {
-        if(state)  {
+        if (state) {
             mPresenter.getUserInfo();
             mAdapter.onItemDismiss(position);
         }

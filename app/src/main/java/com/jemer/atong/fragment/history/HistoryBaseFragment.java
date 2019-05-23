@@ -2,36 +2,26 @@ package com.jemer.atong.fragment.history;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.jemer.atong.R;
 import com.jemer.atong.base.BaseFragment;
 import com.jemer.atong.context.PreferenceEntity;
-import com.jemer.atong.entity.eyesight.EyesightBean;
 import com.jemer.atong.entity.eyesight.EyesightEntity;
 import com.jemer.atong.entity.history.HistoryEntity;
 import com.jemer.atong.entity.history.PointLineTableBean;
 import com.jemer.atong.entity.user.UserEntity;
-import com.jemer.atong.fragment.eyesight.hint.EyeGuideHintDialogFragment;
-import com.jemer.atong.fragment.eyesight.hint.EyeSightSelUserDialogFragment;
-import com.jemer.atong.fragment.eyesight.window.EyesightActivity;
+import com.jemer.atong.fragment.eyesight.dialog.EyeSightSelUserDialogFragment;
 import com.jemer.atong.fragment.history.net.HistoryPresenter;
 import com.jemer.atong.fragment.history.net.HistoryView;
 import com.jemer.atong.fragment.history.view.PointLineView;
@@ -43,8 +33,6 @@ import java.util.List;
 
 import androidx.fragment.app.FragmentManager;
 import butterknife.BindView;
-import butterknife.BindViews;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import huitx.libztframework.context.ContextConstant;
 import huitx.libztframework.utils.PreferencesUtils;
@@ -116,7 +104,7 @@ public class HistoryBaseFragment extends BaseFragment implements HistoryView<His
             hisMenuLong = keyboardView.findViewById(R.id.tv_his_menu_long);
             hisMenuShort = keyboardView.findViewById(R.id.tv_his_menu_short);
 
-            popupWindow = new PopupWindow(keyboardView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT,false);
+            popupWindow = new PopupWindow(keyboardView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT,false);
             //设置点击窗口外边窗口消失
             popupWindow.setOutsideTouchable(true);
             // 设置此参数获得焦点，否则无法点击
@@ -138,6 +126,10 @@ public class HistoryBaseFragment extends BaseFragment implements HistoryView<His
                 mPresenter.getHistoryData(HisState, userId);
 
             });
+
+            popupWindow.setOnDismissListener(()->{
+                ivHisBg.setVisibility(View.GONE);
+            } );
         }
 
 
@@ -183,7 +175,7 @@ public class HistoryBaseFragment extends BaseFragment implements HistoryView<His
                 return false;
             }
             if (mUserEntity.code == ContextConstant.RESPONSECODE_200) {
-                if (mUserEntity.data.list != null && mUserEntity.data.list.size() > 1) {  //有家庭用户
+                if (mUserEntity.data.list != null && mUserEntity.data.list.size() >= 1) {  //有家庭用户
                     return true;
                 }
             }
@@ -309,8 +301,8 @@ public class HistoryBaseFragment extends BaseFragment implements HistoryView<His
     @Override
     protected void initLocation() {
 //        mLayoutUtil.drawViewRBLinearLayout(rl_settings_title, 0, 433, 0, 0, 0, 0);
-        mLayoutUtil.drawViewRBLayout(rl_his_title, -1, -1, 0, 0, PreferenceEntity.ScreenTop, -1);
-        mLayoutUtil.drawViewRBLayout(selFamily, 170, 86, 0, 0, -1, -1);
+        mLayoutUtil.drawViewDefaultLayout(rl_his_title, -1, -1, 0, 0, (int) PreferenceEntity.ScreenTop, -1);
+        mLayoutUtil.drawViewDefaultLayout(selFamily, 170, 86, -1, -1, -1, -1);
 
         mLayoutUtil.drawViewRBLinearLayout(leftYCoord, 80, 330, -1, 0, 0, 0);
         mLayoutUtil.drawViewRBLinearLayout(leftView, -1, 330, 0, 0, 0, 0);

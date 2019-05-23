@@ -1,4 +1,4 @@
-package com.jemer.atong.fragment.eyesight.hint;
+package com.jemer.atong.fragment.eyesight.dialog;
 
 
 import android.content.Context;

@@ -1,30 +1,17 @@
-package com.jemer.atong.fragment.eyesight.hint;
+package com.jemer.atong.fragment.eyesight.dialog;
 
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.TypedValue;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.jemer.atong.R;
 import com.jemer.atong.base.BaseDialogFragment;
-import com.jemer.atong.entity.eyesight.EyesightHintBean;
 import com.jemer.atong.entity.eyesight.EyesightHintStepBean;
-import com.jemer.atong.view.guide.GuideViewPager;
-import com.jemer.atong.view.guide.indicator.DotIndicator;
-import com.jemer.atong.view.guide.interf.GuideViewHolder;
-import com.jemer.atong.view.guide.interf.GuideViewPagerPageListener;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -85,6 +72,8 @@ public class EyesightHintDialogFragment extends BaseDialogFragment {
 
     @OnClick(R.id.bt_eyesight_hint)
     void next() {
+        EyesightHintStepBean bean = new EyesightHintStepBean(false);
+        EventBus.getDefault().post(bean);
         dismiss();
     }
 

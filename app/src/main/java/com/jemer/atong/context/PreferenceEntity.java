@@ -9,6 +9,7 @@ import huitx.libztframework.utils.LOGUtils;
 import huitx.libztframework.utils.MD5Utils;
 import huitx.libztframework.utils.NewWidgetSetting;
 import huitx.libztframework.utils.PreferencesUtils;
+import huitx.libztframework.utils.StringUtils;
 import okhttp3.Request;
 
 public class PreferenceEntity extends LibPreferenceEntity {
@@ -39,7 +40,16 @@ public class PreferenceEntity extends LibPreferenceEntity {
 	}
 
 	public static void setUserEntity(UserEntity.Data data) {
+
 		clearData();
+
+		String eyeId =  PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_CACHE_FAMILY_USERID,"");
+		if(StringUtils.isBlank(eyeId)){
+			for (UserEntity.Data.FamilyData datas : data.list ) {
+				if(!StringUtils.isBlank(datas.type) && datas.type.equals("0"))
+					PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_CACHE_FAMILY_USERID, datas.id+"");
+			}
+		}
 		PreferencesUtils.putString(ApplicationData.context, KEY_USER_ID, "" + data.id);
 		PreferencesUtils.putString(ApplicationData.context, KEY_USER_ACCOUNT, "" + data.phone);
 		PreferencesUtils.putString(ApplicationData.context, KEY_USER_AGE, NewWidgetSetting.getInstance().filtrationStringbuffer(data.age, "18"));
@@ -57,6 +67,7 @@ public class PreferenceEntity extends LibPreferenceEntity {
 
 	/** 清空用户信息 */
 	public static void clearData() {
+		PreferencesUtils.putString(ApplicationData.context, KEY_CACHE_FAMILY_USERID, "");
 		PreferencesUtils.putString(ApplicationData.context, KEY_USER_ID, "");
 		PreferencesUtils.putString(ApplicationData.context, KEY_USER_ACCOUNT, "");
 		PreferencesUtils.putString(ApplicationData.context, KEY_USER_HEADER, "");

@@ -1,17 +1,13 @@
-package com.jemer.atong.fragment.eyesight.hint;
+package com.jemer.atong.fragment.eyesight.dialog;
 
 
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jemer.atong.R;
 import com.jemer.atong.base.BaseDialogFragment;
-import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.entity.eyesight.EyesightEntity;
 import com.jemer.atong.entity.eyesight.EyesightHintStepBean;
 
@@ -20,7 +16,6 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.BindView;
 import butterknife.OnClick;
 import huitx.libztframework.utils.NewWidgetSetting;
-import huitx.libztframework.utils.ToastUtils;
 
 /**
  * 测试时提醒左右眼切换

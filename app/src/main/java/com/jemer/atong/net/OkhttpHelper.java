@@ -31,9 +31,12 @@ import okio.Buffer;
  * 1、OkhttpHelper
  */
 public class OkhttpHelper {
-    private static final int WRITE_OUT_TIME = 20;
-    private static final int READ_OUT_TIME = 20;
-    private static final int CONNECT_OUT_TIME = 10;
+    private static final int WRITE_OUT_TIME = 5;
+    private static final int READ_OUT_TIME = 5;
+    private static final int CONNECT_OUT_TIME = 5;
+//    private static final int WRITE_OUT_TIME = 20;
+//    private static final int READ_OUT_TIME = 20;
+//    private static final int CONNECT_OUT_TIME = 10;
     private static final String TAG = "OkhttpHelper" ;
 
     private static OkhttpHelper client;

@@ -1,41 +1,23 @@
-package com.jemer.atong.fragment.eyesight.hint;
+package com.jemer.atong.fragment.eyesight.dialog;
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.jemer.atong.R;
 import com.jemer.atong.base.BaseDialogFragment;
-import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
-import com.jemer.atong.entity.user.UserEntity;
 import com.jemer.atong.fragment.eyesight.view.EyesightSelUserWheelView;
-import com.jemer.atong.fragment.user.LoginController;
-import com.jemer.atong.fragment.user.LoginPresenter;
-
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import butterknife.BindView;
 import butterknife.OnClick;
-import huitx.libztframework.context.ContextConstant;
-import huitx.libztframework.utils.NewWidgetSetting;
 import huitx.libztframework.utils.PreferencesUtils;
 import huitx.libztframework.utils.StringUtils;
-import huitx.libztframework.utils.ToastUtils;
 
 //调用方式
 //    SexDialogFragment playQueueFragment;

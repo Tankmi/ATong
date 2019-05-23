@@ -27,6 +27,7 @@ import java.util.List;
 import androidx.recyclerview.widget.RecyclerView;
 import huitx.libztframework.utils.LOGUtils;
 import huitx.libztframework.utils.PreferencesUtils;
+import huitx.libztframework.utils.StringUtils;
 
 public class FamilyAdapter extends RecyclerView.Adapter<FamilyAdapter.MyViewHolder> implements SimpleItemTouchHelperCallback.ItemTouchHelperAdapter {
 
@@ -34,12 +35,10 @@ public class FamilyAdapter extends RecyclerView.Adapter<FamilyAdapter.MyViewHold
     private LayoutInflater inflater;
     private List<UserEntity.Data.FamilyData> mList;
     private View headerView;
-    private String userId;
 
     public FamilyAdapter(Context context) {
         this.mContext = context;
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        userId = PreferencesUtils.getString(mContext, PreferenceEntity.KEY_USER_ID,"");
     }
 
     public FamilyAdapter(Context context, List<UserEntity.Data.FamilyData> data) {
@@ -71,8 +70,7 @@ public class FamilyAdapter extends RecyclerView.Adapter<FamilyAdapter.MyViewHold
     public void onBindViewHolder(FamilyAdapter.MyViewHolder holder, final int position) {
         final UserEntity.Data.FamilyData mData = mList.get(position);
         holder.mTVtitle.setText("" + mData.name);
-       LOGUtils.LOG("userId: " + userId + "  mData.id: " + mData.id + userId.equals(mData.id));
-        if(userId.equals(mData.id)){
+        if(!StringUtils.isBlank(mData.type) && mData.type.equals("0")){
             holder.mIvBtn.setVisibility(View.GONE);
             return;
         }

@@ -378,7 +378,7 @@ public class WebViewBaseActivity extends BaseFragmentActivity {
     @Override
     public void onBackPressed() {
         imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
-        if (!isFinish() && mWebView.canGoBack()) {
+        if ((!isFinish()) && mWebView.canGoBack()) {
             mWebView.goBack();// 返回前一个页面
         } else {
 //            if ((java.lang.System.currentTimeMillis() - exitTime) > 2500) {

@@ -13,15 +13,11 @@ import com.google.gson.Gson;
 import com.jemer.atong.R;
 import com.jemer.atong.base.BaseFragment;
 import com.jemer.atong.context.PreferenceEntity;
-import com.jemer.atong.entity.eyesight.EyesightEntity;
 import com.jemer.atong.entity.user.UserEntity;
-import com.jemer.atong.fragment.eyesight.hint.EyeGuideHintDialogFragment;
-import com.jemer.atong.fragment.eyesight.hint.EyeSightSelUserDialogFragment;
-import com.jemer.atong.fragment.eyesight.hint.EyesightOtherFragment;
-import com.jemer.atong.fragment.eyesight.net.EyesightView;
+import com.jemer.atong.fragment.eyesight.dialog.EyeGuideHintDialogFragment;
+import com.jemer.atong.fragment.eyesight.dialog.EyeSightSelUserDialogFragment;
+import com.jemer.atong.fragment.eyesight.dialog.EyesightOtherFragment;
 import com.jemer.atong.fragment.eyesight.window.EyesightActivity;
-import com.jemer.atong.fragment.personal_center.net.PersonalCenterPresenter;
-import com.jemer.atong.fragment.personal_center.net.PersonalCenterView;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -57,10 +53,10 @@ public class EyeDetectionBaseFragment extends BaseFragment implements EyeSightSe
         switch (view.getId()){
             case R.id.tv_eye_shortsight:
                 LOG("tv_eye_shortsight ");
-                getEyeSight(1);
+                getEyeSight(1,true);
                 break;
             case R.id.tv_eye_longsight:
-                getEyeSight(2);
+                getEyeSight(2,true);
                 break;
             case R.id.tv_eye_astigmastim:
                 eyeSightOtherFragment(1);
@@ -120,11 +116,13 @@ public class EyeDetectionBaseFragment extends BaseFragment implements EyeSightSe
     /**
      * 1,近视，2，远视
      * @param state
+     * @param isShowHint  是否显示引导页
      */
-    protected void getEyeSight(int state){
+    protected void getEyeSight(int state,boolean isShowHint){
         this.eyeState = state;
-        boolean isHint = PreferencesUtils.getBoolean(mContext, state==1? PreferenceEntity.KEY_EYE_HINT_GUIDE_SHORT:PreferenceEntity.KEY_EYE_HINT_GUIDE_LONG, false);
-        if(isHint){
+        if(isShowHint){
+            eyeSightFragment(state);
+        }else{
             if(hasFamily()){
                 selUserFragment();
             }else{
@@ -132,8 +130,6 @@ public class EyeDetectionBaseFragment extends BaseFragment implements EyeSightSe
                 intent.putExtra("state", eyeState);
                 getActivity().startActivity(intent);
             }
-        }else{
-            eyeSightFragment(state);
         }
     }
 
@@ -195,7 +191,7 @@ public class EyeDetectionBaseFragment extends BaseFragment implements EyeSightSe
     @Override
     protected void initLocation() {
 //        mLayoutUtil.drawViewRBLinearLayout(rl_settings_title, 0, 433, 0, 0, 0, 0);
-        mLayoutUtil.drawViewRBLinearLayout(rl_eye_title, -1, -1, 0, 0, PreferenceEntity.ScreenTop, -1);
+        mLayoutUtil.drawViewDefaultLinearLayout(rl_eye_title, -1, -1, 0, 0, (int) PreferenceEntity.ScreenTop, -1);
     }
 
     @Override

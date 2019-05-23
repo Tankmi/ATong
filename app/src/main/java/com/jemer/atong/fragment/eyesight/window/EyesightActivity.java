@@ -3,6 +3,7 @@ package com.jemer.atong.fragment.eyesight.window;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 
 import com.jemer.atong.R;
 import com.jemer.atong.context.ApplicationData;
@@ -10,6 +11,7 @@ import com.jemer.atong.context.PreferenceEntity;
 import com.jemer.atong.entity.eyesight.EyesightHintStepBean;
 import com.jemer.atong.fragment.eyesight.net.EyesightPresenter;
 import com.jemer.atong.fragment.personal_center.net.PersonalCenterPresenter;
+import com.jemer.atong.net.ClearDisposable;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -19,6 +21,7 @@ import androidx.annotation.RequiresApi;
 import huitx.libztframework.utils.LOGUtils;
 import huitx.libztframework.utils.PreferencesUtils;
 import huitx.libztframework.utils.ToastUtils;
+import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * intent 数据， state 1,近视，2，远视
@@ -54,7 +57,7 @@ public class EyesightActivity extends EyesightBaseActivity {
         LOG("initLogic");
         eyeSightFragment();
         eyeProcedure = -1;
-        updateView();
+//        updateView();
 
    }
 
@@ -68,9 +71,13 @@ public class EyesightActivity extends EyesightBaseActivity {
     //再来一遍
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventBusHintSuccess(EyesightHintStepBean hintbean) {
-       if(hintbean.isAgain()){
+       if(hintbean.isAgain()){  //重新测试
+           isFinish = false;
            eyeProcedure = -1;
            eyeSightStep = 1;
+           updateView();
+       }else{   //提示页关闭后
+           mImgView.setVisibility(View.VISIBLE);
            updateView();
        }
     }
@@ -88,6 +95,7 @@ public class EyesightActivity extends EyesightBaseActivity {
        LOG("event.getKeyCode() :" + event.getKeyCode());
 
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if(isFinish) finish();
             return true;
         }
         return super.onKeyDown(event.getKeyCode(), event);
@@ -110,6 +118,7 @@ public class EyesightActivity extends EyesightBaseActivity {
        }
        if(mPresenter != null){
            mPresenter.detachView();
+           ClearDisposable.getInstance().getCompositeDisposable().clear();
        }
    }
 

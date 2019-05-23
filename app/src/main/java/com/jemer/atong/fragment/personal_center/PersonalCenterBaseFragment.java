@@ -2,6 +2,7 @@ package com.jemer.atong.fragment.personal_center;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -14,40 +15,28 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.gson.Gson;
 import com.jemer.atong.R;
+import com.jemer.atong.activity.user.SelLoginActivity;
 import com.jemer.atong.base.BaseFragment;
 import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
+import com.jemer.atong.view.dialog.affirm.AffirmBean;
 import com.jemer.atong.entity.user.UserEntity;
 import com.jemer.atong.fragment.personal_center.dialog.AlterPhoneDialogFragment;
 import com.jemer.atong.fragment.personal_center.dialog.BirthdayDialogFragment;
 import com.jemer.atong.fragment.personal_center.dialog.SexDialogFragment;
+import com.jemer.atong.view.dialog.affirm.AffirmDialogFragment;
 import com.jemer.atong.fragment.personal_center.family.FamilyDialogFragment;
 import com.jemer.atong.fragment.personal_center.net.PersonalCenterPresenter;
 import com.jemer.atong.fragment.personal_center.net.PersonalCenterView;
-import com.jemer.atong.net.DefaultObserver;
-import com.jemer.atong.net.RetrofitHelper;
-import com.jemer.atong.net.service.HomeService;
 
 import java.lang.ref.WeakReference;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Map;
 
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import butterknife.BindView;
-import huitx.libztframework.context.ContextConstant;
-import huitx.libztframework.utils.LOGUtils;
 import huitx.libztframework.utils.NewWidgetSetting;
 import huitx.libztframework.utils.PreferencesUtils;
-import huitx.libztframework.utils.StringUtils;
-import huitx.libztframework.utils.ToastUtils;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
 
 @SuppressLint("ValidFragment")
 public class PersonalCenterBaseFragment extends BaseFragment implements
@@ -60,7 +49,7 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
     private String birthday;
     private String user_header;
     //1男2女
-    private String user_sex="";
+    private String user_sex = "";
     protected String userHeader;
 
     public PersonalCenterBaseFragment(int layoutId) {
@@ -103,7 +92,7 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
         setSexInfo(userInfo.sex, userInfo.head);
     }
 
-    private void setBirthday(String birthday){
+    private void setBirthday(String birthday) {
         NewWidgetSetting.setViewText(tv_setti_phone, birthday, "");
         NewWidgetSetting.setViewText(tv_sett_bir_value, birthday, "");
     }
@@ -133,15 +122,15 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
         iv_sett_header_sex.setImageResource((sex != null && sex.equals("1")) ? R.drawable.icon_sex_man : R.drawable.icon_sex_woman);
         tv_sett_sex_value.setText((sex != null && sex.equals("1")) ? "男" : "女");
 //        if(header != null && !header.equals(""))
-            setSexHeader(sex,header);
+        setSexHeader(sex, header);
 
     }
 
     SexDialogFragment playQueueFragment;
     BirthdayDialogFragment birthDialogFragment;
     AlterPhoneDialogFragment alterPhoneDialogFragment;
-    FamilyDialogFragment familyDialogFragment;
-    private FragmentManager fragmentManager;
+//    FamilyDialogFragment familyDialogFragment;
+    protected FragmentManager fragmentManager;
     private String DIALOG_SEX_TAG = "sexdialog";
     private String DIALOG_BIR_TAG = "birdialog";
     private String DIALOG_AP_TAG = "apdialog";
@@ -150,64 +139,72 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
     /**
      * 显示选择性别框
      */
-    protected void ShowSexDialog()
-    {
+    protected void ShowSexDialog() {
         if (playQueueFragment == null) playQueueFragment = new SexDialogFragment();
         if (fragmentManager == null) fragmentManager = getChildFragmentManager();
         playQueueFragment.setSexListener(state -> {
             LOG("回调性别：" + state);
-            if(!user_sex.equals("" + state)){
-                mPersonPresenter.modificationUserInfo("sex",state + "");
+            if (!user_sex.equals("" + state)) {
+                mPersonPresenter.modificationUserInfo("sex", state + "");
             }
         });
-        playQueueFragment.show(fragmentManager,DIALOG_SEX_TAG);
+        playQueueFragment.show(fragmentManager, DIALOG_SEX_TAG);
     }
 
     /**
      * 显示选择生日框
      */
-    protected void ShowBirthdayDialog()
-    {
+    protected void ShowBirthdayDialog() {
         if (birthDialogFragment == null) birthDialogFragment = new BirthdayDialogFragment();
         if (fragmentManager == null) fragmentManager = getChildFragmentManager();
         birthDialogFragment.setSexListener(bir -> {
             LOG("回调生日：" + bir);
             birthday = bir;
-            if(!PreferenceEntity.perfectInfoBirthday.equals("")){
-                mPersonPresenter.modificationUserInfo("birthday",PreferenceEntity.perfectInfoBirthday);
+            if (!PreferenceEntity.perfectInfoBirthday.equals("")) {
+                mPersonPresenter.modificationUserInfo("birthday", PreferenceEntity.perfectInfoBirthday);
             }
 
         });
-        birthDialogFragment.show(fragmentManager,DIALOG_BIR_TAG);
+        birthDialogFragment.show(fragmentManager, DIALOG_BIR_TAG);
     }
+
     /**
      * 显示修改手机号框
      */
-    protected void ShowAlterPhoneDialog()
-    {
-        if (alterPhoneDialogFragment == null) alterPhoneDialogFragment = new AlterPhoneDialogFragment();
+    protected void ShowAlterPhoneDialog() {
+        if (alterPhoneDialogFragment == null)
+            alterPhoneDialogFragment = new AlterPhoneDialogFragment();
         if (fragmentManager == null) fragmentManager = getChildFragmentManager();
-        alterPhoneDialogFragment.show(fragmentManager,DIALOG_AP_TAG);
+        alterPhoneDialogFragment.show(fragmentManager, DIALOG_AP_TAG);
     }
 
     /**
      * 添加用户
      */
-    protected void showAddFamily()
-    {
-        if (familyDialogFragment == null) familyDialogFragment = new FamilyDialogFragment();
+    protected void showAddFamily() {
+        FamilyDialogFragment familyDialogFragment = new FamilyDialogFragment();
         if (fragmentManager == null) fragmentManager = getChildFragmentManager();
-        familyDialogFragment.show(fragmentManager,DIALOG_BIR_TAG);
+        familyDialogFragment.show(fragmentManager, DIALOG_BIR_TAG);
     }
 
-    /**
-     * 显示家庭成员
-     */
-    protected void ShowFamilyFragment()
-    {
-        if (alterPhoneDialogFragment == null) alterPhoneDialogFragment = new AlterPhoneDialogFragment();
+    protected void ShowAffirmDialog() {
+        AffirmBean bean = new AffirmBean();
+        bean.setTitle("");
+        bean.setContent("确定退出登录吗？");
+        AffirmDialogFragment affirmDialogFragment = AffirmDialogFragment.getInstance(bean);
+        affirmDialogFragment.setOnAffirmListener(state -> {
+            if(state){
+                PreferenceEntity.clearData();
+                ApplicationData.getInstance().exit();
+                PreferenceEntity.isLogin = false;
+                Intent intent = new Intent(getActivity(), SelLoginActivity.class);
+                startActivity(intent);
+            }
+        });
         if (fragmentManager == null) fragmentManager = getChildFragmentManager();
-        alterPhoneDialogFragment.show(fragmentManager,DIALOG_AP_TAG);
+
+        affirmDialogFragment.show(fragmentManager, "123");
+
     }
 
     @Override
@@ -227,12 +224,12 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
 
     @Override
     public void modificationUserInfoSuccess(String name, String value) {
-        if(name.equals("sex")){
+        if (name.equals("sex")) {
             PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_USER_SEX, value);
             setSexInfo(value, user_header);
-        }else if(name.equals("birthday")){
+        } else if (name.equals("birthday")) {
             try {
-                PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_USER_BIR, tranTimes.dateToStamp(value,"yyyy-MM-dd"));
+                PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_USER_BIR, tranTimes.dateToStamp(value, "yyyy-MM-dd"));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -265,13 +262,11 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
         // SoftReference<Activity> 也可以使用软应用 只有在内存不足的时候才会被回收
         private final WeakReference<Context> mActivity;
 
-        protected MyHandler(Context activity)
-        {
+        protected MyHandler(Context activity) {
             mActivity = new WeakReference<>(activity);
         }
 
-        public void handleMessage(Message msg)
-        {
+        public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0: // 获取版本号
 
@@ -324,6 +319,10 @@ public class PersonalCenterBaseFragment extends BaseFragment implements
     protected TextView tv_sett_family;
     @BindView(R.id.tv_sett_family_value)
     protected TextView tv_sett_family_value;
+    @BindView(R.id.ll_sett_logout)
+    protected LinearLayout ll_sett_logout;
+    @BindView(R.id.tv_sett_logout)
+    protected TextView tv_sett_logout;
 
 
     @Override

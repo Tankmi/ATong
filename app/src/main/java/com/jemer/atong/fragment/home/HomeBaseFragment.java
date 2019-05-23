@@ -48,6 +48,24 @@ import huitx.libztframework.view.swiperecyclerview.SwipeRecyclerView;
 public class HomeBaseFragment extends BaseFragment implements
         SwipeRecyclerView.OnSwipeRecyclerViewListener, HomeView<HomeEntity.Data.HomeData, BannerEntity.Data.BannerData> {
 
+    @BindView(R.id.ll_home_search)
+    protected LinearLayout ll_home_search;
+    @BindView(R.id.et_home_search)
+    protected EditText et_home_search;
+    @BindView(R.id.tv_home_search)
+    protected TextView tv_home_search;
+
+    @BindView(R.id.rl_banner_home)
+    protected RelativeLayout rl_banner_home;
+    @BindView(R.id.iv_banner_bg)
+    protected ImageView iv_banner_bg;
+    @BindView(R.id.banner_home)
+    protected BannerViewPager banner_home;
+    //    @BindView(R.id.banner_dot_home)
+//    protected DotIndicator banner_dot_home;
+    @BindView(R.id.srv_home)
+    protected SwipeRecyclerView mSwipeRecyclerView;
+
     protected MyHandler mHandler;
     protected HomePresenter mPresenter;
     protected String mSearchText = "";
@@ -149,6 +167,8 @@ public class HomeBaseFragment extends BaseFragment implements
     @Override
     public void getListDataSuccess(int state, List<HomeEntity.Data.HomeData> datas) {
 
+//        mSwipeRecyclerView.setVisibility(View.VISIBLE);
+
         mSwipeRecyclerView.onLoadFinish();
         if(datas == null || datas.size() == 0){
             if(state == 2)  mSwipeRecyclerView.isCancelLoadNext(true);
@@ -226,32 +246,9 @@ public class HomeBaseFragment extends BaseFragment implements
 
     }
 
-
-
-    @BindView(R.id.ll_home_search)
-    protected LinearLayout ll_home_search;
-    @BindView(R.id.et_home_search)
-    protected EditText et_home_search;
-    @BindView(R.id.tv_home_search)
-    protected TextView tv_home_search;
-
-    @BindView(R.id.rl_banner_home)
-    protected RelativeLayout rl_banner_home;
-    @BindView(R.id.iv_banner_bg)
-    protected ImageView iv_banner_bg;
-    @BindView(R.id.banner_home)
-    protected BannerViewPager banner_home;
-//    protected BannerViewPager banner_home;
-//    @BindView(R.id.banner_dot_home)
-//    protected DotIndicator banner_dot_home;
-
-    @BindView(R.id.srv_home)
-    protected SwipeRecyclerView mSwipeRecyclerView;
-
-
     @Override
     protected void initLocation() {
-        mLayoutUtil.drawViewRBLinearLayout(ll_home_search, -1, -1, 0, 0, PreferenceEntity.ScreenTop, -1);
+        mLayoutUtil.drawViewDefaultLinearLayout(ll_home_search, -1, -1, 0, 0, (int) PreferenceEntity.ScreenTop, -1);
         mLayoutUtil.drawViewRBLayout(iv_banner_bg, -1, 234, 0, 0, 0, 0);
         mLayoutUtil.drawViewRBLayout(banner_home, 0, 308, 33, 33, -1, -1);
     }
@@ -285,7 +282,7 @@ public class HomeBaseFragment extends BaseFragment implements
                 intent_home.putExtra("url", data.url);
                 intent_home.putExtra("title_name", data.title);
                 intent_home.putExtra("is_refresh", false);
-                mContext.startActivity(intent_home);
+                getActivity().startActivity(intent_home);
             });
             return inflate;
         }

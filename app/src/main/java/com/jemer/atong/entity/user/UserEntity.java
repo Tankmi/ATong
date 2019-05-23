@@ -66,6 +66,8 @@ public class UserEntity {
             public String name;
             public String birthday;
             public String sex;
+            /** 是否是本人，0是，1否 */
+            public String type;
        }
    }
 

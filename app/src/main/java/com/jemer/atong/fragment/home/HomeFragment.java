@@ -19,6 +19,7 @@ import com.jemer.atong.entity.home.BannerEntity;
 import com.jemer.atong.entity.user.PictureEntity;
 import com.jemer.atong.fragment.home.net.HomePresenter;
 import com.jemer.atong.fragment.personal_center.net.PersonalCenterPresenter;
+import com.jemer.atong.net.ClearDisposable;
 import com.jemer.atong.net.select_photo.SelectPhotoActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -48,6 +49,7 @@ import huitx.libztframework.utils.permission.PermissionsHelper;
 
 public class HomeFragment extends HomeBaseFragment {
 
+    private boolean isStopBanner;
 
     public HomeFragment() {
         super(R.layout.fragment_home);
@@ -75,6 +77,9 @@ public class HomeFragment extends HomeBaseFragment {
     protected void initLogic() {
         super.initLogic();
 
+        onRefresh();
+        mPresenter.getBannerData();
+
         et_home_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -89,8 +94,7 @@ public class HomeFragment extends HomeBaseFragment {
     public void onResume() {
         super.onResume();
 
-        onRefresh();
-        mPresenter.getBannerData();
+        if(isStopBanner) banner_home.startTask();
     }
 
 
@@ -100,7 +104,7 @@ public class HomeFragment extends HomeBaseFragment {
     }
 
 
-//    @OnClick({R.id.tv_home_search,R.id.banner_home})
+    //    @OnClick({R.id.tv_home_search,R.id.banner_home})
     @OnClick({R.id.tv_home_search})
     void onViewClick(View view) {
         switch (view.getId()) {
@@ -113,13 +117,15 @@ public class HomeFragment extends HomeBaseFragment {
 
     private void search() {
         mSearchText = et_home_search.getText().toString();
-        if(!StringUtils.isBlank(mSearchText))  onRefresh();
+        if (!StringUtils.isBlank(mSearchText)) onRefresh();
 
     }
 
     @Override
     protected void pauseClose() {
         super.pauseClose();
+        banner_home.stopTask();
+        isStopBanner = true;
     }
 
     @Override
@@ -130,9 +136,13 @@ public class HomeFragment extends HomeBaseFragment {
             LOGUtils.LOG("解除EventBus 注册");
             EventBus.getDefault().unregister(this);
         }
-        if (mPresenter != null) mPresenter.detachView();
 
-       if(banner_home != null) banner_home.close();
+        if (mPresenter != null) {
+            mPresenter.detachView();
+            ClearDisposable.getInstance().getCompositeDisposable().clear();
+        }
+
+        if (banner_home != null) banner_home.close();
     }
 
 }

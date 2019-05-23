@@ -1,57 +1,31 @@
 package com.jemer.atong.fragment.eyesight.window;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
-import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupMenu;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.jemer.atong.R;
 import com.jemer.atong.base.BaseFragmentActivity;
-import com.jemer.atong.context.ApplicationData;
-import com.jemer.atong.context.PreferenceEntity;
 import com.jemer.atong.entity.eyesight.EyesightBean;
 import com.jemer.atong.entity.eyesight.EyesightEntity;
-import com.jemer.atong.entity.eyesight.EyesightHintStepBean;
 import com.jemer.atong.entity.history.PointLineTableBean;
-import com.jemer.atong.fragment.eyesight.EyeDetectionFragment;
-import com.jemer.atong.fragment.eyesight.hint.EyeGuideHintDialogFragment;
-import com.jemer.atong.fragment.eyesight.hint.EyesightHintDialogFragment;
-import com.jemer.atong.fragment.eyesight.hint.EyesightResultDialogFragment;
+import com.jemer.atong.fragment.eyesight.dialog.EyesightHintDialogFragment;
+import com.jemer.atong.fragment.eyesight.dialog.EyesightResultDialogFragment;
 import com.jemer.atong.fragment.eyesight.net.EyesightPresenter;
 import com.jemer.atong.fragment.eyesight.net.EyesightView;
 import com.jemer.atong.fragment.eyesight.view.Eyesightview;
-import com.jemer.atong.fragment.home.HomeFragment;
-import com.jemer.atong.fragment.personal_center.PersonalCenterFragment;
-import com.jemer.atong.util.VersionTools;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 import androidx.fragment.app.FragmentManager;
 import butterknife.BindView;
-import huitx.libztframework.utils.MathUtils;
-import huitx.libztframework.utils.PreferencesUtils;
-import huitx.libztframework.utils.ToastUtils;
-import huitx.libztframework.view.FragmentSwitchTool;
-import huitx.libztframework.view.dialog.DialogUIUtils;
 
 public class EyesightBaseActivity extends BaseFragmentActivity implements Eyesightview.EyesightViewListener, EyesightView<EyesightEntity.Data> {
 
@@ -72,6 +46,9 @@ public class EyesightBaseActivity extends BaseFragmentActivity implements Eyesig
      * 测试下标，从0开始
      */
     protected static int eyeProcedure = 0;
+    //标记是否测试结束
+    protected boolean isFinish = false;
+
     protected float leftEyesight, rightEyesight;
     protected List<EyesightBean> mEyesights;
 
@@ -119,7 +96,7 @@ public class EyesightBaseActivity extends BaseFragmentActivity implements Eyesig
             mEyesights.add(new EyesightBean(random(), 0.6f, 0.58f));
             mEyesights.add(new EyesightBean(random(), 0.8f, 0.46f));
             mEyesights.add(new EyesightBean(random(), 1.0f, 0.36f));
-            mEyesights.add(new EyesightBean(random(), 1.2f, 0.23f));
+//            mEyesights.add(new EyesightBean(random(), 1.2f, 0.23f));
         }
     }
 
@@ -166,14 +143,14 @@ public class EyesightBaseActivity extends BaseFragmentActivity implements Eyesig
         if (eyeSightStep == 1) {    //右眼的话，切换到左眼
             rightEyesight = eyesightBean.getEyesight();
             eyeSightStep = 2;
-
             eyeProcedure = -1;
-            updateView();
-
+//            updateView();
             eyeSightFragment();
         } else if (eyeSightStep == 2) {    //左眼的话，生成结论
             eyeSightStatus = 2;
             leftEyesight = eyesightBean.getEyesight();
+
+            isFinish = true;
             LOG("生成结论 rightEyesight : " + rightEyesight
                     + "leftEyesight : " + leftEyesight);
 
@@ -226,6 +203,7 @@ public class EyesightBaseActivity extends BaseFragmentActivity implements Eyesig
     EyesightResultDialogFragment eyesightResultDialogFragment;
 
     protected void eyeSightFragment() {
+        mImgView.setVisibility(View.GONE);
         eyeStepHintFragment = EyesightHintDialogFragment.getInstance(eyeSightState, eyeSightStep);
         if (fragmentManager == null) fragmentManager = getSupportFragmentManager();
         eyeStepHintFragment.show(fragmentManager, "123");

@@ -1,4 +1,4 @@
-package com.jemer.atong.fragment.eyesight.hint;
+package com.jemer.atong.fragment.eyesight.dialog;
 
 
 import android.os.Bundle;
@@ -12,13 +12,9 @@ import android.widget.TextView;
 import com.jemer.atong.R;
 import com.jemer.atong.base.BaseDialogFragment;
 import com.jemer.atong.entity.eyesight.EyesightEntity;
-import com.jemer.atong.entity.eyesight.EyesightHintStepBean;
-
-import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import huitx.libztframework.utils.NewWidgetSetting;
 
 /**
  * 测试时提醒左右眼切换
@@ -95,12 +91,14 @@ public class EyesightOtherFragment extends BaseDialogFragment {
     private void initData() {
         state = getArguments().getInt("state");
         if(state == 1){
+            ivOther.setImageResource(R.drawable.iv_eyesight_astigmatism);
             ivOther.setVisibility(View.VISIBLE);
             llRB.setVisibility(View.GONE);
             ivHint.setImageResource(R.drawable.bg_eyesight_astigmatism_hint);
         }else{
-            ivOther.setVisibility(View.GONE);
-            llRB.setVisibility(View.VISIBLE);
+            ivOther.setImageResource(R.drawable.iv_eyesight_rb);
+            ivOther.setVisibility(View.VISIBLE);
+            llRB.setVisibility(View.GONE);
             ivHint.setImageResource(R.drawable.bg_eyesight_redblue_hint);
         }
     }

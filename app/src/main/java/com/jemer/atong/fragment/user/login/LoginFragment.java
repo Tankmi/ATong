@@ -102,6 +102,8 @@ public class LoginFragment extends LoginBindBaseFragment {
         if (permission.granted) {
 //            show("授予权限 ：" + permission.name);
             ApplicationData.getDatas();
+
+            getVerification();
         } else {
             if (permission.shouldShowRequestPermissionRationale) {
 //                show("没有勾选不再提醒，拒绝权限 ：" + permission.name);

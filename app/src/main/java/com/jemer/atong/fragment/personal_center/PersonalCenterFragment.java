@@ -11,6 +11,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.jemer.atong.R;
 import com.jemer.atong.entity.user.PictureEntity;
 import com.jemer.atong.fragment.personal_center.net.PersonalCenterPresenter;
+import com.jemer.atong.net.ClearDisposable;
 import com.jemer.atong.net.select_photo.SelectPhotoActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -119,7 +120,7 @@ public class PersonalCenterFragment extends PersonalCenterBaseFragment {
     }
 
 
-    @OnClick({R.id.iv_sett_header, R.id.ll_sett_phone, R.id.ll_sett_bir, R.id.ll_sett_sex, R.id.ll_sett_family})
+    @OnClick({R.id.iv_sett_header, R.id.ll_sett_phone, R.id.ll_sett_bir, R.id.ll_sett_sex, R.id.ll_sett_family, R.id.ll_sett_logout})
     void onViewClick(View view) {
         switch (view.getId()) {
             case R.id.iv_sett_header:    //头像
@@ -136,6 +137,9 @@ public class PersonalCenterFragment extends PersonalCenterBaseFragment {
                 break;
             case R.id.ll_sett_family:    //添加家庭成员
                 showAddFamily();
+                break;
+            case R.id.ll_sett_logout:    //退出登录
+                ShowAffirmDialog();
                 break;
         }
     }
@@ -154,7 +158,10 @@ public class PersonalCenterFragment extends PersonalCenterBaseFragment {
             LOGUtils.LOG("解除EventBus 注册");
             EventBus.getDefault().unregister(this);
         }
-        if(mPersonPresenter!=null)mPersonPresenter.detachView();
+        if (mPersonPresenter != null) {
+            mPersonPresenter.detachView();
+            ClearDisposable.getInstance().getCompositeDisposable().clear();
+        }
     }
 
     private void requestPermission(final String[] permissions) {

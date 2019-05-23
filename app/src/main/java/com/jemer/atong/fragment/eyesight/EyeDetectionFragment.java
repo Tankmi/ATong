@@ -80,7 +80,7 @@ public class EyeDetectionFragment extends EyeDetectionBaseFragment {
     public void onEventBusHintSuccess(Integer state) {
         LOG("引导页完成 " + state);
         PreferencesUtils.putBoolean(mContext, state==1?PreferenceEntity.KEY_EYE_HINT_GUIDE_SHORT:PreferenceEntity.KEY_EYE_HINT_GUIDE_LONG, true);
-        getEyeSight(state);
+        getEyeSight(state,false);
     }
 
 //    @OnClick({R.id.iv_sett_header, R.id.ll_sett_phone, R.id.ll_sett_bir, R.id.ll_sett_sex})

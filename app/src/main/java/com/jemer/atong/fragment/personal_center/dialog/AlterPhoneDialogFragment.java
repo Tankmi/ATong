@@ -29,6 +29,7 @@ import com.jemer.atong.context.PreferenceEntity;
 import com.jemer.atong.fragment.user.LoginController;
 import com.jemer.atong.fragment.user.LoginPresenter;
 import com.jemer.atong.fragment.user.login.LoginBindBaseFragment;
+import com.jemer.atong.net.ClearDisposable;
 import com.jemer.atong.view.EditTextNumberView;
 import com.jemer.atong.view.perfect_info.BirthdayRelativelayoutWheelView;
 
@@ -63,9 +64,12 @@ public class AlterPhoneDialogFragment extends BaseDialogFragment implements Logi
     protected Button btn_ap_close;
     @BindView(R.id.et_ap_account)
     protected EditText et_ap_account;
-    @BindView(R.id.et_ap_veri) protected EditText et_ap_veri;
-    @BindView(R.id.tv_ap_veri) protected TextView tv_ap_veri;
-    @BindView(R.id.btn_ap_dialog_affirm) protected Button btn_ap_dialog_affirm;
+    @BindView(R.id.et_ap_veri)
+    protected EditText et_ap_veri;
+    @BindView(R.id.tv_ap_veri)
+    protected TextView tv_ap_veri;
+    @BindView(R.id.btn_ap_dialog_affirm)
+    protected Button btn_ap_dialog_affirm;
 
     LoginPresenter mPresenter;
     private String phoneNumber;
@@ -74,9 +78,9 @@ public class AlterPhoneDialogFragment extends BaseDialogFragment implements Logi
         super(R.layout.fra_dialog_alter_phone);
     }
 
-    @OnClick ({R.id.tv_ap_veri, R.id.btn_ap_close, R.id.btn_ap_dialog_affirm})
+    @OnClick({R.id.tv_ap_veri, R.id.btn_ap_close, R.id.btn_ap_dialog_affirm})
     void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_ap_close:   //关闭
                 imm.hideSoftInputFromWindow(et_ap_account.getWindowToken(), 0); //强制隐藏键盘
                 imm.hideSoftInputFromWindow(et_ap_veri.getWindowToken(), 0); //强制隐藏键盘
@@ -90,12 +94,12 @@ public class AlterPhoneDialogFragment extends BaseDialogFragment implements Logi
                 LOG("修改手机号");
 //                if(canLogin())
 //                {
-                    String verifyCode = et_ap_veri.getText().toString();
-                    Map<String,String> mMap = new HashMap<>();
-                    mMap.put("phone", phoneNumber);
-                    mMap.put("code", verifyCode);
-                    mMap.put("imei", ApplicationData.imei);
-                    mPresenter.UpdatePhone(mMap);
+                String verifyCode = et_ap_veri.getText().toString();
+                Map<String, String> mMap = new HashMap<>();
+                mMap.put("phone", phoneNumber);
+                mMap.put("code", verifyCode);
+                mMap.put("imei", ApplicationData.imei);
+                mPresenter.UpdatePhone(mMap);
 //                }
 //                else
 //                    ToastUtils.showToast("请检查输入内容是否正确！");
@@ -112,25 +116,26 @@ public class AlterPhoneDialogFragment extends BaseDialogFragment implements Logi
         setStyle(DialogFragment.STYLE_NO_FRAME, R.style.AlterPhoneDialog);
     }
 
-           @Override
-        protected void initHead() {
-            //设置无标题
-            getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-            //设置展示位置
-            WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
-            params.gravity = Gravity.CENTER | Gravity.CENTER_HORIZONTAL;
-            getDialog().getWindow().setAttributes(params);
+    @Override
+    protected void initHead() {
+        //设置无标题
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //设置展示位置
+        WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
+        params.gravity = Gravity.CENTER | Gravity.CENTER_HORIZONTAL;
+        getDialog().getWindow().setAttributes(params);
 
-            //点击外部不可取消
-            getDialog().setCancelable(false);
-            getDialog().setCanceledOnTouchOutside(false);
-        }
+        //点击返回键不可取消
+        getDialog().setCancelable(false);
+        //点击外部不可取消
+        getDialog().setCanceledOnTouchOutside(false);
+    }
 
-        @Override
-        public void onStart() {
-            super.onStart();
-            //设置dialog尺寸高度 、宽度
-            getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+    @Override
+    public void onStart() {
+        super.onStart();
+        //设置dialog尺寸高度 、宽度
+        getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
     }
 
 
@@ -142,7 +147,7 @@ public class AlterPhoneDialogFragment extends BaseDialogFragment implements Logi
         lastPhone = PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_USER_ACCOUNT, "");
         et_ap_account.setText("");
 
-        if(mPresenter == null){
+        if (mPresenter == null) {
             mPresenter = new LoginPresenter();
         }
         mPresenter.attachView(this);
@@ -189,12 +194,12 @@ public class AlterPhoneDialogFragment extends BaseDialogFragment implements Logi
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                if (!StringUtils.isBlank(phoneNumber)){
+                if (!StringUtils.isBlank(phoneNumber)) {
                     if (s.length() > 0)     //有内容
                         btn_ap_dialog_affirm.setEnabled(true);
-                     else     //无内容
+                    else     //无内容
                         btn_ap_dialog_affirm.setEnabled(false);
-                }else   btn_ap_dialog_affirm.setEnabled(false);
+                } else btn_ap_dialog_affirm.setEnabled(false);
 
             }
 
@@ -209,14 +214,13 @@ public class AlterPhoneDialogFragment extends BaseDialogFragment implements Logi
     }
 
 
-
     @Override
     protected void initContent() {
     }
 
     @Override
     protected void initLocation() {
-        mLayoutUtil.drawViewRBLinearLayout(btn_ap_close, 40, 40, -1,-1,-1,-1);
+        mLayoutUtil.drawViewRBLinearLayout(btn_ap_close, 40, 40, -1, -1, -1, -1);
         tv_ap_veri.setMinimumWidth(mLayoutUtil.getWidgetWidth(166));
     }
 
@@ -234,25 +238,34 @@ public class AlterPhoneDialogFragment extends BaseDialogFragment implements Logi
 
     @Override
     protected void destroyClose() {
-        mPresenter.detachView();
+        if (mPresenter != null) {
+            mPresenter.detachView();
+            ClearDisposable.getInstance().getCompositeDisposable().clear();
+        }
+
+        if (mTimeCount != null) {
+            mTimeCount.cancel();
+            mTimeCount = null;
+        }
     }
 
     protected TimeCount mTimeCount;
+
     @Override
     public void getVerifyCodeState(boolean state) {
-        if(!state){
+        if (!state) {
             LOG("验证码获取失败，错误信息：");
             return;
         }
-        if(state){
+        if (state) {
             ToastUtils.showToast("验证码已发送至手机");
             mTimeCount.start();
         }
     }
 
     @Override
-    public void loginState(boolean state,String isall) {
-        if(!state){
+    public void loginState(boolean state, String isall) {
+        if (!state) {
             LOG("手机号修改失败，错误信息：" + isall);
             return;
         }

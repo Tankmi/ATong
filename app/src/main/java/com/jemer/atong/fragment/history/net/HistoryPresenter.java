@@ -5,6 +5,7 @@ import com.jemer.atong.context.ApplicationData;
 import com.jemer.atong.context.PreferenceEntity;
 import com.jemer.atong.entity.eyesight.EyesightEntity;
 import com.jemer.atong.entity.history.HistoryEntity;
+import com.jemer.atong.entity.user.UserEntity;
 import com.jemer.atong.net.base.BasePresenter;
 import com.jemer.atong.net.model.BaseHttpEntity;
 
@@ -54,6 +55,7 @@ public class HistoryPresenter implements BasePresenter<HistoryView> {
 
         if(StringUtils.isBlank(userId)){
             userId = PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_USER_ID,"");
+            userId = PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_CACHE_FAMILY_USERID,"");
         }
 
         Map<String,String> mMap = new HashMap<>();
@@ -96,4 +98,5 @@ public class HistoryPresenter implements BasePresenter<HistoryView> {
             }
         },mMap);
     }
+
 }

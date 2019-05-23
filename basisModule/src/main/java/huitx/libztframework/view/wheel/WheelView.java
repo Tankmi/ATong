@@ -83,7 +83,7 @@ public class WheelView extends View {
 	private boolean isScrollingPerformed;
 	private int scrollingOffset;
 
-	// Cyclic
+	// Cyclic,是否循环
 	boolean isCyclic = false;
 
 	// Items layout

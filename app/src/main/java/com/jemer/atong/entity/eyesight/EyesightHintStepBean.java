@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 public class EyesightHintStepBean implements Serializable {
 
-    private boolean again;  //重新测试
+    private boolean again;  //重新测试，false 下一步
 
 
     public EyesightHintStepBean(boolean again) {

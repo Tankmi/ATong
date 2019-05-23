@@ -118,7 +118,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
     protected void setLoading(boolean isShowLoading, String data) {
         if (isShowLoading) {
             if (mBuildDialog == null)
-                mBuildDialog = DialogUIUtils.showLoading(mContext, data, true, true, false, true).show();
+                mBuildDialog = DialogUIUtils.showLoading(getActivity(), data, true, true, false, true).show();
             else mBuildDialog.show();
         } else if (mBuildDialog != null) mBuildDialog.dismiss();
     }

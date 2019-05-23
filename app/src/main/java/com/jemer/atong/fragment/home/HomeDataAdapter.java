@@ -135,6 +135,8 @@ public class HomeDataAdapter extends RecyclerView.Adapter<HomeDataAdapter.MyView
             mTVcontent = view.findViewById(R.id.tv_ihc_content);
             imageView = view.findViewById(R.id.iv_item_home);
 
+            LayoutUtil.getInstance().drawViewRBLinearLayout(imageView, 210, 154, -1, -1, -1, -1);
+
 //                mainView.setMinimumHeight(LayoutUtil.getInstance().getWidgetHeight(124));
 //            }
 //            else if(viewType == TYPE_NODATA){

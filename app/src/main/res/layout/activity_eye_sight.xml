@@ -23,18 +23,19 @@
             android:id="@+id/iv_eyesight_view"
             android:layout_width="@dimen/eyesight_unit"
             android:layout_height="@dimen/eyesight_unit"
+            android:visibility="gone"
             android:scaleType="centerInside"
             android:layout_centerInParent="true"
             android:src="@drawable/icon_e_small" />
         <ImageView
             android:id="@+id/iv_eyesight_direction_state"
             android:visibility="gone"
-            android:scaleType="fitCenter"
+            android:scaleType="centerInside"
             android:background="@drawable/bg_eyesighthint_white_5"
             android:src="@drawable/iv_eyesight_mistake"
             android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             />
     </com.jemer.atong.fragment.eyesight.view.Eyesightview>
 

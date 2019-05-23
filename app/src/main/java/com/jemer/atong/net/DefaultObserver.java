@@ -2,6 +2,7 @@ package com.jemer.atong.net;
 
 import java.net.ConnectException;
 
+import huitx.libztframework.utils.LayoutUtil;
 import huitx.libztframework.utils.NetUtils;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -9,9 +10,11 @@ import io.reactivex.disposables.Disposable;
 public abstract class DefaultObserver<T> implements Observer<T> {
     private Disposable mDisposable;
     private String ERROR_TOAST ="";
+
     @Override
     public void onSubscribe(Disposable d) {
         mDisposable = d;
+        ClearDisposable.getInstance().getCompositeDisposable().add(d);
     }
 
     @Override

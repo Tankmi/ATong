@@ -153,6 +153,7 @@ public class FamilyAddDialogFragment extends BaseDialogFragment implements Famil
 
     @Override
     protected void initLocation() {
+        mLayoutUtil.drawViewDefaultLayout(bt_eyert_left, 170, 86, -1, -1, -1, -1);
     }
 
     @Override

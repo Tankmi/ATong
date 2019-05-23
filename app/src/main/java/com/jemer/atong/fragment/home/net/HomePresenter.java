@@ -119,9 +119,6 @@ public class HomePresenter implements BasePresenter<HomeView> {
                     mView.loadingDissmis();
                     mView.getListDataFailed(state, searchData);
                 }
-
-
-
             }
 
             @Override

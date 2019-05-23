@@ -88,7 +88,7 @@ public class EyesightSelUserWheelView extends RelativeLayout implements View.OnC
         wv_ad_year.setCurrentItem(selIndex);
         wv_ad_year.setCenterDrawable(huitx.libztframework.R.drawable.back_wheel_birthday_draw);
 //		wv_ad_year.closeDrawShadow();
-        wv_ad_year.setCyclic(true);
+        wv_ad_year.setCyclic(false);
 
         wv_ad_year.addChangingListener(new OnWheelChangedListener() {
 
