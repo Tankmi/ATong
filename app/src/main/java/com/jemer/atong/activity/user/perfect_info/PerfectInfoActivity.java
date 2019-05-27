@@ -243,11 +243,21 @@ public class PerfectInfoActivity extends BaseFragmentActivity {
                         Gson gson = new Gson();
                         try {
                             String str = StringUtils.replaceJson(data.string());
+                            PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_CACHE_FAMILY,str);
                             mUserEntity = gson.fromJson(str, UserEntity.class);
                         } catch (Exception e) {
                             return;
                         }
                         if (mUserEntity.code == ContextConstant.RESPONSECODE_200) {
+
+                            String eyeId =  PreferencesUtils.getString(ApplicationData.context, PreferenceEntity.KEY_CACHE_FAMILY_USERID,"");
+                            if(StringUtils.isBlank(eyeId)){
+                                for (UserEntity.Data.FamilyData datas : mUserEntity.data.list ) {
+                                    if(!StringUtils.isBlank(datas.type) && datas.type.equals("0"))
+                                        PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_CACHE_FAMILY_USERID, datas.id+"");
+                                }
+                            }
+
                             PreferencesUtils.putString(ApplicationData.context, PreferenceEntity.KEY_USER_ISALL, "1");
                             Intent intent_home = new Intent(PerfectInfoActivity.this, HomeActivity.class);
                             startActivity(intent_home);

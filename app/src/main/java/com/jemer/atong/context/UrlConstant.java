@@ -8,15 +8,13 @@ package com.jemer.atong.context;
  */
 public class UrlConstant {
 
-    public static final String IP = "192.168.0.126:8080"; // 测试服务器地址
+    public static final String IP = "192.168.0.28:8091"; // 测试服务器地址
+//    public static final String IP = "192.168.0.126:8080"; // 测试服务器地址
 //    public static final String IP = "182.92.109.146:7779"; // 正式服务器地址
 
 	public static final String API_BASE = "http://" + IP +"/";
 	public static final String API_BASEH5 =  "http://" + IP +"/";
 
-//    public static final String API_BASE = "http://192.168.0.126:8090/"; // 测试服务器地址  张琪
-//    public static final String API_BASE = "http://192.168.0.28:8090/"; // 测试服务器地址  高玲
-//    public static final String API_BASEH5 = "http://192.168.0.142:8090/"; // H5测试服务器地址
     /**
      * 示例： 接口介绍
      * @param 参数名  ：参数介绍 ...
